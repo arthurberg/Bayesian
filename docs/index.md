@@ -1,7 +1,7 @@
 --- 
 title: "PHS 528: Bayesian Methods"
 author: "Arthur Berg"
-date: "2022-09-09"
+date: "2022-09-12"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -12,43 +12,81 @@ biblio-style: apalike
 csl: chicago-fullnote-bibliography.csl
 ---
 
-# About
+# Fundamentals of Probability
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports; for example, a math equation $a^2 + b^2 = c^2$.
+## Binomial Distribution (二项分布)
 
-## Usage 
-
-Each **bookdown** chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter *must* start with a first-level heading: `# A good chapter`, and can contain one (and only one) first-level heading.
-
-Use second-level and higher headings within chapters like: `## A short section` or `### An even shorter section`.
-
-The `index.Rmd` file is required, and is also your first book chapter. It will be the homepage when you render the book.
-
-## Render book
-
-You can render the HTML version of this example book without changing anything:
-
-1. Find the **Build** pane in the RStudio IDE, and
-
-1. Click on **Build Book**, then select your output format, or select "All formats" if you'd like to use multiple formats from the same book source files.
-
-Or build the book from the R console:
+:::{.example .lizi}
+What is the probability of observing exactly 50 heads in 100 flips of a fair coin?
+:::
 
 
 ```r
-bookdown::render_book()
+# 概率质量函数
+dbinom(50,100,prob=1/2)
+#> [1] 0.07958924
 ```
 
-To render this example to PDF as a `bookdown::pdf_book`, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.org/tinytex/>.
-
-## Preview book
-
-As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console:
+:::{.example .lizi}
+What is the probability of observing 50 or more heads in 100 flips of a fair coin?
+:::
 
 
 ```r
-bookdown::serve_book()
+# 累积分布函数
+sum(dbinom(50:100,100,prob=1/2))
+#> [1] 0.5397946
+1-pbinom(49,100,prob=1/2)
+#> [1] 0.5397946
+pbinom(49,100,prob=1/2,lower.tail=FALSE)
+#> [1] 0.5397946
 ```
+
+:::{.example .lizi}
+How many heads out of 100 flips of a fair coin would be extreme in the sense that there is less than a 5% chance of observing that many heads or more?
+:::
+
+
+```r
+# 分位函数
+qbinom(.95,100,prob=1/2)
+#> [1] 58
+1-pbinom(57,100,prob=1/2)
+#> [1] 0.06660531
+1-pbinom(58,100,prob=1/2)
+#> [1] 0.04431304
+qbinom(.05,100,prob=1/2,lower.tail=FALSE)
+#> [1] 58
+```
+
+:::{.example .lizi}
+Suppose there’s a bag containing four marbles (弹珠) of which $n$ are blue and $4-n$ are white. What is the probability of drawing blue-white-blue if the marbles are replaced each time? 
+:::
+
+
+```r
+n=0:4 #blue
+prob=dbinom(2,3,n/4)
+prob
+#> [1] 0.000000 0.140625 0.375000 0.421875 0.000000
+prob/sum(prob)
+#> [1] 0.00 0.15 0.40 0.45 0.00
+```
+
+
+:::{.exercise .prob}
+Suppose five dice are rolled (掷五个骰子). What is the probability three or more sixes are rolled? 
+:::
+
+
+
+:::{.exercise .prob}
+Suppose there’s a bag containing 50 marbles with each marble being either red or yellow. Five marbles are randomly selected **with replacement** and each one is found to be yellow. What is the probability all of the marbles in the bag are yellow?
+:::
+
+
+
+
 
 
 

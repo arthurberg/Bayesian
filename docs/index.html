@@ -4,14 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Class 1 About | PHS 528: Bayesian Methods</title>
+<title>Class 1 Fundamentals of Probability | PHS 528: Bayesian Methods</title>
 <meta name="author" content="Arthur Berg">
 <meta name="generator" content="bookdown 0.28 with bs4_book()">
-<meta property="og:title" content="Class 1 About | PHS 528: Bayesian Methods">
+<meta property="og:title" content="Class 1 Fundamentals of Probability | PHS 528: Bayesian Methods">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://bookdown.org/yihui/bookdown">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Class 1 About | PHS 528: Bayesian Methods">
+<meta name="twitter:title" content="Class 1 Fundamentals of Probability | PHS 528: Bayesian Methods">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -66,7 +66,7 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="active" href="index.html"><span class="header-section-number">1</span> About</a></li>
+<li><a class="active" href="index.html"><span class="header-section-number">1</span> Fundamentals of Probability</a></li>
 <li><a class="" href="hello-bookdown.html"><span class="header-section-number">2</span> Hello bookdown</a></li>
 <li><a class="" href="cross.html"><span class="header-section-number">3</span> Cross-references</a></li>
 <li><a class="" href="parts.html"><span class="header-section-number">4</span> Parts</a></li>
@@ -81,40 +81,61 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="about" class="section level1" number="1">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="fundamentals-of-probability" class="section level1" number="1">
 <h1>
-<span class="header-section-number">Class 1</span> About<a class="anchor" aria-label="anchor" href="#about"><i class="fas fa-link"></i></a>
+<span class="header-section-number">Class 1</span> Fundamentals of Probability<a class="anchor" aria-label="anchor" href="#fundamentals-of-probability"><i class="fas fa-link"></i></a>
 </h1>
-<p>This is a <em>sample</em> book written in <strong>Markdown</strong>. You can use anything that Pandoc’s Markdown supports; for example, a math equation <span class="math inline">\(a^2 + b^2 = c^2\)</span>.</p>
-<div id="usage" class="section level2" number="1.1">
+<div id="binomial-distribution-二项分布" class="section level2" number="1.1">
 <h2>
-<span class="header-section-number">1.1</span> Usage<a class="anchor" aria-label="anchor" href="#usage"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.1</span> Binomial Distribution (二项分布)<a class="anchor" aria-label="anchor" href="#binomial-distribution-%E4%BA%8C%E9%A1%B9%E5%88%86%E5%B8%83"><i class="fas fa-link"></i></a>
 </h2>
-<p>Each <strong>bookdown</strong> chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter <em>must</em> start with a first-level heading: <code># A good chapter</code>, and can contain one (and only one) first-level heading.</p>
-<p>Use second-level and higher headings within chapters like: <code>## A short section</code> or <code>### An even shorter section</code>.</p>
-<p>The <code>index.Rmd</code> file is required, and is also your first book chapter. It will be the homepage when you render the book.</p>
+<div class="example lizi">
+<p><span id="exm:unlabeled-div-1" class="example"><strong>Example 1.1  </strong></span>What is the probability of observing exactly 50 heads in 100 flips of a fair coin?</p>
 </div>
-<div id="render-book" class="section level2" number="1.2">
-<h2>
-<span class="header-section-number">1.2</span> Render book<a class="anchor" aria-label="anchor" href="#render-book"><i class="fas fa-link"></i></a>
-</h2>
-<p>You can render the HTML version of this example book without changing anything:</p>
-<ol style="list-style-type: decimal">
-<li><p>Find the <strong>Build</strong> pane in the RStudio IDE, and</p></li>
-<li><p>Click on <strong>Build Book</strong>, then select your output format, or select “All formats” if you’d like to use multiple formats from the same book source files.</p></li>
-</ol>
-<p>Or build the book from the R console:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">bookdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/bookdown/reference/render_book.html">render_book</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>To render this example to PDF as a <code><a href="https://pkgs.rstudio.com/bookdown/reference/pdf_book.html">bookdown::pdf_book</a></code>, you’ll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <a href="https://yihui.org/tinytex/" class="uri">https://yihui.org/tinytex/</a>.</p>
+<code class="sourceCode R"><span><span class="co"># 概率质量函数</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">dbinom</a></span><span class="op">(</span><span class="fl">50</span>,<span class="fl">100</span>,prob<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.07958924</span></span></code></pre></div>
+<div class="example lizi">
+<p><span id="exm:unlabeled-div-2" class="example"><strong>Example 1.2  </strong></span>What is the probability of observing 50 or more heads in 100 flips of a fair coin?</p>
 </div>
-<div id="preview-book" class="section level2" number="1.3">
-<h2>
-<span class="header-section-number">1.3</span> Preview book<a class="anchor" aria-label="anchor" href="#preview-book"><i class="fas fa-link"></i></a>
-</h2>
-<p>As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in “Preview book”, or from the R console:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">bookdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/bookdown/reference/serve_book.html">serve_book</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># 累积分布函数</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">dbinom</a></span><span class="op">(</span><span class="fl">50</span><span class="op">:</span><span class="fl">100</span>,<span class="fl">100</span>,prob<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.5397946</span></span>
+<span><span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">pbinom</a></span><span class="op">(</span><span class="fl">49</span>,<span class="fl">100</span>,prob<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.5397946</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">pbinom</a></span><span class="op">(</span><span class="fl">49</span>,<span class="fl">100</span>,prob<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span>,lower.tail<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.5397946</span></span></code></pre></div>
+<div class="example lizi">
+<p><span id="exm:unlabeled-div-3" class="example"><strong>Example 1.3  </strong></span>How many heads out of 100 flips of a fair coin would be extreme in the sense that there is less than a 5% chance of observing that many heads or more?</p>
+</div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># 分位函数</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">qbinom</a></span><span class="op">(</span><span class="fl">.95</span>,<span class="fl">100</span>,prob<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 58</span></span>
+<span><span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">pbinom</a></span><span class="op">(</span><span class="fl">57</span>,<span class="fl">100</span>,prob<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.06660531</span></span>
+<span><span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">pbinom</a></span><span class="op">(</span><span class="fl">58</span>,<span class="fl">100</span>,prob<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.04431304</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">qbinom</a></span><span class="op">(</span><span class="fl">.05</span>,<span class="fl">100</span>,prob<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span>,lower.tail<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 58</span></span></code></pre></div>
+<div class="example lizi">
+<p><span id="exm:unlabeled-div-4" class="example"><strong>Example 1.4  </strong></span>Suppose there’s a bag containing four marbles (弹珠) of which <span class="math inline">\(n\)</span> are blue and <span class="math inline">\(4-n\)</span> are white. What is the probability of drawing blue-white-blue if the marbles are replaced each time?</p>
+</div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">n</span><span class="op">=</span><span class="fl">0</span><span class="op">:</span><span class="fl">4</span> <span class="co">#blue</span></span>
+<span><span class="va">prob</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">dbinom</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="va">n</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">prob</span></span>
+<span><span class="co">#&gt; [1] 0.000000 0.140625 0.375000 0.421875 0.000000</span></span>
+<span><span class="va">prob</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">prob</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.00 0.15 0.40 0.45 0.00</span></span></code></pre></div>
+<div class="exercise prob">
+<p><span id="exr:unlabeled-div-5" class="exercise"><strong>Exercise 1.1  </strong></span>Suppose five dice are rolled (掷五个骰子). What is the probability three or more sixes are rolled?</p>
+</div>
+<div class="exercise prob">
+<p><span id="exr:unlabeled-div-6" class="exercise"><strong>Exercise 1.2  </strong></span>Suppose there’s a bag containing 50 marbles with each marble being either red or yellow. Five marbles are randomly selected <strong>with replacement</strong> and each one is found to be yellow. What is the probability all of the marbles in the bag are yellow?</p>
+</div>
 
 </div>
 </div>
@@ -124,10 +145,8 @@
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#about"><span class="header-section-number">1</span> About</a></li>
-<li><a class="nav-link" href="#usage"><span class="header-section-number">1.1</span> Usage</a></li>
-<li><a class="nav-link" href="#render-book"><span class="header-section-number">1.2</span> Render book</a></li>
-<li><a class="nav-link" href="#preview-book"><span class="header-section-number">1.3</span> Preview book</a></li>
+<li><a class="nav-link" href="#fundamentals-of-probability"><span class="header-section-number">1</span> Fundamentals of Probability</a></li>
+<li><a class="nav-link" href="#binomial-distribution-%E4%BA%8C%E9%A1%B9%E5%88%86%E5%B8%83"><span class="header-section-number">1.1</span> Binomial Distribution (二项分布)</a></li>
 </ul>
 
       <div class="book-extra">
@@ -145,7 +164,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-09.</p>
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-12.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
