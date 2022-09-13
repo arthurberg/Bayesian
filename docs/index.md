@@ -1,7 +1,7 @@
 --- 
 title: "PHS 528: Bayesian Methods"
 author: "Arthur Berg"
-date: "2022-09-12"
+date: "2022-09-13"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -14,49 +14,39 @@ csl: chicago-fullnote-bibliography.csl
 
 # Fundamentals of Probability
 
-## Binomial Distribution (二项分布)
+## Binomial Distribution 
 
 :::{.example .lizi}
-What is the probability of observing exactly 50 heads in 100 flips of a fair coin?
+Consider 100 flips of a fair coin.
+
+(a) What is the probability of observing exactly 50 heads in 100 flips of a fair coin?
+
+(b) What is the probability of observing 50 or more heads?
+
+(c) How many heads would be extreme in the sense that there is less than a 5% chance of observing that many heads or more?
 :::
 
 
 ```r
-# 概率质量函数
+# (a)
 dbinom(50,100,prob=1/2)
-#> [1] 0.07958924
-```
-
-:::{.example .lizi}
-What is the probability of observing 50 or more heads in 100 flips of a fair coin?
-:::
-
-
-```r
-# 累积分布函数
+[1] 0.07958924
+# (b)
 sum(dbinom(50:100,100,prob=1/2))
-#> [1] 0.5397946
+[1] 0.5397946
 1-pbinom(49,100,prob=1/2)
-#> [1] 0.5397946
+[1] 0.5397946
 pbinom(49,100,prob=1/2,lower.tail=FALSE)
-#> [1] 0.5397946
-```
-
-:::{.example .lizi}
-How many heads out of 100 flips of a fair coin would be extreme in the sense that there is less than a 5% chance of observing that many heads or more?
-:::
-
-
-```r
-# 分位函数
+[1] 0.5397946
+# (c)
 qbinom(.95,100,prob=1/2)
-#> [1] 58
-1-pbinom(57,100,prob=1/2)
-#> [1] 0.06660531
-1-pbinom(58,100,prob=1/2)
-#> [1] 0.04431304
+[1] 58
 qbinom(.05,100,prob=1/2,lower.tail=FALSE)
-#> [1] 58
+[1] 58
+1-pbinom(57,100,prob=1/2)
+[1] 0.06660531
+1-pbinom(58,100,prob=1/2)
+[1] 0.04431304
 ```
 
 :::{.example .lizi}
@@ -68,9 +58,9 @@ Suppose there’s a bag containing four marbles (弹珠) of which $n$ are blue a
 n=0:4 #blue
 prob=dbinom(2,3,n/4)
 prob
-#> [1] 0.000000 0.140625 0.375000 0.421875 0.000000
+[1] 0.000000 0.140625 0.375000 0.421875 0.000000
 prob/sum(prob)
-#> [1] 0.00 0.15 0.40 0.45 0.00
+[1] 0.00 0.15 0.40 0.45 0.00
 ```
 
 

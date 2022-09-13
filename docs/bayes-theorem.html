@@ -4,14 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>References | PHS 528: Bayesian Methods</title>
+<title>Class 2 Bayes’ Theorem | PHS 528: Bayesian Methods</title>
 <meta name="author" content="Arthur Berg">
 <meta name="generator" content="bookdown 0.28 with bs4_book()">
-<meta property="og:title" content="References | PHS 528: Bayesian Methods">
+<meta property="og:title" content="Class 2 Bayes’ Theorem | PHS 528: Bayesian Methods">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://bookdown.org/yihui/bookdown/references.html">
+<meta property="og:url" content="https://bookdown.org/yihui/bookdown/bayes-theorem.html">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="References | PHS 528: Bayesian Methods">
+<meta name="twitter:title" content="Class 2 Bayes’ Theorem | PHS 528: Bayesian Methods">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -19,32 +19,10 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<style type="text/css">
-    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-        }
-    .hanging div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }
-  </style>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="Xie, Yihui. Bookdown: Authoring Books and Technical Documents with r Markdown, 2022. https://CRAN.R-project.org/package=bookdown.  ———. Dynamic Documents with R and Knitr. 2nd ed. Boca Raton,...">
-<meta property="og:description" content="Xie, Yihui. Bookdown: Authoring Books and Technical Documents with r Markdown, 2022. https://CRAN.R-project.org/package=bookdown.  ———. Dynamic Documents with R and Knitr. 2nd ed. Boca Raton,...">
-<meta name="twitter:description" content="Xie, Yihui. Bookdown: Authoring Books and Technical Documents with r Markdown, 2022. https://CRAN.R-project.org/package=bookdown.  ———. Dynamic Documents with R and Knitr. 2nd ed. Boca Raton,...">
+<meta name="description" content="2.1 Examples">
+<meta property="og:description" content="2.1 Examples">
+<meta name="twitter:description" content="2.1 Examples">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -67,13 +45,7 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html"><span class="header-section-number">1</span> Fundamentals of Probability</a></li>
-<li><a class="" href="hello-bookdown.html"><span class="header-section-number">2</span> Hello bookdown</a></li>
-<li><a class="" href="cross.html"><span class="header-section-number">3</span> Cross-references</a></li>
-<li><a class="" href="parts.html"><span class="header-section-number">4</span> Parts</a></li>
-<li><a class="" href="footnotes-and-citations.html"><span class="header-section-number">5</span> Footnotes and citations</a></li>
-<li><a class="" href="blocks.html"><span class="header-section-number">6</span> Blocks</a></li>
-<li><a class="" href="sharing-your-book.html"><span class="header-section-number">7</span> Sharing your book</a></li>
-<li><a class="active" href="references.html">References</a></li>
+<li><a class="active" href="bayes-theorem.html"><span class="header-section-number">2</span> Bayes’ Theorem</a></li>
 </ul>
 
         <div class="book-extra">
@@ -81,38 +53,31 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="references" class="section level1 unnumbered">
-<h1>References<a class="anchor" aria-label="anchor" href="#references"><i class="fas fa-link"></i></a>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="bayes-theorem" class="section level1" number="2">
+<h1>
+<span class="header-section-number">Class 2</span> Bayes’ Theorem<a class="anchor" aria-label="anchor" href="#bayes-theorem"><i class="fas fa-link"></i></a>
 </h1>
+<div id="examples" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Examples<a class="anchor" aria-label="anchor" href="#examples"><i class="fas fa-link"></i></a>
+</h2>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-R-bookdown" class="csl-entry">
-Xie, Yihui. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>, 2022. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.
-</div>
-<div id="ref-xie2015" class="csl-entry">
-———. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC, 2015. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.
 </div>
 </div>
-</div>
-
-
-
-
-
-
-
-
   <div class="chapter-nav">
-<div class="prev"><a href="sharing-your-book.html"><span class="header-section-number">7</span> Sharing your book</a></div>
+<div class="prev"><a href="index.html"><span class="header-section-number">1</span> Fundamentals of Probability</a></div>
 <div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#references">References</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#bayes-theorem"><span class="header-section-number">2</span> Bayes’ Theorem</a></li>
+<li><a class="nav-link" href="#examples"><span class="header-section-number">2.1</span> Examples</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/arthurberg/Bayesian/blob/main/07-references.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/arthurberg/Bayesian/edit/main/07-references.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/arthurberg/Bayesian/blob/main/02.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/arthurberg/Bayesian/edit/main/02.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
