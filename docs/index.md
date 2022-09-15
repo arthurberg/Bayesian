@@ -1,7 +1,7 @@
 --- 
 title: "PHS 528: Bayesian Methods"
 author: "Arthur Berg"
-date: "2022-09-13"
+date: "2022-09-15"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -14,7 +14,7 @@ csl: chicago-fullnote-bibliography.csl
 
 # Fundamentals of Probability
 
-## Binomial Distribution 
+## Coins, Urns, and Bags
 
 :::{.example .lizi}
 Consider 100 flips of a fair coin.
@@ -49,34 +49,38 @@ qbinom(.05,100,prob=1/2,lower.tail=FALSE)
 [1] 0.04431304
 ```
 
-:::{.example .lizi}
-Suppose there’s a bag containing four marbles (弹珠) of which $n$ are blue and $4-n$ are white. What is the probability of drawing blue-white-blue if the marbles are replaced each time? 
+
+:::{.exercise name="marbles" .prob}
+Suppose there’s a bag containing 50 marbles with each marble being either red or yellow. 
+
+(a) Five marbles are randomly selected **with replacement** and each one is found to be yellow. What is the probability all of the marbles in the bag are yellow?
+
+(b) Five marbles are randomly selected **without replacement** and all are found to be yellow. What is the probability all of the marbles in the bag are yellow?
+:::
+
+:::{.example #gemstones name="gemstones" .lizi}
+Suppose there are $n$ bags labeled $1,\ldots,n$ with bag $i$ containing $i$ rubies and $n-i$ diamonds. Suppose a bag $i$ is selected with probability directly proportional with $i$, and a random gemstone is selected from that bag. What is the probability that it is a diamond? Provide a theoretical calculation and a simulated approximation.
 :::
 
 
 ```r
-n=0:4 #blue
-prob=dbinom(2,3,n/4)
-prob
-[1] 0.000000 0.140625 0.375000 0.421875 0.000000
-prob/sum(prob)
-[1] 0.00 0.15 0.40 0.45 0.00
+n=13
+Pr_given_B=(1:n)/n
+Pr_of_B=(1:n)/sum(1:n)
+sum(Pr_given_B * Pr_of_B)
+[1] 0.6923077
+(2*n+1)/(3*n)
+[1] 0.6923077
+
+R=10^6 # number of random draws
+B=1:n
+x1=sample(B,size=R,replace=T,prob=B)
+x2=sapply(x1,function(x){rbinom(1,1,prob=x/n)})
+mean(x2)  
+[1] 0.692364
 ```
 
-
-:::{.exercise .prob}
-Suppose five dice are rolled (掷五个骰子). What is the probability three or more sixes are rolled? 
-:::
-
-
-
-:::{.exercise .prob}
-Suppose there’s a bag containing 50 marbles with each marble being either red or yellow. Five marbles are randomly selected **with replacement** and each one is found to be yellow. What is the probability all of the marbles in the bag are yellow?
-:::
-
-
-
-
+\@ref(exm:gemstones)
 
 
 

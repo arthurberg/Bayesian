@@ -46,6 +46,7 @@
         <ul class="book-toc list-unstyled">
 <li><a class="active" href="index.html"><span class="header-section-number">1</span> Fundamentals of Probability</a></li>
 <li><a class="" href="bayes-theorem.html"><span class="header-section-number">2</span> Bayes’ Theorem</a></li>
+<li><a class="" href="software.html"><span class="header-section-number">3</span> Software</a></li>
 </ul>
 
         <div class="book-extra">
@@ -57,9 +58,9 @@
 <h1>
 <span class="header-section-number">Class 1</span> Fundamentals of Probability<a class="anchor" aria-label="anchor" href="#fundamentals-of-probability"><i class="fas fa-link"></i></a>
 </h1>
-<div id="binomial-distribution" class="section level2" number="1.1">
+<div id="coins-urns-and-bags" class="section level2" number="1.1">
 <h2>
-<span class="header-section-number">1.1</span> Binomial Distribution<a class="anchor" aria-label="anchor" href="#binomial-distribution"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.1</span> Coins, Urns, and Bags<a class="anchor" aria-label="anchor" href="#coins-urns-and-bags"><i class="fas fa-link"></i></a>
 </h2>
 <div class="example lizi">
 <p><span id="exm:unlabeled-div-1" class="example"><strong>Example 1.1  </strong></span>Consider 100 flips of a fair coin.</p>
@@ -88,21 +89,31 @@
 <span id="cb1-17"><a href="index.html#cb1-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.06660531</span></span>
 <span id="cb1-18"><a href="index.html#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pbinom</span>(<span class="dv">58</span>,<span class="dv">100</span>,<span class="at">prob=</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)</span>
 <span id="cb1-19"><a href="index.html#cb1-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.04431304</span></span></code></pre></div>
+<div class="exercise prob">
+<p><span id="exr:unlabeled-div-2" class="exercise"><strong>Exercise 1.1  (marbles) </strong></span>Suppose there’s a bag containing 50 marbles with each marble being either red or yellow.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Five marbles are randomly selected <strong>with replacement</strong> and each one is found to be yellow. What is the probability all of the marbles in the bag are yellow?</p></li>
+<li><p>Five marbles are randomly selected <strong>without replacement</strong> and all are found to be yellow. What is the probability all of the marbles in the bag are yellow?</p></li>
+</ol>
+</div>
 <div class="example lizi">
-<p><span id="exm:unlabeled-div-2" class="example"><strong>Example 1.2  </strong></span>Suppose there’s a bag containing four marbles (弹珠) of which <span class="math inline">\(n\)</span> are blue and <span class="math inline">\(4-n\)</span> are white. What is the probability of drawing blue-white-blue if the marbles are replaced each time?</p>
+<p><span id="exm:gemstones" class="example"><strong>Example 1.2  (gemstones) </strong></span>Suppose there are <span class="math inline">\(n\)</span> bags labeled <span class="math inline">\(1,\ldots,n\)</span> with bag <span class="math inline">\(i\)</span> containing <span class="math inline">\(i\)</span> rubies and <span class="math inline">\(n-i\)</span> diamonds. Suppose a bag <span class="math inline">\(i\)</span> is selected with probability directly proportional with <span class="math inline">\(i\)</span>, and a random gemstone is selected from that bag. What is the probability that it is a diamond? Provide a theoretical calculation and a simulated approximation.</p>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">4</span> <span class="co">#blue</span></span>
-<span id="cb2-2"><a href="index.html#cb2-2" aria-hidden="true" tabindex="-1"></a>prob<span class="ot">=</span><span class="fu">dbinom</span>(<span class="dv">2</span>,<span class="dv">3</span>,n<span class="sc">/</span><span class="dv">4</span>)</span>
-<span id="cb2-3"><a href="index.html#cb2-3" aria-hidden="true" tabindex="-1"></a>prob</span>
-<span id="cb2-4"><a href="index.html#cb2-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.000000</span> <span class="fl">0.140625</span> <span class="fl">0.375000</span> <span class="fl">0.421875</span> <span class="fl">0.000000</span></span>
-<span id="cb2-5"><a href="index.html#cb2-5" aria-hidden="true" tabindex="-1"></a>prob<span class="sc">/</span><span class="fu">sum</span>(prob)</span>
-<span id="cb2-6"><a href="index.html#cb2-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.00</span> <span class="fl">0.15</span> <span class="fl">0.40</span> <span class="fl">0.45</span> <span class="fl">0.00</span></span></code></pre></div>
-<div class="exercise prob">
-<p><span id="exr:unlabeled-div-3" class="exercise"><strong>Exercise 1.1  </strong></span>Suppose five dice are rolled (掷五个骰子). What is the probability three or more sixes are rolled?</p>
-</div>
-<div class="exercise prob">
-<p><span id="exr:unlabeled-div-4" class="exercise"><strong>Exercise 1.2  </strong></span>Suppose there’s a bag containing 50 marbles with each marble being either red or yellow. Five marbles are randomly selected <strong>with replacement</strong> and each one is found to be yellow. What is the probability all of the marbles in the bag are yellow?</p>
-</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">13</span></span>
+<span id="cb2-2"><a href="index.html#cb2-2" aria-hidden="true" tabindex="-1"></a>Pr_given_B<span class="ot">=</span>(<span class="dv">1</span><span class="sc">:</span>n)<span class="sc">/</span>n</span>
+<span id="cb2-3"><a href="index.html#cb2-3" aria-hidden="true" tabindex="-1"></a>Pr_of_B<span class="ot">=</span>(<span class="dv">1</span><span class="sc">:</span>n)<span class="sc">/</span><span class="fu">sum</span>(<span class="dv">1</span><span class="sc">:</span>n)</span>
+<span id="cb2-4"><a href="index.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(Pr_given_B <span class="sc">*</span> Pr_of_B)</span>
+<span id="cb2-5"><a href="index.html#cb2-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6923077</span></span>
+<span id="cb2-6"><a href="index.html#cb2-6" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span><span class="sc">*</span>n<span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span>(<span class="dv">3</span><span class="sc">*</span>n)</span>
+<span id="cb2-7"><a href="index.html#cb2-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6923077</span></span>
+<span id="cb2-8"><a href="index.html#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="index.html#cb2-9" aria-hidden="true" tabindex="-1"></a>R<span class="ot">=</span><span class="dv">10</span><span class="sc">^</span><span class="dv">6</span> <span class="co"># number of random draws</span></span>
+<span id="cb2-10"><a href="index.html#cb2-10" aria-hidden="true" tabindex="-1"></a>B<span class="ot">=</span><span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb2-11"><a href="index.html#cb2-11" aria-hidden="true" tabindex="-1"></a>x1<span class="ot">=</span><span class="fu">sample</span>(B,<span class="at">size=</span>R,<span class="at">replace=</span>T,<span class="at">prob=</span>B)</span>
+<span id="cb2-12"><a href="index.html#cb2-12" aria-hidden="true" tabindex="-1"></a>x2<span class="ot">=</span><span class="fu">sapply</span>(x1,<span class="cf">function</span>(x){<span class="fu">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="at">prob=</span>x<span class="sc">/</span>n)})</span>
+<span id="cb2-13"><a href="index.html#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x2)  </span>
+<span id="cb2-14"><a href="index.html#cb2-14" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.692364</span></span></code></pre></div>
+<p><a href="index.html#exm:gemstones">1.2</a></p>
 
 </div>
 </div>
@@ -113,7 +124,7 @@
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#fundamentals-of-probability"><span class="header-section-number">1</span> Fundamentals of Probability</a></li>
-<li><a class="nav-link" href="#binomial-distribution"><span class="header-section-number">1.1</span> Binomial Distribution</a></li>
+<li><a class="nav-link" href="#coins-urns-and-bags"><span class="header-section-number">1.1</span> Coins, Urns, and Bags</a></li>
 </ul>
 
       <div class="book-extra">
@@ -131,7 +142,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-13.</p>
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

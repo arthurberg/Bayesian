@@ -1,8 +1,9 @@
 exm:unlabeled-div-1
-exm:unlabeled-div-2
-exr:unlabeled-div-3
-exr:unlabeled-div-4
+exr:unlabeled-div-2
+exm:gemstones
 fundamentals-of-probability
-binomial-distribution
+coins-urns-and-bags
 bayes-theorem
 examples
+software
+jags
