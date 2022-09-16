@@ -62,127 +62,127 @@
 <h2>
 <span class="header-section-number">3.1</span> JAGS<a class="anchor" aria-label="anchor" href="#jags"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="software.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
-<span id="cb3-2"><a href="software.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="software.html#cb3-3" aria-hidden="true" tabindex="-1"></a>mymodel<span class="ot">=</span> <span class="cf">function</span>(){</span>
-<span id="cb3-4"><a href="software.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>Ntotal ) {</span>
-<span id="cb3-5"><a href="software.html#cb3-5" aria-hidden="true" tabindex="-1"></a>    y[i] <span class="sc">~</span> <span class="fu">dbern</span>( theta )</span>
-<span id="cb3-6"><a href="software.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb3-7"><a href="software.html#cb3-7" aria-hidden="true" tabindex="-1"></a>  theta <span class="sc">~</span> <span class="fu">dbeta</span>( <span class="dv">1</span> , <span class="dv">1</span> )</span>
-<span id="cb3-8"><a href="software.html#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-9"><a href="software.html#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="software.html#cb3-10" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb3-11"><a href="software.html#cb3-11" aria-hidden="true" tabindex="-1"></a>theta.true <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
-<span id="cb3-12"><a href="software.html#cb3-12" aria-hidden="true" tabindex="-1"></a>y.sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, theta.true)</span>
-<span id="cb3-13"><a href="software.html#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="software.html#cb3-14" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">=</span> <span class="fu">list</span>(    </span>
-<span id="cb3-15"><a href="software.html#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> y.sim ,</span>
-<span id="cb3-16"><a href="software.html#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ntotal =</span> n </span>
-<span id="cb3-17"><a href="software.html#cb3-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-18"><a href="software.html#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="software.html#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="software.html#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="software.html#cb3-21" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data=</span>mydata, <span class="at">model=</span>mymodel, <span class="at">parameters.to.save =</span> <span class="fu">c</span>(<span class="st">"theta"</span>), <span class="at">n.chain=</span><span class="dv">2</span>, <span class="at">n.iter=</span><span class="dv">200</span>, <span class="at">n.thin=</span><span class="dv">1</span>, <span class="at">n.burn=</span><span class="dv">100</span>)</span>
-<span id="cb3-22"><a href="software.html#cb3-22" aria-hidden="true" tabindex="-1"></a>module glm loaded</span>
-<span id="cb3-23"><a href="software.html#cb3-23" aria-hidden="true" tabindex="-1"></a>Compiling model graph</span>
-<span id="cb3-24"><a href="software.html#cb3-24" aria-hidden="true" tabindex="-1"></a>   Resolving undeclared variables</span>
-<span id="cb3-25"><a href="software.html#cb3-25" aria-hidden="true" tabindex="-1"></a>   Allocating nodes</span>
-<span id="cb3-26"><a href="software.html#cb3-26" aria-hidden="true" tabindex="-1"></a>Graph information<span class="sc">:</span></span>
-<span id="cb3-27"><a href="software.html#cb3-27" aria-hidden="true" tabindex="-1"></a>   Observed stochastic nodes<span class="sc">:</span> <span class="dv">50</span></span>
-<span id="cb3-28"><a href="software.html#cb3-28" aria-hidden="true" tabindex="-1"></a>   Unobserved stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
-<span id="cb3-29"><a href="software.html#cb3-29" aria-hidden="true" tabindex="-1"></a>   Total graph size<span class="sc">:</span> <span class="dv">53</span></span>
-<span id="cb3-30"><a href="software.html#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="software.html#cb3-31" aria-hidden="true" tabindex="-1"></a>Initializing model</span>
-<span id="cb3-32"><a href="software.html#cb3-32" aria-hidden="true" tabindex="-1"></a>fit</span>
-<span id="cb3-33"><a href="software.html#cb3-33" aria-hidden="true" tabindex="-1"></a>Inference <span class="cf">for</span> Bugs model at <span class="st">"/var/folders/fy/_0t49sys0713k84msqwk44fc0000gp/T//RtmpXLbqSR/model4cee6db30705.txt"</span>, fit using jags,</span>
-<span id="cb3-34"><a href="software.html#cb3-34" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> chains, each with <span class="dv">200</span> <span class="fu">iterations</span> (first <span class="dv">100</span> discarded)</span>
-<span id="cb3-35"><a href="software.html#cb3-35" aria-hidden="true" tabindex="-1"></a> n.sims <span class="ot">=</span> <span class="dv">200</span> iterations saved</span>
-<span id="cb3-36"><a href="software.html#cb3-36" aria-hidden="true" tabindex="-1"></a>         mu.vect sd.vect   <span class="fl">2.5</span><span class="sc">%    25%</span>    <span class="dv">50</span><span class="sc">%    75%</span>  <span class="fl">97.5</span>%</span>
-<span id="cb3-37"><a href="software.html#cb3-37" aria-hidden="true" tabindex="-1"></a>theta      <span class="fl">0.366</span>   <span class="fl">0.068</span>  <span class="fl">0.252</span>  <span class="fl">0.323</span>  <span class="fl">0.360</span>  <span class="fl">0.407</span>  <span class="fl">0.510</span></span>
-<span id="cb3-38"><a href="software.html#cb3-38" aria-hidden="true" tabindex="-1"></a>deviance  <span class="fl">66.337</span>   <span class="fl">1.585</span> <span class="fl">65.343</span> <span class="fl">65.441</span> <span class="fl">65.712</span> <span class="fl">66.511</span> <span class="fl">71.504</span></span>
-<span id="cb3-39"><a href="software.html#cb3-39" aria-hidden="true" tabindex="-1"></a>          Rhat n.eff</span>
-<span id="cb3-40"><a href="software.html#cb3-40" aria-hidden="true" tabindex="-1"></a>theta    <span class="fl">0.998</span>   <span class="dv">200</span></span>
-<span id="cb3-41"><a href="software.html#cb3-41" aria-hidden="true" tabindex="-1"></a>deviance <span class="fl">1.021</span>   <span class="dv">200</span></span>
-<span id="cb3-42"><a href="software.html#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-43"><a href="software.html#cb3-43" aria-hidden="true" tabindex="-1"></a>For each parameter, n.eff is a crude measure of effective sample size,</span>
-<span id="cb3-44"><a href="software.html#cb3-44" aria-hidden="true" tabindex="-1"></a>and Rhat is the potential scale reduction <span class="fu">factor</span> (at convergence, <span class="at">Rhat=</span><span class="dv">1</span>).</span>
-<span id="cb3-45"><a href="software.html#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-46"><a href="software.html#cb3-46" aria-hidden="true" tabindex="-1"></a>DIC <span class="fu">info</span> (using the rule, <span class="at">pD =</span> <span class="fu">var</span>(deviance)<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb3-47"><a href="software.html#cb3-47" aria-hidden="true" tabindex="-1"></a>pD <span class="ot">=</span> <span class="fl">1.3</span> and DIC <span class="ot">=</span> <span class="fl">67.6</span></span>
-<span id="cb3-48"><a href="software.html#cb3-48" aria-hidden="true" tabindex="-1"></a>DIC is an estimate of expected predictive <span class="fu">error</span> (lower deviance is better).</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="software.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
-<span id="cb4-2"><a href="software.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="software.html#cb4-3" aria-hidden="true" tabindex="-1"></a>model<span class="ot">=</span> <span class="cf">function</span>(){</span>
-<span id="cb4-4"><a href="software.html#cb4-4" aria-hidden="true" tabindex="-1"></a>M <span class="sc">~</span> <span class="fu">dcat</span>(p1)</span>
-<span id="cb4-5"><a href="software.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># sampling distribution is uniform over first N integers</span></span>
-<span id="cb4-6"><a href="software.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># use step function to change p1[j] to 0 for j&gt;N</span></span>
-<span id="cb4-7"><a href="software.html#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
-<span id="cb4-8"><a href="software.html#cb4-8" aria-hidden="true" tabindex="-1"></a>p1[j] <span class="ot">&lt;-</span> <span class="fu">step</span>(N <span class="sc">-</span> j <span class="sc">+</span> <span class="fl">0.01</span>)<span class="sc">/</span>N</span>
-<span id="cb4-9"><a href="software.html#cb4-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-10"><a href="software.html#cb4-10" aria-hidden="true" tabindex="-1"></a>N <span class="sc">~</span> <span class="fu">dcat</span>(p2)</span>
-<span id="cb4-11"><a href="software.html#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
-<span id="cb4-12"><a href="software.html#cb4-12" aria-hidden="true" tabindex="-1"></a>recip[j] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>j</span>
-<span id="cb4-13"><a href="software.html#cb4-13" aria-hidden="true" tabindex="-1"></a>p2[j] <span class="ot">&lt;-</span> recip[j]<span class="sc">/</span>sum.recip</span>
-<span id="cb4-14"><a href="software.html#cb4-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-15"><a href="software.html#cb4-15" aria-hidden="true" tabindex="-1"></a>sum.recip <span class="ot">&lt;-</span> <span class="fu">sum</span>(recip)</span>
-<span id="cb4-16"><a href="software.html#cb4-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-17"><a href="software.html#cb4-17" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">list</span>(<span class="st">"M"</span><span class="ot">=</span><span class="dv">100</span>)</span>
-<span id="cb4-18"><a href="software.html#cb4-18" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data=</span>data, <span class="at">model=</span>model,<span class="at">parameters.to.save=</span><span class="fu">c</span>(<span class="st">"N"</span>,<span class="st">"M"</span>), <span class="at">n.chain=</span><span class="dv">2</span>, <span class="at">n.iter=</span><span class="dv">100</span>, <span class="at">n.thin=</span><span class="dv">1</span>, <span class="at">n.burn=</span><span class="dv">0</span>, <span class="at">DIC=</span><span class="cn">FALSE</span>)</span>
-<span id="cb4-19"><a href="software.html#cb4-19" aria-hidden="true" tabindex="-1"></a>Compiling model graph</span>
-<span id="cb4-20"><a href="software.html#cb4-20" aria-hidden="true" tabindex="-1"></a>   Resolving undeclared variables</span>
-<span id="cb4-21"><a href="software.html#cb4-21" aria-hidden="true" tabindex="-1"></a>   Allocating nodes</span>
-<span id="cb4-22"><a href="software.html#cb4-22" aria-hidden="true" tabindex="-1"></a>Graph information<span class="sc">:</span></span>
-<span id="cb4-23"><a href="software.html#cb4-23" aria-hidden="true" tabindex="-1"></a>   Observed stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
-<span id="cb4-24"><a href="software.html#cb4-24" aria-hidden="true" tabindex="-1"></a>   Unobserved stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
-<span id="cb4-25"><a href="software.html#cb4-25" aria-hidden="true" tabindex="-1"></a>   Total graph size<span class="sc">:</span> <span class="dv">7007</span></span>
-<span id="cb4-26"><a href="software.html#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="software.html#cb4-27" aria-hidden="true" tabindex="-1"></a>Initializing model</span>
-<span id="cb4-28"><a href="software.html#cb4-28" aria-hidden="true" tabindex="-1"></a>fit</span>
-<span id="cb4-29"><a href="software.html#cb4-29" aria-hidden="true" tabindex="-1"></a>Inference <span class="cf">for</span> Bugs model at <span class="st">"/var/folders/fy/_0t49sys0713k84msqwk44fc0000gp/T//RtmpXLbqSR/model4cee11bcb869.txt"</span>, fit using jags,</span>
-<span id="cb4-30"><a href="software.html#cb4-30" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> chains, each with <span class="dv">100</span> <span class="fu">iterations</span> (first <span class="dv">0</span> discarded)</span>
-<span id="cb4-31"><a href="software.html#cb4-31" aria-hidden="true" tabindex="-1"></a> n.sims <span class="ot">=</span> <span class="dv">200</span> iterations saved</span>
-<span id="cb4-32"><a href="software.html#cb4-32" aria-hidden="true" tabindex="-1"></a>  mu.vect sd.vect <span class="fl">2.5</span><span class="sc">% 25%</span>   <span class="dv">50</span><span class="sc">%    75%</span>   <span class="fl">97.5</span>%  Rhat n.eff</span>
-<span id="cb4-33"><a href="software.html#cb4-33" aria-hidden="true" tabindex="-1"></a>M <span class="fl">100.000</span>   <span class="fl">0.000</span>  <span class="dv">100</span> <span class="dv">100</span> <span class="fl">100.0</span> <span class="fl">100.00</span> <span class="fl">100.000</span> <span class="fl">1.000</span>     <span class="dv">1</span></span>
-<span id="cb4-34"><a href="software.html#cb4-34" aria-hidden="true" tabindex="-1"></a>N <span class="fl">264.665</span> <span class="fl">196.366</span>  <span class="dv">101</span> <span class="dv">127</span> <span class="fl">184.5</span> <span class="fl">321.75</span> <span class="fl">836.275</span> <span class="fl">0.997</span>   <span class="dv">200</span></span>
-<span id="cb4-35"><a href="software.html#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-36"><a href="software.html#cb4-36" aria-hidden="true" tabindex="-1"></a>For each parameter, n.eff is a crude measure of effective sample size,</span>
-<span id="cb4-37"><a href="software.html#cb4-37" aria-hidden="true" tabindex="-1"></a>and Rhat is the potential scale reduction <span class="fu">factor</span> (at convergence, <span class="at">Rhat=</span><span class="dv">1</span>).</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="software.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rjags)</span>
-<span id="cb5-2"><a href="software.html#cb5-2" aria-hidden="true" tabindex="-1"></a>model_string <span class="ot">&lt;-</span> <span class="st">"</span></span>
-<span id="cb5-3"><a href="software.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">model {</span></span>
-<span id="cb5-4"><a href="software.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">M ~ dcat(p1)</span></span>
-<span id="cb5-5"><a href="software.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">for (j in 1:1000) {</span></span>
-<span id="cb5-6"><a href="software.html#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">p1[j] &lt;- (pow(j*step(N - j + 0.01)/N,2)-pow((j-1)*step(N - j  + 0.01)/N,2))</span></span>
-<span id="cb5-7"><a href="software.html#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb5-8"><a href="software.html#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="st">N ~ dcat(p2[])</span></span>
-<span id="cb5-9"><a href="software.html#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">for (j in 1:1000) {</span></span>
-<span id="cb5-10"><a href="software.html#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">recip[j] &lt;- 1/j</span></span>
-<span id="cb5-11"><a href="software.html#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">p2[j] &lt;- recip[j]/sum.recip</span></span>
-<span id="cb5-12"><a href="software.html#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb5-13"><a href="software.html#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">sum.recip &lt;- sum(recip)</span></span>
-<span id="cb5-14"><a href="software.html#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st">}"</span></span>
-<span id="cb5-15"><a href="software.html#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="software.html#cb5-16" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">list</span>(<span class="st">"M"</span><span class="ot">=</span><span class="dv">50</span>)</span>
-<span id="cb5-17"><a href="software.html#cb5-17" aria-hidden="true" tabindex="-1"></a>jmodel <span class="ot">&lt;-</span> <span class="fu">jags.model</span>(<span class="fu">textConnection</span>(model_string), <span class="at">data =</span> data,<span class="at">inits=</span><span class="fu">list</span>(<span class="at">N=</span><span class="dv">100</span>),<span class="at">n.chains =</span> <span class="dv">2</span>, <span class="at">n.adapt=</span> <span class="dv">100</span>,<span class="at">quiet=</span><span class="cn">TRUE</span>)</span>
-<span id="cb5-18"><a href="software.html#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">update</span>(jmodel, <span class="dv">10</span>)</span>
-<span id="cb5-19"><a href="software.html#cb5-19" aria-hidden="true" tabindex="-1"></a>mcmc_samples <span class="ot">&lt;-</span> <span class="fu">coda.samples</span>(jmodel, <span class="at">variable.names=</span><span class="fu">c</span>(<span class="st">"N"</span>), <span class="at">n.iter=</span><span class="dv">100</span>)</span>
-<span id="cb5-20"><a href="software.html#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mcmc_samples)</span>
-<span id="cb5-21"><a href="software.html#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-22"><a href="software.html#cb5-22" aria-hidden="true" tabindex="-1"></a>Iterations <span class="ot">=</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">110</span></span>
-<span id="cb5-23"><a href="software.html#cb5-23" aria-hidden="true" tabindex="-1"></a>Thinning interval <span class="ot">=</span> <span class="dv">1</span> </span>
-<span id="cb5-24"><a href="software.html#cb5-24" aria-hidden="true" tabindex="-1"></a>Number of chains <span class="ot">=</span> <span class="dv">2</span> </span>
-<span id="cb5-25"><a href="software.html#cb5-25" aria-hidden="true" tabindex="-1"></a>Sample size per chain <span class="ot">=</span> <span class="dv">100</span> </span>
-<span id="cb5-26"><a href="software.html#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-27"><a href="software.html#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> Empirical mean and standard deviation <span class="cf">for</span> each variable,</span>
-<span id="cb5-28"><a href="software.html#cb5-28" aria-hidden="true" tabindex="-1"></a>   plus standard error of the mean<span class="sc">:</span></span>
-<span id="cb5-29"><a href="software.html#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-30"><a href="software.html#cb5-30" aria-hidden="true" tabindex="-1"></a>          Mean             SD       Naive SE Time<span class="sc">-</span>series SE </span>
-<span id="cb5-31"><a href="software.html#cb5-31" aria-hidden="true" tabindex="-1"></a>       <span class="fl">103.990</span>         <span class="fl">89.148</span>          <span class="fl">6.304</span>          <span class="fl">6.318</span> </span>
-<span id="cb5-32"><a href="software.html#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-33"><a href="software.html#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> Quantiles <span class="cf">for</span> each variable<span class="sc">:</span></span>
-<span id="cb5-34"><a href="software.html#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-35"><a href="software.html#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2.5</span><span class="sc">%    25%</span>    <span class="dv">50</span><span class="sc">%    75%</span>  <span class="fl">97.5</span>% </span>
-<span id="cb5-36"><a href="software.html#cb5-36" aria-hidden="true" tabindex="-1"></a> <span class="fl">51.00</span>  <span class="fl">57.75</span>  <span class="fl">77.50</span> <span class="fl">110.25</span> <span class="fl">364.58</span> </span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="software.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
+<span id="cb5-2"><a href="software.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="software.html#cb5-3" aria-hidden="true" tabindex="-1"></a>mymodel<span class="ot">=</span> <span class="cf">function</span>(){</span>
+<span id="cb5-4"><a href="software.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>Ntotal ) {</span>
+<span id="cb5-5"><a href="software.html#cb5-5" aria-hidden="true" tabindex="-1"></a>    y[i] <span class="sc">~</span> <span class="fu">dbern</span>( theta )</span>
+<span id="cb5-6"><a href="software.html#cb5-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-7"><a href="software.html#cb5-7" aria-hidden="true" tabindex="-1"></a>  theta <span class="sc">~</span> <span class="fu">dbeta</span>( <span class="dv">1</span> , <span class="dv">1</span> )</span>
+<span id="cb5-8"><a href="software.html#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-9"><a href="software.html#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="software.html#cb5-10" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb5-11"><a href="software.html#cb5-11" aria-hidden="true" tabindex="-1"></a>theta.true <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
+<span id="cb5-12"><a href="software.html#cb5-12" aria-hidden="true" tabindex="-1"></a>y.sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, theta.true)</span>
+<span id="cb5-13"><a href="software.html#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="software.html#cb5-14" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">=</span> <span class="fu">list</span>(    </span>
+<span id="cb5-15"><a href="software.html#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> y.sim ,</span>
+<span id="cb5-16"><a href="software.html#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ntotal =</span> n </span>
+<span id="cb5-17"><a href="software.html#cb5-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-18"><a href="software.html#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="software.html#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="software.html#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="software.html#cb5-21" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data=</span>mydata, <span class="at">model=</span>mymodel, <span class="at">parameters.to.save =</span> <span class="fu">c</span>(<span class="st">"theta"</span>), <span class="at">n.chain=</span><span class="dv">2</span>, <span class="at">n.iter=</span><span class="dv">200</span>, <span class="at">n.thin=</span><span class="dv">1</span>, <span class="at">n.burn=</span><span class="dv">100</span>)</span>
+<span id="cb5-22"><a href="software.html#cb5-22" aria-hidden="true" tabindex="-1"></a>module glm loaded</span>
+<span id="cb5-23"><a href="software.html#cb5-23" aria-hidden="true" tabindex="-1"></a>Compiling model graph</span>
+<span id="cb5-24"><a href="software.html#cb5-24" aria-hidden="true" tabindex="-1"></a>   Resolving undeclared variables</span>
+<span id="cb5-25"><a href="software.html#cb5-25" aria-hidden="true" tabindex="-1"></a>   Allocating nodes</span>
+<span id="cb5-26"><a href="software.html#cb5-26" aria-hidden="true" tabindex="-1"></a>Graph information<span class="sc">:</span></span>
+<span id="cb5-27"><a href="software.html#cb5-27" aria-hidden="true" tabindex="-1"></a>   Observed stochastic nodes<span class="sc">:</span> <span class="dv">50</span></span>
+<span id="cb5-28"><a href="software.html#cb5-28" aria-hidden="true" tabindex="-1"></a>   Unobserved stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb5-29"><a href="software.html#cb5-29" aria-hidden="true" tabindex="-1"></a>   Total graph size<span class="sc">:</span> <span class="dv">53</span></span>
+<span id="cb5-30"><a href="software.html#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="software.html#cb5-31" aria-hidden="true" tabindex="-1"></a>Initializing model</span>
+<span id="cb5-32"><a href="software.html#cb5-32" aria-hidden="true" tabindex="-1"></a>fit</span>
+<span id="cb5-33"><a href="software.html#cb5-33" aria-hidden="true" tabindex="-1"></a>Inference <span class="cf">for</span> Bugs model at <span class="st">"/var/folders/fy/_0t49sys0713k84msqwk44fc0000gp/T//RtmpXLbqSR/model4cee6db30705.txt"</span>, fit using jags,</span>
+<span id="cb5-34"><a href="software.html#cb5-34" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> chains, each with <span class="dv">200</span> <span class="fu">iterations</span> (first <span class="dv">100</span> discarded)</span>
+<span id="cb5-35"><a href="software.html#cb5-35" aria-hidden="true" tabindex="-1"></a> n.sims <span class="ot">=</span> <span class="dv">200</span> iterations saved</span>
+<span id="cb5-36"><a href="software.html#cb5-36" aria-hidden="true" tabindex="-1"></a>         mu.vect sd.vect   <span class="fl">2.5</span><span class="sc">%    25%</span>    <span class="dv">50</span><span class="sc">%    75%</span>  <span class="fl">97.5</span>%</span>
+<span id="cb5-37"><a href="software.html#cb5-37" aria-hidden="true" tabindex="-1"></a>theta      <span class="fl">0.366</span>   <span class="fl">0.068</span>  <span class="fl">0.252</span>  <span class="fl">0.323</span>  <span class="fl">0.360</span>  <span class="fl">0.407</span>  <span class="fl">0.510</span></span>
+<span id="cb5-38"><a href="software.html#cb5-38" aria-hidden="true" tabindex="-1"></a>deviance  <span class="fl">66.337</span>   <span class="fl">1.585</span> <span class="fl">65.343</span> <span class="fl">65.441</span> <span class="fl">65.712</span> <span class="fl">66.511</span> <span class="fl">71.504</span></span>
+<span id="cb5-39"><a href="software.html#cb5-39" aria-hidden="true" tabindex="-1"></a>          Rhat n.eff</span>
+<span id="cb5-40"><a href="software.html#cb5-40" aria-hidden="true" tabindex="-1"></a>theta    <span class="fl">0.998</span>   <span class="dv">200</span></span>
+<span id="cb5-41"><a href="software.html#cb5-41" aria-hidden="true" tabindex="-1"></a>deviance <span class="fl">1.021</span>   <span class="dv">200</span></span>
+<span id="cb5-42"><a href="software.html#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-43"><a href="software.html#cb5-43" aria-hidden="true" tabindex="-1"></a>For each parameter, n.eff is a crude measure of effective sample size,</span>
+<span id="cb5-44"><a href="software.html#cb5-44" aria-hidden="true" tabindex="-1"></a>and Rhat is the potential scale reduction <span class="fu">factor</span> (at convergence, <span class="at">Rhat=</span><span class="dv">1</span>).</span>
+<span id="cb5-45"><a href="software.html#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-46"><a href="software.html#cb5-46" aria-hidden="true" tabindex="-1"></a>DIC <span class="fu">info</span> (using the rule, <span class="at">pD =</span> <span class="fu">var</span>(deviance)<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb5-47"><a href="software.html#cb5-47" aria-hidden="true" tabindex="-1"></a>pD <span class="ot">=</span> <span class="fl">1.3</span> and DIC <span class="ot">=</span> <span class="fl">67.6</span></span>
+<span id="cb5-48"><a href="software.html#cb5-48" aria-hidden="true" tabindex="-1"></a>DIC is an estimate of expected predictive <span class="fu">error</span> (lower deviance is better).</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="software.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
+<span id="cb6-2"><a href="software.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="software.html#cb6-3" aria-hidden="true" tabindex="-1"></a>model<span class="ot">=</span> <span class="cf">function</span>(){</span>
+<span id="cb6-4"><a href="software.html#cb6-4" aria-hidden="true" tabindex="-1"></a>M <span class="sc">~</span> <span class="fu">dcat</span>(p1)</span>
+<span id="cb6-5"><a href="software.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># sampling distribution is uniform over first N integers</span></span>
+<span id="cb6-6"><a href="software.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># use step function to change p1[j] to 0 for j&gt;N</span></span>
+<span id="cb6-7"><a href="software.html#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb6-8"><a href="software.html#cb6-8" aria-hidden="true" tabindex="-1"></a>p1[j] <span class="ot">&lt;-</span> <span class="fu">step</span>(N <span class="sc">-</span> j <span class="sc">+</span> <span class="fl">0.01</span>)<span class="sc">/</span>N</span>
+<span id="cb6-9"><a href="software.html#cb6-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-10"><a href="software.html#cb6-10" aria-hidden="true" tabindex="-1"></a>N <span class="sc">~</span> <span class="fu">dcat</span>(p2)</span>
+<span id="cb6-11"><a href="software.html#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb6-12"><a href="software.html#cb6-12" aria-hidden="true" tabindex="-1"></a>recip[j] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>j</span>
+<span id="cb6-13"><a href="software.html#cb6-13" aria-hidden="true" tabindex="-1"></a>p2[j] <span class="ot">&lt;-</span> recip[j]<span class="sc">/</span>sum.recip</span>
+<span id="cb6-14"><a href="software.html#cb6-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-15"><a href="software.html#cb6-15" aria-hidden="true" tabindex="-1"></a>sum.recip <span class="ot">&lt;-</span> <span class="fu">sum</span>(recip)</span>
+<span id="cb6-16"><a href="software.html#cb6-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-17"><a href="software.html#cb6-17" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">list</span>(<span class="st">"M"</span><span class="ot">=</span><span class="dv">100</span>)</span>
+<span id="cb6-18"><a href="software.html#cb6-18" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data=</span>data, <span class="at">model=</span>model,<span class="at">parameters.to.save=</span><span class="fu">c</span>(<span class="st">"N"</span>,<span class="st">"M"</span>), <span class="at">n.chain=</span><span class="dv">2</span>, <span class="at">n.iter=</span><span class="dv">100</span>, <span class="at">n.thin=</span><span class="dv">1</span>, <span class="at">n.burn=</span><span class="dv">0</span>, <span class="at">DIC=</span><span class="cn">FALSE</span>)</span>
+<span id="cb6-19"><a href="software.html#cb6-19" aria-hidden="true" tabindex="-1"></a>Compiling model graph</span>
+<span id="cb6-20"><a href="software.html#cb6-20" aria-hidden="true" tabindex="-1"></a>   Resolving undeclared variables</span>
+<span id="cb6-21"><a href="software.html#cb6-21" aria-hidden="true" tabindex="-1"></a>   Allocating nodes</span>
+<span id="cb6-22"><a href="software.html#cb6-22" aria-hidden="true" tabindex="-1"></a>Graph information<span class="sc">:</span></span>
+<span id="cb6-23"><a href="software.html#cb6-23" aria-hidden="true" tabindex="-1"></a>   Observed stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb6-24"><a href="software.html#cb6-24" aria-hidden="true" tabindex="-1"></a>   Unobserved stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb6-25"><a href="software.html#cb6-25" aria-hidden="true" tabindex="-1"></a>   Total graph size<span class="sc">:</span> <span class="dv">7007</span></span>
+<span id="cb6-26"><a href="software.html#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="software.html#cb6-27" aria-hidden="true" tabindex="-1"></a>Initializing model</span>
+<span id="cb6-28"><a href="software.html#cb6-28" aria-hidden="true" tabindex="-1"></a>fit</span>
+<span id="cb6-29"><a href="software.html#cb6-29" aria-hidden="true" tabindex="-1"></a>Inference <span class="cf">for</span> Bugs model at <span class="st">"/var/folders/fy/_0t49sys0713k84msqwk44fc0000gp/T//RtmpXLbqSR/model4cee11bcb869.txt"</span>, fit using jags,</span>
+<span id="cb6-30"><a href="software.html#cb6-30" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> chains, each with <span class="dv">100</span> <span class="fu">iterations</span> (first <span class="dv">0</span> discarded)</span>
+<span id="cb6-31"><a href="software.html#cb6-31" aria-hidden="true" tabindex="-1"></a> n.sims <span class="ot">=</span> <span class="dv">200</span> iterations saved</span>
+<span id="cb6-32"><a href="software.html#cb6-32" aria-hidden="true" tabindex="-1"></a>  mu.vect sd.vect <span class="fl">2.5</span><span class="sc">% 25%</span>   <span class="dv">50</span><span class="sc">%    75%</span>   <span class="fl">97.5</span>%  Rhat n.eff</span>
+<span id="cb6-33"><a href="software.html#cb6-33" aria-hidden="true" tabindex="-1"></a>M <span class="fl">100.000</span>   <span class="fl">0.000</span>  <span class="dv">100</span> <span class="dv">100</span> <span class="fl">100.0</span> <span class="fl">100.00</span> <span class="fl">100.000</span> <span class="fl">1.000</span>     <span class="dv">1</span></span>
+<span id="cb6-34"><a href="software.html#cb6-34" aria-hidden="true" tabindex="-1"></a>N <span class="fl">264.665</span> <span class="fl">196.366</span>  <span class="dv">101</span> <span class="dv">127</span> <span class="fl">184.5</span> <span class="fl">321.75</span> <span class="fl">836.275</span> <span class="fl">0.997</span>   <span class="dv">200</span></span>
+<span id="cb6-35"><a href="software.html#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="software.html#cb6-36" aria-hidden="true" tabindex="-1"></a>For each parameter, n.eff is a crude measure of effective sample size,</span>
+<span id="cb6-37"><a href="software.html#cb6-37" aria-hidden="true" tabindex="-1"></a>and Rhat is the potential scale reduction <span class="fu">factor</span> (at convergence, <span class="at">Rhat=</span><span class="dv">1</span>).</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="software.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rjags)</span>
+<span id="cb7-2"><a href="software.html#cb7-2" aria-hidden="true" tabindex="-1"></a>model_string <span class="ot">&lt;-</span> <span class="st">"</span></span>
+<span id="cb7-3"><a href="software.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="st">model {</span></span>
+<span id="cb7-4"><a href="software.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="st">M ~ dcat(p1)</span></span>
+<span id="cb7-5"><a href="software.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">for (j in 1:1000) {</span></span>
+<span id="cb7-6"><a href="software.html#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="st">p1[j] &lt;- (pow(j*step(N - j + 0.01)/N,2)-pow((j-1)*step(N - j  + 0.01)/N,2))</span></span>
+<span id="cb7-7"><a href="software.html#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb7-8"><a href="software.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="st">N ~ dcat(p2[])</span></span>
+<span id="cb7-9"><a href="software.html#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="st">for (j in 1:1000) {</span></span>
+<span id="cb7-10"><a href="software.html#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="st">recip[j] &lt;- 1/j</span></span>
+<span id="cb7-11"><a href="software.html#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="st">p2[j] &lt;- recip[j]/sum.recip</span></span>
+<span id="cb7-12"><a href="software.html#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb7-13"><a href="software.html#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="st">sum.recip &lt;- sum(recip)</span></span>
+<span id="cb7-14"><a href="software.html#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="st">}"</span></span>
+<span id="cb7-15"><a href="software.html#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="software.html#cb7-16" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">list</span>(<span class="st">"M"</span><span class="ot">=</span><span class="dv">50</span>)</span>
+<span id="cb7-17"><a href="software.html#cb7-17" aria-hidden="true" tabindex="-1"></a>jmodel <span class="ot">&lt;-</span> <span class="fu">jags.model</span>(<span class="fu">textConnection</span>(model_string), <span class="at">data =</span> data,<span class="at">inits=</span><span class="fu">list</span>(<span class="at">N=</span><span class="dv">100</span>),<span class="at">n.chains =</span> <span class="dv">2</span>, <span class="at">n.adapt=</span> <span class="dv">100</span>,<span class="at">quiet=</span><span class="cn">TRUE</span>)</span>
+<span id="cb7-18"><a href="software.html#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">update</span>(jmodel, <span class="dv">10</span>)</span>
+<span id="cb7-19"><a href="software.html#cb7-19" aria-hidden="true" tabindex="-1"></a>mcmc_samples <span class="ot">&lt;-</span> <span class="fu">coda.samples</span>(jmodel, <span class="at">variable.names=</span><span class="fu">c</span>(<span class="st">"N"</span>), <span class="at">n.iter=</span><span class="dv">100</span>)</span>
+<span id="cb7-20"><a href="software.html#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mcmc_samples)</span>
+<span id="cb7-21"><a href="software.html#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="software.html#cb7-22" aria-hidden="true" tabindex="-1"></a>Iterations <span class="ot">=</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">110</span></span>
+<span id="cb7-23"><a href="software.html#cb7-23" aria-hidden="true" tabindex="-1"></a>Thinning interval <span class="ot">=</span> <span class="dv">1</span> </span>
+<span id="cb7-24"><a href="software.html#cb7-24" aria-hidden="true" tabindex="-1"></a>Number of chains <span class="ot">=</span> <span class="dv">2</span> </span>
+<span id="cb7-25"><a href="software.html#cb7-25" aria-hidden="true" tabindex="-1"></a>Sample size per chain <span class="ot">=</span> <span class="dv">100</span> </span>
+<span id="cb7-26"><a href="software.html#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="software.html#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> Empirical mean and standard deviation <span class="cf">for</span> each variable,</span>
+<span id="cb7-28"><a href="software.html#cb7-28" aria-hidden="true" tabindex="-1"></a>   plus standard error of the mean<span class="sc">:</span></span>
+<span id="cb7-29"><a href="software.html#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="software.html#cb7-30" aria-hidden="true" tabindex="-1"></a>          Mean             SD       Naive SE Time<span class="sc">-</span>series SE </span>
+<span id="cb7-31"><a href="software.html#cb7-31" aria-hidden="true" tabindex="-1"></a>       <span class="fl">103.990</span>         <span class="fl">89.148</span>          <span class="fl">6.304</span>          <span class="fl">6.318</span> </span>
+<span id="cb7-32"><a href="software.html#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="software.html#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> Quantiles <span class="cf">for</span> each variable<span class="sc">:</span></span>
+<span id="cb7-34"><a href="software.html#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="software.html#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2.5</span><span class="sc">%    25%</span>    <span class="dv">50</span><span class="sc">%    75%</span>  <span class="fl">97.5</span>% </span>
+<span id="cb7-36"><a href="software.html#cb7-36" aria-hidden="true" tabindex="-1"></a> <span class="fl">51.00</span>  <span class="fl">57.75</span>  <span class="fl">77.50</span> <span class="fl">110.25</span> <span class="fl">364.58</span> </span></code></pre></div>
 
 </div>
 </div>
@@ -211,7 +211,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-15.</p>
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-16.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

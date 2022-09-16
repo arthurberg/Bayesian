@@ -63,7 +63,7 @@
 <span class="header-section-number">1.1</span> Coins, Urns, and Bags<a class="anchor" aria-label="anchor" href="#coins-urns-and-bags"><i class="fas fa-link"></i></a>
 </h2>
 <div class="example lizi">
-<p><span id="exm:unlabeled-div-1" class="example"><strong>Example 1.1  </strong></span>Consider 100 flips of a fair coin.</p>
+<p><span id="exm:flips" class="example"><strong>Example 1.1  </strong></span>Consider 100 flips of a fair coin.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>What is the probability of observing exactly 50 heads in 100 flips of a fair coin?</p></li>
 <li><p>What is the probability of observing 50 or more heads?</p></li>
@@ -90,12 +90,17 @@
 <span id="cb1-18"><a href="index.html#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pbinom</span>(<span class="dv">58</span>,<span class="dv">100</span>,<span class="at">prob=</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)</span>
 <span id="cb1-19"><a href="index.html#cb1-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.04431304</span></span></code></pre></div>
 <div class="exercise prob">
-<p><span id="exr:unlabeled-div-2" class="exercise"><strong>Exercise 1.1  (marbles) </strong></span>Suppose there’s a bag containing 50 marbles with each marble being either red or yellow.</p>
+<p><span id="exr:marbles" class="exercise"><strong>Exercise 1.1  (marbles) </strong></span>Suppose there’s a bag containing 50 marbles with each marble being either red or yellow.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Five marbles are randomly selected <strong>with replacement</strong> and each one is found to be yellow. What is the probability all of the marbles in the bag are yellow?</p></li>
 <li><p>Five marbles are randomly selected <strong>without replacement</strong> and all are found to be yellow. What is the probability all of the marbles in the bag are yellow?</p></li>
 </ol>
 </div>
+</div>
+<div id="monte-carlo" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> Monte Carlo<a class="anchor" aria-label="anchor" href="#monte-carlo"><i class="fas fa-link"></i></a>
+</h2>
 <div class="example lizi">
 <p><span id="exm:gemstones" class="example"><strong>Example 1.2  (gemstones) </strong></span>Suppose there are <span class="math inline">\(n\)</span> bags labeled <span class="math inline">\(1,\ldots,n\)</span> with bag <span class="math inline">\(i\)</span> containing <span class="math inline">\(i\)</span> rubies and <span class="math inline">\(n-i\)</span> diamonds. Suppose a bag <span class="math inline">\(i\)</span> is selected with probability directly proportional with <span class="math inline">\(i\)</span>, and a random gemstone is selected from that bag. What is the probability that it is a diamond? Provide a theoretical calculation and a simulated approximation.</p>
 </div>
@@ -113,7 +118,72 @@
 <span id="cb2-12"><a href="index.html#cb2-12" aria-hidden="true" tabindex="-1"></a>x2<span class="ot">=</span><span class="fu">sapply</span>(x1,<span class="cf">function</span>(x){<span class="fu">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="at">prob=</span>x<span class="sc">/</span>n)})</span>
 <span id="cb2-13"><a href="index.html#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x2)  </span>
 <span id="cb2-14"><a href="index.html#cb2-14" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.692364</span></span></code></pre></div>
-<p><a href="index.html#exm:gemstones">1.2</a></p>
+<div class="example lizi">
+<p><span id="exm:repairs" class="example"><strong>Example 1.3  (repairs) </strong></span>Suppose costs of a repair have a gamma distribution with mean $100 and standard deviation $50. How many items will I be able to repair for $1000?</p>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1" aria-hidden="true" tabindex="-1"></a>R<span class="ot">=</span><span class="dv">10</span><span class="sc">^</span><span class="dv">4</span> <span class="co"># number of random draws</span></span>
+<span id="cb3-2"><a href="index.html#cb3-2" aria-hidden="true" tabindex="-1"></a>X.mean <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb3-3"><a href="index.html#cb3-3" aria-hidden="true" tabindex="-1"></a>X.var <span class="ot">=</span> <span class="dv">50</span><span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb3-4"><a href="index.html#cb3-4" aria-hidden="true" tabindex="-1"></a>s<span class="ot">=</span>X.var<span class="sc">/</span>X.mean</span>
+<span id="cb3-5"><a href="index.html#cb3-5" aria-hidden="true" tabindex="-1"></a>a<span class="ot">=</span>X.mean<span class="sc">/</span>s</span>
+<span id="cb3-6"><a href="index.html#cb3-6" aria-hidden="true" tabindex="-1"></a>a<span class="sc">*</span>s <span class="co">#mean</span></span>
+<span id="cb3-7"><a href="index.html#cb3-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">100</span></span>
+<span id="cb3-8"><a href="index.html#cb3-8" aria-hidden="true" tabindex="-1"></a>a<span class="sc">*</span>s<span class="sc">^</span><span class="dv">2</span> <span class="co">#variance</span></span>
+<span id="cb3-9"><a href="index.html#cb3-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2500</span></span>
+<span id="cb3-10"><a href="index.html#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="index.html#cb3-11" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">rgamma</span>(<span class="dv">20</span>, <span class="at">shape=</span>a, <span class="at">scale =</span> s)</span>
+<span id="cb3-12"><a href="index.html#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cumsum</span>(X)</span>
+<span id="cb3-13"><a href="index.html#cb3-13" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="fl">152.2243</span>  <span class="fl">300.7777</span>  <span class="fl">352.8082</span>  <span class="fl">444.5944</span>  <span class="fl">501.6780</span></span>
+<span id="cb3-14"><a href="index.html#cb3-14" aria-hidden="true" tabindex="-1"></a> [<span class="dv">6</span>]  <span class="fl">594.7768</span>  <span class="fl">683.3199</span>  <span class="fl">768.5335</span>  <span class="fl">819.8692</span>  <span class="fl">907.9583</span></span>
+<span id="cb3-15"><a href="index.html#cb3-15" aria-hidden="true" tabindex="-1"></a>[<span class="dv">11</span>] <span class="fl">1066.9384</span> <span class="fl">1206.0384</span> <span class="fl">1321.3003</span> <span class="fl">1382.9581</span> <span class="fl">1448.2369</span></span>
+<span id="cb3-16"><a href="index.html#cb3-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">16</span>] <span class="fl">1636.1918</span> <span class="fl">1654.1601</span> <span class="fl">1835.9000</span> <span class="fl">1903.0882</span> <span class="fl">1958.0845</span></span>
+<span id="cb3-17"><a href="index.html#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">cumsum</span>(X)<span class="sc">&lt;=</span><span class="dv">1000</span>)</span>
+<span id="cb3-18"><a href="index.html#cb3-18" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span>  <span class="dv">5</span>  <span class="dv">6</span>  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span> <span class="dv">10</span></span>
+<span id="cb3-19"><a href="index.html#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(<span class="fu">which</span>(<span class="fu">cumsum</span>(X)<span class="sc">&lt;=</span><span class="dv">1000</span>))</span>
+<span id="cb3-20"><a href="index.html#cb3-20" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">10</span></span>
+<span id="cb3-21"><a href="index.html#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="index.html#cb3-22" aria-hidden="true" tabindex="-1"></a>res<span class="ot">=</span><span class="fu">rep</span>(<span class="fu">as.integer</span>(<span class="cn">NA</span>),R)</span>
+<span id="cb3-23"><a href="index.html#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R){</span>
+<span id="cb3-24"><a href="index.html#cb3-24" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">rgamma</span>(<span class="dv">20</span>, <span class="at">shape=</span>a, <span class="at">scale =</span> s)</span>
+<span id="cb3-25"><a href="index.html#cb3-25" aria-hidden="true" tabindex="-1"></a>  res[i]<span class="ot">=</span><span class="fu">max</span>(<span class="fu">which</span>(<span class="fu">cumsum</span>(X)<span class="sc">&lt;=</span><span class="dv">1000</span>))</span>
+<span id="cb3-26"><a href="index.html#cb3-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-27"><a href="index.html#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(res)</span>
+<span id="cb3-28"><a href="index.html#cb3-28" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">16</span></span>
+<span id="cb3-29"><a href="index.html#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res)</span>
+<span id="cb3-30"><a href="index.html#cb3-30" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">9.5898</span></span>
+<span id="cb3-31"><a href="index.html#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(res)</span>
+<span id="cb3-32"><a href="index.html#cb3-32" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.620493</span></span>
+<span id="cb3-33"><a href="index.html#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="index.html#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-35"><a href="index.html#cb3-35" aria-hidden="true" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">number=</span><span class="fu">as.factor</span>(res))</span>
+<span id="cb3-36"><a href="index.html#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span>number)) <span class="sc">+</span> <span class="fu">geom_bar</span>()</span></code></pre></div>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
+<div class="exercise prob">
+<p><span id="exr:icer" class="exercise"><strong>Exercise 1.2  (ICER) </strong></span>Suppose a patient with heart failure has a survival time <span class="math inline">\(s_N\)</span>, which is assumed exponential with mean <span class="math inline">\(\theta_N\)</span> years.</p>
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="index.html#cb4-1" aria-hidden="true" tabindex="-1"></a>mu<span class="ot">=</span><span class="dv">2</span> <span class="co"># mean=1/h, median=ln(2)/h</span></span>
+<span id="cb4-2"><a href="index.html#cb4-2" aria-hidden="true" tabindex="-1"></a>h<span class="ot">=</span><span class="dv">1</span><span class="sc">/</span>mu</span>
+<span id="cb4-3"><a href="index.html#cb4-3" aria-hidden="true" tabindex="-1"></a>M<span class="ot">=</span><span class="cf">function</span>(t){(<span class="dv">1</span><span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span>h<span class="sc">*</span>t))} <span class="co">#prob of event within t years</span></span>
+<span id="cb4-4"><a href="index.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">M</span>(<span class="dv">1</span>)</span>
+<span id="cb4-5"><a href="index.html#cb4-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3934693</span></span>
+<span id="cb4-6"><a href="index.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">M</span>(<span class="dv">2</span>)</span>
+<span id="cb4-7"><a href="index.html#cb4-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6321206</span></span>
+<span id="cb4-8"><a href="index.html#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">M</span>(<span class="dv">1</span>)<span class="sc">/</span><span class="dv">12</span></span>
+<span id="cb4-9"><a href="index.html#cb4-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.03278911</span></span>
+<span id="cb4-10"><a href="index.html#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">M</span>(<span class="dv">12</span>)</span>
+<span id="cb4-11"><a href="index.html#cb4-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.9975212</span></span>
+<span id="cb4-12"><a href="index.html#cb4-12" aria-hidden="true" tabindex="-1"></a>S<span class="ot">=</span><span class="cf">function</span>(k,t){<span class="dv">1</span><span class="sc">-</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">M</span>(t))<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span>k)}</span>
+<span id="cb4-13"><a href="index.html#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">S</span>(<span class="dv">12</span>,<span class="dv">1</span>)</span>
+<span id="cb4-14"><a href="index.html#cb4-14" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.04081054</span></span>
+<span id="cb4-15"><a href="index.html#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">S</span>(<span class="dv">24</span>,<span class="dv">2</span>)</span>
+<span id="cb4-16"><a href="index.html#cb4-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.04081054</span></span>
+<span id="cb4-17"><a href="index.html#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">S</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">12</span>)</span>
+<span id="cb4-18"><a href="index.html#cb4-18" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.04081054</span></span>
+<span id="cb4-19"><a href="index.html#cb4-19" aria-hidden="true" tabindex="-1"></a>m<span class="ot">=</span><span class="dv">1</span><span class="sc">-</span>(<span class="dv">1</span><span class="fl">-.0625</span>)<span class="sc">^</span><span class="dv">12</span></span>
+<span id="cb4-20"><a href="index.html#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">-</span>m)</span>
+<span id="cb4-21"><a href="index.html#cb4-21" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.7744623</span></span>
+<span id="cb4-22"><a href="index.html#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">-</span>m)</span>
+<span id="cb4-23"><a href="index.html#cb4-23" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.291219</span></span></code></pre></div>
 
 </div>
 </div>
@@ -125,6 +195,7 @@
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#fundamentals-of-probability"><span class="header-section-number">1</span> Fundamentals of Probability</a></li>
 <li><a class="nav-link" href="#coins-urns-and-bags"><span class="header-section-number">1.1</span> Coins, Urns, and Bags</a></li>
+<li><a class="nav-link" href="#monte-carlo"><span class="header-section-number">1.2</span> Monte Carlo</a></li>
 </ul>
 
       <div class="book-extra">
@@ -142,7 +213,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-15.</p>
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-16.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

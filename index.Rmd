@@ -10,6 +10,8 @@ url: https://bookdown.org/yihui/bookdown
 description: 
 biblio-style: apalike
 csl: chicago-fullnote-bibliography.csl
+editor_options: 
+  chunk_output_type: console
 ---
 
 # Fundamentals of Probability
@@ -49,6 +51,8 @@ Suppose there’s a bag containing 50 marbles with each marble being either red 
 (b) Five marbles are randomly selected **without replacement** and all are found to be yellow. What is the probability all of the marbles in the bag are yellow?
 :::
 
+## Monte Carlo
+
 :::{.example #gemstones name="gemstones" .lizi}
 Suppose there are $n$ bags labeled $1,\ldots,n$ with bag $i$ containing $i$ rubies and $n-i$ diamonds. Suppose a bag $i$ is selected with probability directly proportional with $i$, and a random gemstone is selected from that bag. What is the probability that it is a diamond? Provide a theoretical calculation and a simulated approximation.
 :::
@@ -65,6 +69,60 @@ B=1:n
 x1=sample(B,size=R,replace=T,prob=B)
 x2=sapply(x1,function(x){rbinom(1,1,prob=x/n)})
 mean(x2)  
+```
+
+:::{.example #repairs name="repairs" .lizi}
+Suppose costs of a repair have a gamma distribution with mean $100 and standard deviation $50.  How many items will I be able to repair for $1000?
+:::
+
+```{r}
+R=10^4 # number of random draws
+X.mean = 100
+X.var = 50^2
+s=X.var/X.mean
+a=X.mean/s
+a*s #mean
+a*s^2 #variance
+
+X = rgamma(20, shape=a, scale = s)
+cumsum(X)
+which(cumsum(X)<=1000)
+max(which(cumsum(X)<=1000))
+
+res=rep(as.integer(NA),R)
+for(i in 1:R){
+  X = rgamma(20, shape=a, scale = s)
+  res[i]=max(which(cumsum(X)<=1000))
+}
+max(res)
+mean(res)
+sd(res)
+
+library(ggplot2)
+df=data.frame(number=as.factor(res))
+ggplot(df, aes(x=number)) + geom_bar()
+```
+
+:::{.exercise #icer name="ICER" .prob}
+Suppose a patient with heart failure has a survival time $s_N$, which is assumed exponential with mean $\theta_N$ years. 
+
+:::
+
+```{r}
+mu=2 # mean=1/h, median=ln(2)/h
+h=1/mu
+M=function(t){(1-exp(-h*t))} #prob of event within t years
+M(1)
+M(2)
+M(1)/12
+M(12)
+S=function(k,t){1-(1-M(t))^(1/k)}
+S(12,1)
+S(24,2)
+S(1,1/12)
+m=1-(1-.0625)^12
+-log(1-m)
+1/-log(1-m)
 ```
 
 

@@ -1,8 +1,11 @@
-exm:unlabeled-div-1
-exr:unlabeled-div-2
+exm:flips
+exr:marbles
 exm:gemstones
+exm:repairs
+exr:icer
 fundamentals-of-probability
 coins-urns-and-bags
+monte-carlo
 bayes-theorem
 examples
 software
