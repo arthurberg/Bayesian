@@ -1,7 +1,7 @@
 --- 
 title: "PHS 528: Bayesian Methods"
 author: "Arthur Berg"
-date: "2022-09-16"
+date: "2022-09-17"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -14,11 +14,12 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Fundamentals of Probability
+# 
 
-## Coins, Urns, and Bags
+## Probability Fundamentals
 
-:::{.example #flips .lizi}
+
+:::{.example #binomial-flips name="binomial flips" .lizi}
 Consider 100 flips of a fair coin.
 
 (a) What is the probability of observing exactly 50 heads in 100 flips of a fair coin?
@@ -131,36 +132,27 @@ ggplot(df, aes(x=number)) + geom_bar()
 <img src="index_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 :::{.exercise #icer name="ICER" .prob}
-Suppose a patient with heart failure has a survival time $s_N$, which is assumed exponential with mean $\theta_N$ years. 
+Suppose a patient with heart failure has a survival time $s_N$, which is assumed exponential with mean $\theta_N$ years. Suppose a heart transplant has a $\theta_T$ operative survival rate, and, if they survive, their survival, $s_P$, follows an exponential distribution with mean $\theta_P$. Assume the operation costs $D_{\text{operation}}$ dollars and each post-operative year medical costs for immunosuppressants and other prescriptions amount to $D_\text{annual}$ dollars. 
 
+For the literature questions below, use the \href{https://www.milliman.com/-/media/milliman/pdfs/articles/2020-us-organ-tissue-transplants.ashx}{Milliman Research Report on 2020 U.S. organ and tissue transplants} if possible.
+
+(a) Identify a reasonable value of $\theta_N$ from the literature.
+
+(b) Calculated the monthly mortality based on the value of $\theta_N$ determined in (a).
+
+(c) Identify a reasonable value of $\theta_T$ from the literature.
+
+(d) Identify a reasonable value of $\theta_P$ from the literature.
+
+(e) Identify a reasonable value of $D_{\text{operation}}$ from the literature.
+
+(f) Identify a reasonable value of $D_{\text{annual}}$ from the literature.
+
+(g) Based on the values found above, estimate the expected additional cost per year of life gained by having a transplant? 
+
+(h) Calculate the ratio of the expected additional cost to the expected additional benefit. 
 :::
 
-
-```r
-mu=2 # mean=1/h, median=ln(2)/h
-h=1/mu
-M=function(t){(1-exp(-h*t))} #prob of event within t years
-M(1)
-[1] 0.3934693
-M(2)
-[1] 0.6321206
-M(1)/12
-[1] 0.03278911
-M(12)
-[1] 0.9975212
-S=function(k,t){1-(1-M(t))^(1/k)}
-S(12,1)
-[1] 0.04081054
-S(24,2)
-[1] 0.04081054
-S(1,1/12)
-[1] 0.04081054
-m=1-(1-.0625)^12
--log(1-m)
-[1] 0.7744623
-1/-log(1-m)
-[1] 1.291219
-```
 
 
 

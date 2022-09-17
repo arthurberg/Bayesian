@@ -1,10 +1,10 @@
-exm:flips
+exm:binomial-flips
 exr:marbles
 exm:gemstones
 exm:repairs
 exr:icer
-fundamentals-of-probability
-coins-urns-and-bags
+section
+probability-fundamentals
 monte-carlo
 bayes-theorem
 examples

@@ -4,14 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Class 1 Fundamentals of Probability | PHS 528: Bayesian Methods</title>
+<title>Class 1  | PHS 528: Bayesian Methods</title>
 <meta name="author" content="Arthur Berg">
 <meta name="generator" content="bookdown 0.28 with bs4_book()">
-<meta property="og:title" content="Class 1 Fundamentals of Probability | PHS 528: Bayesian Methods">
+<meta property="og:title" content="Class 1  | PHS 528: Bayesian Methods">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://bookdown.org/yihui/bookdown">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Class 1 Fundamentals of Probability | PHS 528: Bayesian Methods">
+<meta name="twitter:title" content="Class 1  | PHS 528: Bayesian Methods">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -44,7 +44,7 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="active" href="index.html"><span class="header-section-number">1</span> Fundamentals of Probability</a></li>
+<li><a class="active" href="index.html"><span class="header-section-number">1</span></a></li>
 <li><a class="" href="bayes-theorem.html"><span class="header-section-number">2</span> Bayes’ Theorem</a></li>
 <li><a class="" href="software.html"><span class="header-section-number">3</span> Software</a></li>
 </ul>
@@ -54,16 +54,16 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="fundamentals-of-probability" class="section level1" number="1">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="section" class="section level1" number="1">
 <h1>
-<span class="header-section-number">Class 1</span> Fundamentals of Probability<a class="anchor" aria-label="anchor" href="#fundamentals-of-probability"><i class="fas fa-link"></i></a>
+<span class="header-section-number">Class 1</span> <a class="anchor" aria-label="anchor" href="#section"><i class="fas fa-link"></i></a>
 </h1>
-<div id="coins-urns-and-bags" class="section level2" number="1.1">
+<div id="probability-fundamentals" class="section level2" number="1.1">
 <h2>
-<span class="header-section-number">1.1</span> Coins, Urns, and Bags<a class="anchor" aria-label="anchor" href="#coins-urns-and-bags"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.1</span> Probability Fundamentals<a class="anchor" aria-label="anchor" href="#probability-fundamentals"><i class="fas fa-link"></i></a>
 </h2>
 <div class="example lizi">
-<p><span id="exm:flips" class="example"><strong>Example 1.1  </strong></span>Consider 100 flips of a fair coin.</p>
+<p><span id="exm:binomial-flips" class="example"><strong>Example 1.1  (binomial flips) </strong></span>Consider 100 flips of a fair coin.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>What is the probability of observing exactly 50 heads in 100 flips of a fair coin?</p></li>
 <li><p>What is the probability of observing 50 or more heads?</p></li>
@@ -159,31 +159,19 @@
 <span id="cb3-36"><a href="index.html#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span>number)) <span class="sc">+</span> <span class="fu">geom_bar</span>()</span></code></pre></div>
 <div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
 <div class="exercise prob">
-<p><span id="exr:icer" class="exercise"><strong>Exercise 1.2  (ICER) </strong></span>Suppose a patient with heart failure has a survival time <span class="math inline">\(s_N\)</span>, which is assumed exponential with mean <span class="math inline">\(\theta_N\)</span> years.</p>
+<p><span id="exr:icer" class="exercise"><strong>Exercise 1.2  (ICER) </strong></span>Suppose a patient with heart failure has a survival time <span class="math inline">\(s_N\)</span>, which is assumed exponential with mean <span class="math inline">\(\theta_N\)</span> years. Suppose a heart transplant has a <span class="math inline">\(\theta_T\)</span> operative survival rate, and, if they survive, their survival, <span class="math inline">\(s_P\)</span>, follows an exponential distribution with mean <span class="math inline">\(\theta_P\)</span>. Assume the operation costs <span class="math inline">\(D_{\text{operation}}\)</span> dollars and each post-operative year medical costs for immunosuppressants and other prescriptions amount to <span class="math inline">\(D_\text{annual}\)</span> dollars.</p>
+<p>For the literature questions below, use the if possible.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Identify a reasonable value of <span class="math inline">\(\theta_N\)</span> from the literature.</p></li>
+<li><p>Calculated the monthly mortality based on the value of <span class="math inline">\(\theta_N\)</span> determined in (a).</p></li>
+<li><p>Identify a reasonable value of <span class="math inline">\(\theta_T\)</span> from the literature.</p></li>
+<li><p>Identify a reasonable value of <span class="math inline">\(\theta_P\)</span> from the literature.</p></li>
+<li><p>Identify a reasonable value of <span class="math inline">\(D_{\text{operation}}\)</span> from the literature.</p></li>
+<li><p>Identify a reasonable value of <span class="math inline">\(D_{\text{annual}}\)</span> from the literature.</p></li>
+<li><p>Based on the values found above, estimate the expected additional cost per year of life gained by having a transplant?</p></li>
+<li><p>Calculate the ratio of the expected additional cost to the expected additional benefit.</p></li>
+</ol>
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="index.html#cb4-1" aria-hidden="true" tabindex="-1"></a>mu<span class="ot">=</span><span class="dv">2</span> <span class="co"># mean=1/h, median=ln(2)/h</span></span>
-<span id="cb4-2"><a href="index.html#cb4-2" aria-hidden="true" tabindex="-1"></a>h<span class="ot">=</span><span class="dv">1</span><span class="sc">/</span>mu</span>
-<span id="cb4-3"><a href="index.html#cb4-3" aria-hidden="true" tabindex="-1"></a>M<span class="ot">=</span><span class="cf">function</span>(t){(<span class="dv">1</span><span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span>h<span class="sc">*</span>t))} <span class="co">#prob of event within t years</span></span>
-<span id="cb4-4"><a href="index.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">M</span>(<span class="dv">1</span>)</span>
-<span id="cb4-5"><a href="index.html#cb4-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3934693</span></span>
-<span id="cb4-6"><a href="index.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">M</span>(<span class="dv">2</span>)</span>
-<span id="cb4-7"><a href="index.html#cb4-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6321206</span></span>
-<span id="cb4-8"><a href="index.html#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">M</span>(<span class="dv">1</span>)<span class="sc">/</span><span class="dv">12</span></span>
-<span id="cb4-9"><a href="index.html#cb4-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.03278911</span></span>
-<span id="cb4-10"><a href="index.html#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">M</span>(<span class="dv">12</span>)</span>
-<span id="cb4-11"><a href="index.html#cb4-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.9975212</span></span>
-<span id="cb4-12"><a href="index.html#cb4-12" aria-hidden="true" tabindex="-1"></a>S<span class="ot">=</span><span class="cf">function</span>(k,t){<span class="dv">1</span><span class="sc">-</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">M</span>(t))<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span>k)}</span>
-<span id="cb4-13"><a href="index.html#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">S</span>(<span class="dv">12</span>,<span class="dv">1</span>)</span>
-<span id="cb4-14"><a href="index.html#cb4-14" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.04081054</span></span>
-<span id="cb4-15"><a href="index.html#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">S</span>(<span class="dv">24</span>,<span class="dv">2</span>)</span>
-<span id="cb4-16"><a href="index.html#cb4-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.04081054</span></span>
-<span id="cb4-17"><a href="index.html#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">S</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">12</span>)</span>
-<span id="cb4-18"><a href="index.html#cb4-18" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.04081054</span></span>
-<span id="cb4-19"><a href="index.html#cb4-19" aria-hidden="true" tabindex="-1"></a>m<span class="ot">=</span><span class="dv">1</span><span class="sc">-</span>(<span class="dv">1</span><span class="fl">-.0625</span>)<span class="sc">^</span><span class="dv">12</span></span>
-<span id="cb4-20"><a href="index.html#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">-</span>m)</span>
-<span id="cb4-21"><a href="index.html#cb4-21" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.7744623</span></span>
-<span id="cb4-22"><a href="index.html#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">-</span>m)</span>
-<span id="cb4-23"><a href="index.html#cb4-23" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.291219</span></span></code></pre></div>
 
 </div>
 </div>
@@ -193,8 +181,8 @@
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#fundamentals-of-probability"><span class="header-section-number">1</span> Fundamentals of Probability</a></li>
-<li><a class="nav-link" href="#coins-urns-and-bags"><span class="header-section-number">1.1</span> Coins, Urns, and Bags</a></li>
+<li><a class="nav-link" href="#section"><span class="header-section-number">1</span></a></li>
+<li><a class="nav-link" href="#probability-fundamentals"><span class="header-section-number">1.1</span> Probability Fundamentals</a></li>
 <li><a class="nav-link" href="#monte-carlo"><span class="header-section-number">1.2</span> Monte Carlo</a></li>
 </ul>
 
@@ -213,7 +201,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-16.</p>
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
