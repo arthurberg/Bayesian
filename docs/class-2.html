@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>2 Class 2 | PHS 528: Bayesian Methods</title>
+<meta name="author" content="Arthur Berg">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="2 Class 2 | PHS 528: Bayesian Methods">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://arthurberg.github.io/Bayesian/class-2.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2 Class 2 | PHS 528: Bayesian Methods">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="2.1 Diagnostic Testing  Example 2.1 (pregnancy testing) Human Chorionic Gonadotropin (hCG) is a hormone that dramatically increases during pregnancy. Levels of this hormone may also be high for...">
+<meta property="og:description" content="2.1 Diagnostic Testing  Example 2.1 (pregnancy testing) Human Chorionic Gonadotropin (hCG) is a hormone that dramatically increases during pregnancy. Levels of this hormone may also be high for...">
+<meta name="twitter:description" content="2.1 Diagnostic Testing  Example 2.1 (pregnancy testing) Human Chorionic Gonadotropin (hCG) is a hormone that dramatically increases during pregnancy. Levels of this hormone may also be high for...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">PHS 528: Bayesian Methods</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Class 1</a></li>
+<li><a class="active" href="class-2.html"><span class="header-section-number">2</span> Class 2</a></li>
+<li><a class="" href="software.html"><span class="header-section-number">3</span> Software</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">4</span> References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/arthurberg/Bayesian">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="class-2" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Class 2<a class="anchor" aria-label="anchor" href="#class-2"><i class="fas fa-link"></i></a>
+</h1>
+<div id="diagnostic-testing" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Diagnostic Testing<a class="anchor" aria-label="anchor" href="#diagnostic-testing"><i class="fas fa-link"></i></a>
+</h2>
+<div class="example lizi">
+<p><span id="exm:roc" class="example"><strong>Example 2.1  (pregnancy testing) </strong></span><a href="https://en.wikipedia.org/wiki/Human_chorionic_gonadotropin">Human Chorionic Gonadotropin (hCG)</a> is a hormone that dramatically increases during pregnancy. Levels of this hormone may also be high for individuals with <a href="https://en.wikipedia.org/wiki/Human_chorionic_gonadotropin#Tumor_marker">some cancers</a>.</p>
+<p>Levels of hCG can first be detected by a blood test about 11 days after conception and about 12-14 days after conception by a urine test, and will peak in the first 8-11 weeks of pregnancy and then will decline and level off for the remainder of the pregnancy.</p>
+<p>Non-pregnant women have hCG levels &lt; 5 IU/L and hCG values &gt; 25 IU/L indicate pregnancy. Levels between 5 and 25 IU/L often indicate early pregnancy, but results need to be interpreted cautiously because false positive results can occur in this range.</p>
+<p>We simulate data of</p>
+</div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/olafmersmann/truncnorm">truncnorm</a></span><span class="op">)</span></span>
+<span><span class="va">mygraph</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">mymean</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">45</span>, <span class="fl">0.001</span><span class="op">)</span></span>
+<span>    <span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html">dlnorm</a></span><span class="op">(</span><span class="va">x</span>, mean <span class="op">=</span> <span class="fl">1.25</span>, sd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
+<span>    <span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/truncnorm/man/dtruncnorm.html">dtruncnorm</a></span><span class="op">(</span><span class="va">x</span>, a <span class="op">=</span> <span class="fl">0</span>, mean <span class="op">=</span> <span class="va">mymean</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, type <span class="op">=</span> <span class="st">"n"</span>, xlab <span class="op">=</span> <span class="st">"hcg (mIU/ml)"</span>, cex.lab <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>        cex.axis <span class="op">=</span> <span class="fl">1.5</span>, lwd <span class="op">=</span> <span class="fl">4</span>, ylab <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="va">ind1</span> <span class="op">=</span> <span class="op">(</span><span class="va">x</span> <span class="op">&gt;=</span> <span class="fl">5</span> <span class="op">&amp;</span> <span class="va">x</span> <span class="op">&lt;=</span> <span class="fl">25</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">x</span><span class="op">[</span><span class="va">ind1</span><span class="op">]</span>, <span class="fl">25</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y1</span><span class="op">[</span><span class="va">ind1</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>        border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">x</span><span class="op">[</span><span class="va">ind1</span><span class="op">]</span>, <span class="fl">25</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y2</span><span class="op">[</span><span class="va">ind1</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>        border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="va">ind2</span> <span class="op">=</span> <span class="op">(</span><span class="va">x</span> <span class="op">&lt;</span> <span class="fl">5</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">x</span><span class="op">[</span><span class="va">ind2</span><span class="op">]</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y1</span><span class="op">[</span><span class="va">ind2</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>        border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="va">ind3</span> <span class="op">=</span> <span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="va">x</span><span class="op">[</span><span class="va">ind3</span><span class="op">]</span>, <span class="fl">45</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y1</span><span class="op">[</span><span class="va">ind3</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"magenta"</span>,</span>
+<span>        border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="va">x</span><span class="op">[</span><span class="va">ind3</span><span class="op">]</span>, <span class="fl">45</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y2</span><span class="op">[</span><span class="va">ind3</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"magenta"</span>,</span>
+<span>        border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, type <span class="op">=</span> <span class="st">"l"</span>, lwd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2</span>, type <span class="op">=</span> <span class="st">"l"</span>, lwd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">5</span>, lwd <span class="op">=</span> <span class="fl">3</span>, lty <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">25</span>, lwd <span class="op">=</span> <span class="fl">3</span>, lty <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fl">5</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fl">25</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">mygraph</span><span class="op">(</span><span class="fl">20</span><span class="op">)</span>  <span class="co"># representing very early on in the pregnancy</span></span></code></pre></div>
+<div class="inline-figure"><img src="02_files/figure-html/unnamed-chunk-1-1.png" width="672"></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">mygraph</span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>  <span class="co"># slightly later in the pregnancy</span></span></code></pre></div>
+<div class="inline-figure"><img src="02_files/figure-html/unnamed-chunk-1-2.png" width="672"></div>
+<p>ROC graphic with AUC computation using the ROCR package<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Tobias Sing et al., &lt;em&gt;ROCR: Visualizing the Performance of Scoring Classifiers&lt;/em&gt;, 2020, &lt;a href="http://ipa-tys.github.io/ROCR/" role="doc-biblioref"&gt;http://ipa-tys.github.io/ROCR/&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a></span>. First with “very early” pregnancy simulation (mean of 20 on the truncated normal distribution).</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ipa-tys.github.io/ROCR/">ROCR</a></span><span class="op">)</span></span>
+<span><span class="va">n</span> <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="fl">5</span></span>
+<span><span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html">rlnorm</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">1.25</span>, sd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
+<span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/truncnorm/man/dtruncnorm.html">rtruncnorm</a></span><span class="op">(</span><span class="va">n</span>, a <span class="op">=</span> <span class="fl">0</span>, mean <span class="op">=</span> <span class="fl">20</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">y3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/truncnorm/man/dtruncnorm.html">rtruncnorm</a></span><span class="op">(</span><span class="va">n</span>, a <span class="op">=</span> <span class="fl">0</span>, mean <span class="op">=</span> <span class="fl">30</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>hcg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span>, preg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">n</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">pred1</span> <span class="op">=</span> <span class="fu"><a href="http://ipa-tys.github.io/ROCR/reference/prediction.html">prediction</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">hcg</span>, <span class="va">df</span><span class="op">$</span><span class="va">preg</span><span class="op">)</span></span>
+<span><span class="va">perf1</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://ipa-tys.github.io/ROCR/reference/performance.html">performance</a></span><span class="op">(</span><span class="va">pred1</span>, <span class="st">"tpr"</span>, <span class="st">"fpr"</span><span class="op">)</span></span>
+<span><span class="va">auc.perf1</span> <span class="op">=</span> <span class="fu"><a href="http://ipa-tys.github.io/ROCR/reference/performance.html">performance</a></span><span class="op">(</span><span class="va">pred1</span>, measure <span class="op">=</span> <span class="st">"auc"</span><span class="op">)</span><span class="op">@</span><span class="va">y.values</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">perf1</span>, colorize <span class="op">=</span> <span class="cn">TRUE</span>, downsampling <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.1</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"AUC="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">signif</a></span><span class="op">(</span><span class="va">auc.perf1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>, adj <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
+<p>We cannot easily identify suitable threshold with this graphic, so we redo the graphic with the biomarker values displayed on a log scale.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>hcg.log <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span><span class="op">)</span>, preg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"no"</span>,</span>
+<span>    <span class="va">n</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"yes"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">pred2</span> <span class="op">=</span> <span class="fu"><a href="http://ipa-tys.github.io/ROCR/reference/prediction.html">prediction</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">hcg.log</span>, <span class="va">df</span><span class="op">$</span><span class="va">preg</span><span class="op">)</span></span>
+<span><span class="va">perf2</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://ipa-tys.github.io/ROCR/reference/performance.html">performance</a></span><span class="op">(</span><span class="va">pred2</span>, <span class="st">"tpr"</span>, <span class="st">"fpr"</span><span class="op">)</span></span>
+<span><span class="va">auc.perf2</span> <span class="op">=</span> <span class="fu"><a href="http://ipa-tys.github.io/ROCR/reference/performance.html">performance</a></span><span class="op">(</span><span class="va">pred2</span>, measure <span class="op">=</span> <span class="st">"auc"</span><span class="op">)</span><span class="op">@</span><span class="va">y.values</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">perf2</span>, colorize <span class="op">=</span> <span class="cn">TRUE</span>, downsampling <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.1</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"AUC="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">signif</a></span><span class="op">(</span><span class="va">auc.perf2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>, adj <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
+<p>Identifying the “optimal” cutoff depends on the costs associated with false positives and false negatives. You can read more about this at <a href="https://www.r-bloggers.com/2014/12/a-small-introduction-to-the-rocr-package/">this introduction to ROCR</a>. So which would you say is worse in this case – a false positive pregnancy test or a false negative pregnancy test? If it were me, I’d rather the false negative and be pleasantly surprised later, but for others it might be a not-so-pleasant surprise. In reality, of course, there is the “inconclusive” option, which doesn’t fit in well with the rigid statistical classifications that gives rise to the various <a href="https://en.wikipedia.org/wiki/Confusion_matrix">confusion matrix</a> statistics.<br>
+The following is a calculation that maximizes <a href="https://en.wikipedia.org/wiki/Youden%27s_J_statistic">Youden’s index</a><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;William J Youden, &lt;span&gt;“Index for Rating Diagnostic Tests,”&lt;/span&gt; &lt;em&gt;Cancer&lt;/em&gt; 3, no. 1 (1950): 32–35, &lt;a href="https://doi.org/10.1002/1097-0142(1950)3:1%3C32::AID-CNCR2820030106%3E3.0.CO;2-3" role="doc-biblioref"&gt;https://doi.org/10.1002/1097-0142(1950)3:1%3C32::AID-CNCR2820030106%3E3.0.CO;2-3&lt;/a&gt;; Niels Smits, &lt;span&gt;“A Note on Youden’s Jand Its Cost Ratio,”&lt;/span&gt; &lt;em&gt;BMC Medical Research Methodology&lt;/em&gt; 10, no. 1 (2010): 1–4, &lt;a href="http://ezaccess.libraries.psu.edu/login?url=http://dx.doi.org/10.1186/1471-2288-10-89" role="doc-biblioref"&gt;http://ezaccess.libraries.psu.edu/login?url=http://dx.doi.org/10.1186/1471-2288-10-89&lt;/a&gt;.&lt;/p&gt;'><sup>2</sup></a></span> with equal cost for false positives and false negatives.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="class-2.html#cb8-1" aria-hidden="true" tabindex="-1"></a>cost.perf2 <span class="ot">=</span> <span class="fu">performance</span>(pred2, <span class="st">"cost"</span>, <span class="at">cost.fp =</span> <span class="dv">1</span>, <span class="at">cost.fn =</span> <span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="class-2.html#cb8-2" aria-hidden="true" tabindex="-1"></a>pred2<span class="sc">@</span>cutoffs[[<span class="dv">1</span>]][<span class="fu">which.min</span>(cost.perf2<span class="sc">@</span>y.values[[<span class="dv">1</span>]])]</span>
+<span id="cb8-3"><a href="class-2.html#cb8-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.37613</span></span>
+<span id="cb8-4"><a href="class-2.html#cb8-4" aria-hidden="true" tabindex="-1"></a>mycutoff <span class="ot">=</span> <span class="fu">exp</span>(pred2<span class="sc">@</span>cutoffs[[<span class="dv">1</span>]][<span class="fu">which.min</span>(cost.perf2<span class="sc">@</span>y.values[[<span class="dv">1</span>]])])</span>
+<span id="cb8-5"><a href="class-2.html#cb8-5" aria-hidden="true" tabindex="-1"></a>mycutoff</span>
+<span id="cb8-6"><a href="class-2.html#cb8-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">10.76317</span></span></code></pre></div>
+<p>We see that this cutoff corresponds to minimizing the sum of the probability of a false positive and the probability of a false negative as demonstrated with the following code.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="class-2.html#cb9-1" aria-hidden="true" tabindex="-1"></a>J <span class="ot">=</span> <span class="cf">function</span>(x) {</span>
+<span id="cb9-2"><a href="class-2.html#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(y1 <span class="sc">&gt;</span> x) <span class="sc">+</span> <span class="fu">mean</span>(y2 <span class="sc">&lt;</span> x)</span>
+<span id="cb9-3"><a href="class-2.html#cb9-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-4"><a href="class-2.html#cb9-4" aria-hidden="true" tabindex="-1"></a>J.vec <span class="ot">=</span> <span class="fu">Vectorize</span>(J, <span class="st">"x"</span>)</span>
+<span id="cb9-5"><a href="class-2.html#cb9-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="fl">0.1</span>)</span>
+<span id="cb9-6"><a href="class-2.html#cb9-6" aria-hidden="true" tabindex="-1"></a>x[<span class="fu">which.min</span>(<span class="fu">J.vec</span>(x))]</span>
+<span id="cb9-7"><a href="class-2.html#cb9-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">11.2</span></span>
+<span id="cb9-8"><a href="class-2.html#cb9-8" aria-hidden="true" tabindex="-1"></a>mycutoff</span>
+<span id="cb9-9"><a href="class-2.html#cb9-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">10.76317</span></span></code></pre></div>
+<p>We graph the false positives and false negatives with this cutoff on the original graphic.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">45</span>, <span class="fl">0.001</span><span class="op">)</span></span>
+<span><span class="va">y1.plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html">dlnorm</a></span><span class="op">(</span><span class="va">x</span>, mean <span class="op">=</span> <span class="fl">1.25</span>, sd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
+<span><span class="va">y2.plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/truncnorm/man/dtruncnorm.html">dtruncnorm</a></span><span class="op">(</span><span class="va">x</span>, a <span class="op">=</span> <span class="fl">0</span>, mean <span class="op">=</span> <span class="fl">20</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1.plot</span>, type <span class="op">=</span> <span class="st">"n"</span>, xlab <span class="op">=</span> <span class="st">"hcg (mIU/ml)"</span>, cex.lab <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>    cex.axis <span class="op">=</span> <span class="fl">1.5</span>, lwd <span class="op">=</span> <span class="fl">4</span>, ylab <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ind1</span> <span class="op">=</span> <span class="op">(</span><span class="va">x</span> <span class="op">&gt;=</span> <span class="va">mycutoff</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">mycutoff</span>, <span class="va">x</span><span class="op">[</span><span class="va">ind1</span><span class="op">]</span>, <span class="fl">45</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y2.plot</span><span class="op">[</span><span class="va">ind1</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"magenta"</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">mycutoff</span>, <span class="va">x</span><span class="op">[</span><span class="va">ind1</span><span class="op">]</span>, <span class="fl">45</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y1.plot</span><span class="op">[</span><span class="va">ind1</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="va">ind2</span> <span class="op">=</span> <span class="op">(</span><span class="va">x</span> <span class="op">&lt;=</span> <span class="va">mycutoff</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">x</span><span class="op">[</span><span class="va">ind2</span><span class="op">]</span>, <span class="va">mycutoff</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y1.plot</span><span class="op">[</span><span class="va">ind2</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">x</span><span class="op">[</span><span class="va">ind2</span><span class="op">]</span>, <span class="va">mycutoff</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y2.plot</span><span class="op">[</span><span class="va">ind2</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"orange"</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1.plot</span>, type <span class="op">=</span> <span class="st">"l"</span>, lwd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2.plot</span>, type <span class="op">=</span> <span class="st">"l"</span>, lwd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">mycutoff</span>, lwd <span class="op">=</span> <span class="fl">2</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">5</span>, lwd <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">25</span>, lwd <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fl">5</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fl">25</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<p>Here’s a calculation with more cost associated with false positives than for false negatives, specifically 4 times the cost of a false positive compared to a false negative.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="class-2.html#cb11-1" aria-hidden="true" tabindex="-1"></a>cost.perf3 <span class="ot">=</span> <span class="fu">performance</span>(pred2, <span class="st">"cost"</span>, <span class="at">cost.fp =</span> <span class="dv">4</span>, <span class="at">cost.fn =</span> <span class="dv">1</span>)</span>
+<span id="cb11-2"><a href="class-2.html#cb11-2" aria-hidden="true" tabindex="-1"></a>pred2<span class="sc">@</span>cutoffs[[<span class="dv">1</span>]][<span class="fu">which.min</span>(cost.perf3<span class="sc">@</span>y.values[[<span class="dv">1</span>]])]</span>
+<span id="cb11-3"><a href="class-2.html#cb11-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.681491</span></span>
+<span id="cb11-4"><a href="class-2.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(pred2<span class="sc">@</span>cutoffs[[<span class="dv">1</span>]][<span class="fu">which.min</span>(cost.perf3<span class="sc">@</span>y.values[[<span class="dv">1</span>]])])</span>
+<span id="cb11-5"><a href="class-2.html#cb11-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">14.60685</span></span></code></pre></div>
+<p>Here again we display the cutoff on a graphic showing the decreased probability of a false positive.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">45</span>, <span class="fl">0.001</span><span class="op">)</span></span>
+<span><span class="va">y1.plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html">dlnorm</a></span><span class="op">(</span><span class="va">x</span>, mean <span class="op">=</span> <span class="fl">1.25</span>, sd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
+<span><span class="va">y2.plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/truncnorm/man/dtruncnorm.html">dtruncnorm</a></span><span class="op">(</span><span class="va">x</span>, a <span class="op">=</span> <span class="fl">0</span>, mean <span class="op">=</span> <span class="fl">20</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">mycutoff</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">pred2</span><span class="op">@</span><span class="va">cutoffs</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">cost.perf3</span><span class="op">@</span><span class="va">y.values</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1.plot</span>, type <span class="op">=</span> <span class="st">"n"</span>, xlab <span class="op">=</span> <span class="st">"hcg (mIU/ml)"</span>, cex.lab <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>    cex.axis <span class="op">=</span> <span class="fl">1.5</span>, lwd <span class="op">=</span> <span class="fl">4</span>, ylab <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ind1</span> <span class="op">=</span> <span class="op">(</span><span class="va">x</span> <span class="op">&gt;=</span> <span class="va">mycutoff</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">mycutoff</span>, <span class="va">x</span><span class="op">[</span><span class="va">ind1</span><span class="op">]</span>, <span class="fl">45</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y2.plot</span><span class="op">[</span><span class="va">ind1</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"magenta"</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">mycutoff</span>, <span class="va">x</span><span class="op">[</span><span class="va">ind1</span><span class="op">]</span>, <span class="fl">45</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y1.plot</span><span class="op">[</span><span class="va">ind1</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="va">ind2</span> <span class="op">=</span> <span class="op">(</span><span class="va">x</span> <span class="op">&lt;=</span> <span class="va">mycutoff</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">x</span><span class="op">[</span><span class="va">ind2</span><span class="op">]</span>, <span class="va">mycutoff</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y1.plot</span><span class="op">[</span><span class="va">ind2</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">x</span><span class="op">[</span><span class="va">ind2</span><span class="op">]</span>, <span class="va">mycutoff</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y2.plot</span><span class="op">[</span><span class="va">ind2</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"orange"</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1.plot</span>, type <span class="op">=</span> <span class="st">"l"</span>, lwd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2.plot</span>, type <span class="op">=</span> <span class="st">"l"</span>, lwd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">mycutoff</span>, lwd <span class="op">=</span> <span class="fl">2</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">5</span>, lwd <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">25</span>, lwd <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fl">5</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fl">25</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
+<p>Next with “slightly later” pregnancy simulation (mean of 30 on the truncated normal distribution).</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>hcg.log <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">y1</span>, <span class="va">y3</span><span class="op">)</span><span class="op">)</span>, preg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"no"</span>,</span>
+<span>    <span class="va">n</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"yes"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">pred3</span> <span class="op">=</span> <span class="fu"><a href="http://ipa-tys.github.io/ROCR/reference/prediction.html">prediction</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">hcg.log</span>, <span class="va">df</span><span class="op">$</span><span class="va">preg</span><span class="op">)</span></span>
+<span><span class="va">perf3</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://ipa-tys.github.io/ROCR/reference/performance.html">performance</a></span><span class="op">(</span><span class="va">pred3</span>, <span class="st">"tpr"</span>, <span class="st">"fpr"</span><span class="op">)</span></span>
+<span><span class="va">auc.perf3</span> <span class="op">=</span> <span class="fu"><a href="http://ipa-tys.github.io/ROCR/reference/performance.html">performance</a></span><span class="op">(</span><span class="va">pred3</span>, measure <span class="op">=</span> <span class="st">"auc"</span><span class="op">)</span><span class="op">@</span><span class="va">y.values</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">perf3</span>, colorize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.1</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"AUC="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">signif</a></span><span class="op">(</span><span class="va">auc.perf3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>, adj <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+<p>Here again we compute the “optimal” cutoff with greater cost for a false positive.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="class-2.html#cb14-1" aria-hidden="true" tabindex="-1"></a>cost.perf4 <span class="ot">=</span> <span class="fu">performance</span>(pred3, <span class="st">"cost"</span>, <span class="at">cost.fp =</span> <span class="dv">4</span>, <span class="at">cost.fn =</span> <span class="dv">1</span>)</span>
+<span id="cb14-2"><a href="class-2.html#cb14-2" aria-hidden="true" tabindex="-1"></a>pred3<span class="sc">@</span>cutoffs[[<span class="dv">1</span>]][<span class="fu">which.min</span>(cost.perf4<span class="sc">@</span>y.values[[<span class="dv">1</span>]])]</span>
+<span id="cb14-3"><a href="class-2.html#cb14-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.090492</span></span>
+<span id="cb14-4"><a href="class-2.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(pred3<span class="sc">@</span>cutoffs[[<span class="dv">1</span>]][<span class="fu">which.min</span>(cost.perf4<span class="sc">@</span>y.values[[<span class="dv">1</span>]])])</span>
+<span id="cb14-5"><a href="class-2.html#cb14-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">21.9879</span></span></code></pre></div>
+<div class="example lizi">
+<p><span id="exm:ppv" class="example"><strong>Example 2.2  (PPV by prevalence) </strong></span>For user-specified values of sensitivity and specificity, graph the positive predictive value over a range of prevalence values.</p>
+</div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sensitivity</span> <span class="op">=</span> <span class="fl">0.98</span></span>
+<span><span class="va">specificity</span> <span class="op">=</span> <span class="fl">0.999</span></span>
+<span><span class="va">prevalence</span> <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="op">-</span><span class="fl">5</span><span class="op">:</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">ppv</span> <span class="op">=</span> <span class="va">sensitivity</span> <span class="op">*</span> <span class="va">prevalence</span><span class="op">/</span><span class="op">(</span><span class="va">sensitivity</span> <span class="op">*</span> <span class="va">prevalence</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span></span>
+<span>    <span class="va">specificity</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">prevalence</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">prevalence</span>, <span class="fl">10</span><span class="op">)</span>, <span class="va">ppv</span>, ylab <span class="op">=</span> <span class="st">"Positive Predictive Value"</span>,</span>
+<span>    xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="st">"Log"</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span> <span class="op">*</span> <span class="st">"(Prevalence)"</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">16</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html"><span class="header-section-number">1</span> Class 1</a></div>
+<div class="next"><a href="software.html"><span class="header-section-number">3</span> Software</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#class-2"><span class="header-section-number">2</span> Class 2</a></li>
+<li><a class="nav-link" href="#diagnostic-testing"><span class="header-section-number">2.1</span> Diagnostic Testing</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/arthurberg/Bayesian/blob/main/02.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/arthurberg/Bayesian/edit/main/02.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-23.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

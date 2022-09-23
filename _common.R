@@ -6,5 +6,6 @@ knitr::opts_chunk$set(
   comment = "",
   collapse = TRUE,
   tidy=TRUE,
+  tidy.opts=list(width.cutoff=60,strict=TRUE),
   cache=TRUE
-  )
+)

@@ -1,3 +1,203 @@
-# Bayes' Theorem
+# Class 2
 
-## Examples
+## Diagnostic Testing
+
+
+:::{.example #roc name="pregnancy testing" .lizi}
+[Human Chorionic Gonadotropin (hCG)](https://en.wikipedia.org/wiki/Human_chorionic_gonadotropin) is a hormone that dramatically increases during pregnancy. Levels of this hormone may also be high for individuals with [some cancers](https://en.wikipedia.org/wiki/Human_chorionic_gonadotropin#Tumor_marker).
+
+Levels of hCG can first be detected by a blood test about 11 days after conception and about 12-14 days after conception by a urine test, and will peak in the first 8-11 weeks of pregnancy and then will decline and level off for the remainder of the pregnancy.
+
+Non-pregnant women have hCG levels < 5 IU/L and hCG values > 25 IU/L indicate pregnancy. Levels between 5 and 25 IU/L often indicate early pregnancy, but results need to be interpreted cautiously because false positive results can occur in this range. 
+
+We simulate data of 
+:::
+
+```{r,tidy=TRUE}
+library(truncnorm)
+mygraph = function(mymean){
+x<-seq(0,45,.001)
+y1<-dlnorm(x,mean=1.25,sd=1.5)
+y2<-dtruncnorm(x,a=0,mean=mymean,sd=5)
+plot(x,y1,type="n",xlab="hcg (mIU/ml)",cex.lab=1.5,cex.axis=1.5,lwd=4,ylab="")
+
+ind1=(x>=5 & x<=25)
+polygon(c(5, x[ind1], 25), c(0, y1[ind1], 0),
+     col = "red", border = NA)
+polygon(c(5, x[ind1], 25), c(0, y2[ind1], 0),
+     col = "red", border = NA)
+
+ind2=(x<5)
+polygon(c(0, x[ind2], 5), c(0, y1[ind2], 0),
+     col = "blue", border = NA)
+
+ind3=(x>25)
+polygon(c(25, x[ind3], 45), c(0, y1[ind3], 0),
+     col = "magenta", border = NA)
+polygon(c(25, x[ind3], 45), c(0, y2[ind3], 0),
+     col = "magenta", border = NA)
+
+points(x,y1,type="l",lwd=4)
+points(x,y2,type="l",lwd=4)
+
+abline(v=5,lwd=3,lty=3)
+abline(v=25,lwd=3,lty=3)
+axis(1,at=5,cex.axis=1.5)
+axis(1,at=25,cex.axis=1.5)
+}
+
+mygraph(20) # representing very early on in the pregnancy
+mygraph(30) # slightly later in the pregnancy
+```
+
+ROC graphic with AUC computation using the ROCR package[@R-ROCR]. First with "very early" pregnancy simulation (mean of 20 on the truncated normal distribution).
+
+```{r,tidy=TRUE}
+library(ROCR)
+n=10^5
+y1<-rlnorm(n,mean=1.25,sd=1.5)
+y2<-rtruncnorm(n,a=0,mean=20,sd=5)
+y3<-rtruncnorm(n,a=0,mean=30,sd=5)
+df=data.frame(hcg=c(y1,y2),preg=c(rep(0,n),rep(1,n)))
+pred1 = prediction(df$hcg,df$preg)
+perf1 <- performance(pred1,"tpr","fpr")
+auc.perf1 = performance(pred1, measure = "auc")@y.values[[1]]
+plot(perf1,colorize=TRUE,downsampling=10^3)
+text(1,.1,paste0("AUC=",signif(auc.perf1,3)),adj=1) 
+```
+
+We cannot easily identify suitable threshold with this graphic, so we redo the graphic with the biomarker values displayed on a log scale. 
+
+```{r,tidy=TRUE}
+df=data.frame(hcg.log=log(c(y1,y2)),preg=c(rep("no",n),rep("yes",n)))
+pred2 = prediction(df$hcg.log,df$preg)
+perf2 <- performance(pred2,"tpr","fpr")
+auc.perf2 = performance(pred2, measure = "auc")@y.values[[1]]
+plot(perf2,colorize=TRUE,downsampling=10^3)
+text(1,.1,paste0("AUC=",signif(auc.perf2,3)),adj=1) 
+```
+
+Identifying the "optimal" cutoff depends on the costs associated with false positives and false negatives. You can read more about this at [this introduction to ROCR](https://www.r-bloggers.com/2014/12/a-small-introduction-to-the-rocr-package/). So which would you say is worse in this case -- a false positive pregnancy test or a false negative pregnancy test? If it were me, I'd rather the false negative and be pleasantly surprised later, but for others it might be a not-so-pleasant surprise. In reality, of course, there is the "inconclusive" option, which doesn't fit in well with the rigid statistical classifications that gives rise to the various [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix) statistics.  
+The following is a calculation that maximizes [Youden's index](https://en.wikipedia.org/wiki/Youden%27s_J_statistic)[@Youden:1950; @Smits:2010] with equal cost for false positives and false negatives. 
+
+```{r,tidy=TRUE}
+cost.perf2 = performance(pred2, "cost", cost.fp = 1, cost.fn = 1)
+pred2@cutoffs[[1]][which.min(cost.perf2@y.values[[1]])]
+mycutoff=exp(pred2@cutoffs[[1]][which.min(cost.perf2@y.values[[1]])])
+mycutoff
+```
+
+We see that this cutoff corresponds to minimizing the sum of the probability of a false positive and the probability of a false negative as demonstrated with the following code. 
+
+```{r, tidy=TRUE}
+J=function(x){
+mean(y1>x)+mean(y2<x)
+}
+J.vec=Vectorize(J,"x")
+x=seq(0,20,.1)
+x[which.min(J.vec(x))]
+mycutoff
+```
+
+We graph the false positives and false negatives with this cutoff on the original graphic.
+
+```{r, tidy=TRUE}
+x <- seq(0, 45, 0.001)
+y1.plot <- dlnorm(x, mean = 1.25, sd = 1.5)
+y2.plot <- dtruncnorm(x, a = 0, mean = 20, sd = 5)
+  
+plot(x, y1.plot, type = "n", xlab = "hcg (mIU/ml)", cex.lab = 1.5,
+        cex.axis = 1.5, lwd = 4, ylab = "")
+
+ind1 = (x >= mycutoff)
+polygon(c(mycutoff, x[ind1], 45), c(0, y2.plot[ind1], 0), col = "magenta",border = NA)
+polygon(c(mycutoff, x[ind1], 45), c(0, y1.plot[ind1], 0), col = "red",
+        border = NA)
+ind2 = (x <= mycutoff)
+polygon(c(0, x[ind2], mycutoff), c(0, y1.plot[ind2], 0), col = "blue",
+        border = NA)
+polygon(c(0, x[ind2], mycutoff), c(0, y2.plot[ind2], 0), col = "orange",
+        border = NA)
+
+points(x, y1.plot, type = "l", lwd = 4)
+points(x, y2.plot, type = "l", lwd = 4)
+
+abline(v = mycutoff, lwd = 2,lty=2)
+abline(v = 5, lwd = 1, lty = 3)
+abline(v = 25, lwd = 1, lty = 3)
+axis(1, at = 5, cex.axis = 1.5)
+axis(1, at = 25, cex.axis = 1.5)
+```
+
+Here's a calculation with more cost associated with false positives than for false negatives, specifically 4 times the cost of a false positive compared to a false negative. 
+
+```{r,tidy=TRUE}
+cost.perf3 = performance(pred2, "cost", cost.fp = 4, cost.fn = 1)
+pred2@cutoffs[[1]][which.min(cost.perf3@y.values[[1]])]
+exp(pred2@cutoffs[[1]][which.min(cost.perf3@y.values[[1]])])
+```
+
+Here again we display the cutoff on a graphic showing the decreased probability of a false positive. 
+
+```{r, tidy=TRUE}
+x <- seq(0, 45, 0.001)
+y1.plot <- dlnorm(x, mean = 1.25, sd = 1.5)
+y2.plot <- dtruncnorm(x, a = 0, mean = 20, sd = 5)
+mycutoff=exp(pred2@cutoffs[[1]][which.min(cost.perf3@y.values[[1]])])
+
+plot(x, y1.plot, type = "n", xlab = "hcg (mIU/ml)", cex.lab = 1.5,
+        cex.axis = 1.5, lwd = 4, ylab = "")
+
+ind1 = (x >= mycutoff)
+polygon(c(mycutoff, x[ind1], 45), c(0, y2.plot[ind1], 0), col = "magenta",border = NA)
+polygon(c(mycutoff, x[ind1], 45), c(0, y1.plot[ind1], 0), col = "red",
+        border = NA)
+ind2 = (x <= mycutoff)
+polygon(c(0, x[ind2], mycutoff), c(0, y1.plot[ind2], 0), col = "blue",
+        border = NA)
+polygon(c(0, x[ind2], mycutoff), c(0, y2.plot[ind2], 0), col = "orange",
+        border = NA)
+
+points(x, y1.plot, type = "l", lwd = 4)
+points(x, y2.plot, type = "l", lwd = 4)
+
+abline(v = mycutoff, lwd = 2,lty=2)
+abline(v = 5, lwd = 1, lty = 3)
+abline(v = 25, lwd = 1, lty = 3)
+axis(1, at = 5, cex.axis = 1.5)
+axis(1, at = 25, cex.axis = 1.5)
+```
+
+Next with "slightly later" pregnancy simulation (mean of 30 on the truncated normal distribution).
+
+```{r,tidy=TRUE}
+df=data.frame(hcg.log=log(c(y1,y3)),preg=c(rep("no",n),rep("yes",n)))
+pred3 = prediction(df$hcg.log,df$preg)
+perf3 <- performance(pred3,"tpr","fpr")
+auc.perf3 = performance(pred3, measure = "auc")@y.values[[1]]
+plot(perf3,colorize=TRUE)
+text(1,.1,paste0("AUC=",signif(auc.perf3,3)),adj=1) 
+```
+
+Here again we compute the "optimal" cutoff with greater cost for a false positive.
+
+```{r,tidy=TRUE}
+cost.perf4 = performance(pred3, "cost", cost.fp = 4, cost.fn = 1)
+pred3@cutoffs[[1]][which.min(cost.perf4@y.values[[1]])]
+exp(pred3@cutoffs[[1]][which.min(cost.perf4@y.values[[1]])])
+```
+
+
+:::{.example #ppv name="PPV by prevalence" .lizi}
+For user-specified values of sensitivity and specificity, graph the positive predictive value over a range of prevalence values.
+:::
+
+```{r, tidy=TRUE}
+sensitivity= .98
+specificity=.999
+prevalence=10^(-5:-1)
+ppv=sensitivity*prevalence/(sensitivity*prevalence+(1-specificity)*(1-prevalence))
+plot(log(prevalence,10),ppv,ylab="Positive Predictive Value",xlab=expression("Log"[10]*"(Prevalence)"),pch=16) 
+```
+
+

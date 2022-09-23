@@ -3,10 +3,13 @@ exr:marbles
 exm:gemstones
 exm:repairs
 exr:icer
-section
+exm:roc
+exm:ppv
+class-1
 probability-fundamentals
 monte-carlo
-bayes-theorem
-examples
+class-2
+diagnostic-testing
 software
 jags
+references
