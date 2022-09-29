@@ -68,8 +68,9 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html"><span class="header-section-number">1</span> Class 1</a></li>
 <li><a class="active" href="class-2.html"><span class="header-section-number">2</span> Class 2</a></li>
-<li><a class="" href="software.html"><span class="header-section-number">3</span> Software</a></li>
-<li><a class="" href="references.html"><span class="header-section-number">4</span> References</a></li>
+<li><a class="" href="class-3.html"><span class="header-section-number">3</span> Class 3</a></li>
+<li><a class="" href="to-be-incorporated.html"><span class="header-section-number">4</span> To Be Incorporated</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">5</span> References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -89,7 +90,7 @@
 <p><span id="exm:roc" class="example"><strong>Example 2.1  (pregnancy testing) </strong></span><a href="https://en.wikipedia.org/wiki/Human_chorionic_gonadotropin">Human Chorionic Gonadotropin (hCG)</a> is a hormone that dramatically increases during pregnancy. Levels of this hormone may also be high for individuals with <a href="https://en.wikipedia.org/wiki/Human_chorionic_gonadotropin#Tumor_marker">some cancers</a>.</p>
 <p>Levels of hCG can first be detected by a blood test about 11 days after conception and about 12-14 days after conception by a urine test, and will peak in the first 8-11 weeks of pregnancy and then will decline and level off for the remainder of the pregnancy.</p>
 <p>Non-pregnant women have hCG levels &lt; 5 IU/L and hCG values &gt; 25 IU/L indicate pregnancy. Levels between 5 and 25 IU/L often indicate early pregnancy, but results need to be interpreted cautiously because false positive results can occur in this range.</p>
-<p>We simulate data of</p>
+<p>In this example we simulate hCG data from a hypothetical population of non-pregnant and pregnant women early in their pregnancy, and we use this data to study various statistics and graphics used in classifier assessment.</p>
 </div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/olafmersmann/truncnorm">truncnorm</a></span><span class="op">)</span></span>
@@ -254,7 +255,7 @@ The following is a calculation that maximizes <a href="https://en.wikipedia.org/
 <span id="cb14-4"><a href="class-2.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(pred3<span class="sc">@</span>cutoffs[[<span class="dv">1</span>]][<span class="fu">which.min</span>(cost.perf4<span class="sc">@</span>y.values[[<span class="dv">1</span>]])])</span>
 <span id="cb14-5"><a href="class-2.html#cb14-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">21.9879</span></span></code></pre></div>
 <div class="example lizi">
-<p><span id="exm:ppv" class="example"><strong>Example 2.2  (PPV by prevalence) </strong></span>For user-specified values of sensitivity and specificity, graph the positive predictive value over a range of prevalence values.</p>
+<p><span id="exm:ppv" class="example"><strong>Example 2.2  (PPV by prevalence) </strong></span>For user-specified values of sensitivity and specificity, we graph the positive predictive value over a range of prevalence values.</p>
 </div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sensitivity</span> <span class="op">=</span> <span class="fl">0.98</span></span>
@@ -271,7 +272,7 @@ The following is a calculation that maximizes <a href="https://en.wikipedia.org/
 
   <div class="chapter-nav">
 <div class="prev"><a href="index.html"><span class="header-section-number">1</span> Class 1</a></div>
-<div class="next"><a href="software.html"><span class="header-section-number">3</span> Software</a></div>
+<div class="next"><a href="class-3.html"><span class="header-section-number">3</span> Class 3</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -294,7 +295,7 @@ The following is a calculation that maximizes <a href="https://en.wikipedia.org/
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-23.</p>
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-28.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

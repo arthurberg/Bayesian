@@ -5,11 +5,16 @@ exm:repairs
 exr:icer
 exm:roc
 exm:ppv
+exm:dice-1
+exm:dice-n
+exr:erroneous-dice
 class-1
 probability-fundamentals
 monte-carlo
 class-2
 diagnostic-testing
-software
+class-3
+bayes-theorem-practice
+to-be-incorporated
 jags
 references

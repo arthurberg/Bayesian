@@ -1,0 +1,77 @@
+# To Be Incorporated
+
+
+
+## JAGS
+
+```{r}
+library(R2jags)
+
+mymodel= function(){
+for ( i in 1:Ntotal ) {
+    y[i] ~ dbern( theta )
+  }
+  theta ~ dbeta( 1 , 1 )
+}
+
+n <- 50
+theta.true <- .3
+y.sim <- rbinom(n, 1, theta.true)
+
+mydata = list(    
+  y = y.sim ,
+  Ntotal = n 
+)
+
+
+
+fit <- jags(data=mydata, model=mymodel, parameters.to.save = c("theta"), n.chain=2, n.iter=200, n.thin=1, n.burn=100)
+fit
+```
+
+
+```{r}
+library(R2jags)
+
+model= function(){
+M ~ dcat(p1)
+# sampling distribution is uniform over first N integers
+# use step function to change p1[j] to 0 for j>N
+for (j in 1:1000) {
+p1[j] <- step(N - j + 0.01)/N
+}
+N ~ dcat(p2)
+for (j in 1:1000) {
+recip[j] <- 1/j
+p2[j] <- recip[j]/sum.recip
+}
+sum.recip <- sum(recip)
+}
+data=list("M"=100)
+fit <- jags(data=data, model=model,parameters.to.save=c("N","M"), n.chain=2, n.iter=100, n.thin=1, n.burn=0, DIC=FALSE)
+fit
+```
+
+```{r}
+library(rjags)
+model_string <- "
+model {
+M ~ dcat(p1)
+for (j in 1:1000) {
+p1[j] <- (pow(j*step(N - j + 0.01)/N,2)-pow((j-1)*step(N - j  + 0.01)/N,2))
+}
+N ~ dcat(p2[])
+for (j in 1:1000) {
+recip[j] <- 1/j
+p2[j] <- recip[j]/sum.recip
+}
+sum.recip <- sum(recip)
+}"
+
+data=list("M"=50)
+jmodel <- jags.model(textConnection(model_string), data = data,inits=list(N=100),n.chains = 2, n.adapt= 100,quiet=TRUE)
+update(jmodel, 10)
+mcmc_samples <- coda.samples(jmodel, variable.names=c("N"), n.iter=100)
+summary(mcmc_samples)
+
+```
