@@ -1,0 +1,8 @@
+# Class 5
+
+## COVID-19 Vaccine Trials
+
+:::{.exercise #vaccine-efficacy name="Vaccine Efficacy" .prob}
+Reproduce a plot similar to Figure 3 in [@Senn:2022] and provide a table of the ten left and right endpoints in the graphic. 
+:::
+

@@ -2,7 +2,7 @@
 
 ## Bayes' Theorem Practice
 
-:::{.example #dice-1 name="Single roll" .lizi}
+:::{.example #dice-1 name="single roll" .lizi}
 Suppose that your friend has 3 dice. One has 4 sides, one has 6 sides, and one has 8 sides. He draws one die at random, rolls it one time without showing you, and reports the result as having rolled a 2. How would you calculate the probability that the die was the 4 sided die, the probability for the 6 sided die, and the probability for the 8 sided die?
 :::
 
@@ -22,7 +22,7 @@ c(6,4,3)/13
 ```
 
 
-:::{.example #dice-n name="Multiple rolls" .lizi}
+:::{.example #dice-n name="multiple rolls" .lizi}
 Now suppose there are 6 possible dice, one with 4 sides, one with 6 sides, one with 8 sides, one with 10 sides, one with 12 sides, and one with 20 sides. After randomly selecting a die, the die is rolled n times and the outcomes are reported. Numerically calculate the probabilities for the number of sides of the randomly selected die. 
 :::
 
@@ -51,7 +51,7 @@ barplot(posterior,names=dice,main=paste0("Actual number of sides: ",num.sides))
 ```
 
 
-:::{.exercise #erroneous-dice name="Erroneous dice" .prob}
+:::{.exercise #erroneous-dice name="erroneous dice" .prob}
 Suppose there are 6 possible dice: one with 4 sides, one with 6 sides, one with 8 sides, one with 10 sides, one with 12 sides, and one with 20 sides. After randomly selecting a die, the die is rolled n times and the outcomes are reported but with some possible errors in the reported rolls. We will assume that if there's an error for any given roll, it will be a random number between 1 and 20. Incorporate an error rate into the likelihood with a uniform prior. Given a vector of rolls, such as `rolls` below, calculate and graph the posterior probabilities of the error rate and number of sides. 
 
 ```{r}

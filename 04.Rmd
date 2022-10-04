@@ -1,0 +1,7 @@
+# Class 4
+
+## Beta-binomial
+
+:::{.exercise #alice-and-bob name="Alice and Bob simulation" .prob}
+Verify your answer to Alice and Bob homework exercise with a Monte Carlo simulation.
+:::

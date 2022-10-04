@@ -42,9 +42,9 @@
     }
   </style>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="3.1 Bayes’ Theorem Practice  Example 3.1 (Single roll) Suppose that your friend has 3 dice. One has 4 sides, one has 6 sides, and one has 8 sides. He draws one die at random, rolls it one time...">
-<meta property="og:description" content="3.1 Bayes’ Theorem Practice  Example 3.1 (Single roll) Suppose that your friend has 3 dice. One has 4 sides, one has 6 sides, and one has 8 sides. He draws one die at random, rolls it one time...">
-<meta name="twitter:description" content="3.1 Bayes’ Theorem Practice  Example 3.1 (Single roll) Suppose that your friend has 3 dice. One has 4 sides, one has 6 sides, and one has 8 sides. He draws one die at random, rolls it one time...">
+<meta name="description" content="3.1 Bayes’ Theorem Practice  Example 3.1 (single roll) Suppose that your friend has 3 dice. One has 4 sides, one has 6 sides, and one has 8 sides. He draws one die at random, rolls it one time...">
+<meta property="og:description" content="3.1 Bayes’ Theorem Practice  Example 3.1 (single roll) Suppose that your friend has 3 dice. One has 4 sides, one has 6 sides, and one has 8 sides. He draws one die at random, rolls it one time...">
+<meta name="twitter:description" content="3.1 Bayes’ Theorem Practice  Example 3.1 (single roll) Suppose that your friend has 3 dice. One has 4 sides, one has 6 sides, and one has 8 sides. He draws one die at random, rolls it one time...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -69,8 +69,10 @@
 <li><a class="" href="index.html"><span class="header-section-number">1</span> Class 1</a></li>
 <li><a class="" href="class-2.html"><span class="header-section-number">2</span> Class 2</a></li>
 <li><a class="active" href="class-3.html"><span class="header-section-number">3</span> Class 3</a></li>
-<li><a class="" href="to-be-incorporated.html"><span class="header-section-number">4</span> To Be Incorporated</a></li>
-<li><a class="" href="references.html"><span class="header-section-number">5</span> References</a></li>
+<li><a class="" href="class-4.html"><span class="header-section-number">4</span> Class 4</a></li>
+<li><a class="" href="class-5.html"><span class="header-section-number">5</span> Class 5</a></li>
+<li><a class="" href="to-be-incorporated.html"><span class="header-section-number">6</span> To Be Incorporated</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">7</span> References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -87,7 +89,7 @@
 <span class="header-section-number">3.1</span> Bayes’ Theorem Practice<a class="anchor" aria-label="anchor" href="#bayes-theorem-practice"><i class="fas fa-link"></i></a>
 </h2>
 <div class="example lizi">
-<p><span id="exm:dice-1" class="example"><strong>Example 3.1  (Single roll) </strong></span>Suppose that your friend has 3 dice. One has 4 sides, one has 6 sides, and one has 8 sides. He draws one die at random, rolls it one time without showing you, and reports the result as having rolled a 2. How would you calculate the probability that the die was the 4 sided die, the probability for the 6 sided die, and the probability for the 8 sided die?</p>
+<p><span id="exm:dice-1" class="example"><strong>Example 3.1  (single roll) </strong></span>Suppose that your friend has 3 dice. One has 4 sides, one has 6 sides, and one has 8 sides. He draws one die at random, rolls it one time without showing you, and reports the result as having rolled a 2. How would you calculate the probability that the die was the 4 sided die, the probability for the 6 sided die, and the probability for the 8 sided die?</p>
 </div>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="class-3.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prior probabilities: P(n=4), P(n=6), P(n=8)</span></span>
 <span id="cb16-2"><a href="class-3.html#cb16-2" aria-hidden="true" tabindex="-1"></a>prob.prior <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">3</span>)</span>
@@ -105,7 +107,7 @@
 <span id="cb16-14"><a href="class-3.html#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>)<span class="sc">/</span><span class="dv">13</span></span>
 <span id="cb16-15"><a href="class-3.html#cb16-15" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.4615385</span> <span class="fl">0.3076923</span> <span class="fl">0.2307692</span></span></code></pre></div>
 <div class="example lizi">
-<p><span id="exm:dice-n" class="example"><strong>Example 3.2  (Multiple rolls) </strong></span>Now suppose there are 6 possible dice, one with 4 sides, one with 6 sides, one with 8 sides, one with 10 sides, one with 12 sides, and one with 20 sides. After randomly selecting a die, the die is rolled n times and the outcomes are reported. Numerically calculate the probabilities for the number of sides of the randomly selected die.</p>
+<p><span id="exm:dice-n" class="example"><strong>Example 3.2  (multiple rolls) </strong></span>Now suppose there are 6 possible dice, one with 4 sides, one with 6 sides, one with 8 sides, one with 10 sides, one with 12 sides, and one with 20 sides. After randomly selecting a die, the die is rolled n times and the outcomes are reported. Numerically calculate the probabilities for the number of sides of the randomly selected die.</p>
 </div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="class-3.html#cb17-1" aria-hidden="true" tabindex="-1"></a>dice <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">20</span>)</span>
 <span id="cb17-2"><a href="class-3.html#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -134,7 +136,7 @@
 <span id="cb17-25"><a href="class-3.html#cb17-25" aria-hidden="true" tabindex="-1"></a>    num.sides))</span></code></pre></div>
 <div class="inline-figure"><img src="03_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
 <div class="exercise prob">
-<p><span id="exr:erroneous-dice" class="exercise"><strong>Exercise 3.1  (Erroneous dice) </strong></span>Suppose there are 6 possible dice: one with 4 sides, one with 6 sides, one with 8 sides, one with 10 sides, one with 12 sides, and one with 20 sides. After randomly selecting a die, the die is rolled n times and the outcomes are reported but with some possible errors in the reported rolls. We will assume that if there’s an error for any given roll, it will be a random number between 1 and 20. Incorporate an error rate into the likelihood with a uniform prior. Given a vector of rolls, such as <code>rolls</code> below, calculate and graph the posterior probabilities of the error rate and number of sides.</p>
+<p><span id="exr:erroneous-dice" class="exercise"><strong>Exercise 3.1  (erroneous dice) </strong></span>Suppose there are 6 possible dice: one with 4 sides, one with 6 sides, one with 8 sides, one with 10 sides, one with 12 sides, and one with 20 sides. After randomly selecting a die, the die is rolled n times and the outcomes are reported but with some possible errors in the reported rolls. We will assume that if there’s an error for any given roll, it will be a random number between 1 and 20. Incorporate an error rate into the likelihood with a uniform prior. Given a vector of rolls, such as <code>rolls</code> below, calculate and graph the posterior probabilities of the error rate and number of sides.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="class-3.html#cb18-1" aria-hidden="true" tabindex="-1"></a>dice<span class="ot">=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>,<span class="dv">20</span>)</span>
 <span id="cb18-2"><a href="class-3.html#cb18-2" aria-hidden="true" tabindex="-1"></a>num.sides <span class="ot">=</span> <span class="fu">sample</span>(dice,<span class="dv">1</span>)</span>
 <span id="cb18-3"><a href="class-3.html#cb18-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">10</span></span>
@@ -152,7 +154,7 @@
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="class-2.html"><span class="header-section-number">2</span> Class 2</a></div>
-<div class="next"><a href="to-be-incorporated.html"><span class="header-section-number">4</span> To Be Incorporated</a></div>
+<div class="next"><a href="class-4.html"><span class="header-section-number">4</span> Class 4</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -175,7 +177,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-09-28.</p>
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-10-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
