@@ -10,6 +10,7 @@ exm:dice-n
 exr:erroneous-dice
 exr:alice-and-bob
 exr:vaccine-efficacy
+exr:loaded
 class-1
 probability-fundamentals
 monte-carlo
@@ -21,6 +22,7 @@ class-4
 beta-binomial
 class-5
 covid-19-vaccine-trials
+bayesian-dice
 to-be-incorporated
 jags
 references
