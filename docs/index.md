@@ -1,7 +1,7 @@
 --- 
 title: "PHS 528: Bayesian Methods"
 author: "Arthur Berg"
-date: "2022-10-11"
+date: "2022-10-12"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [CompBayesBook.bib, packages.bib]
