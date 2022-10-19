@@ -72,8 +72,9 @@
 <li><a class="" href="class-4.html"><span class="header-section-number">4</span> Class 4</a></li>
 <li><a class="" href="class-5.html"><span class="header-section-number">5</span> Class 5</a></li>
 <li><a class="" href="class-6.html"><span class="header-section-number">6</span> Class 6</a></li>
-<li><a class="" href="to-be-incorporated.html"><span class="header-section-number">7</span> To Be Incorporated</a></li>
-<li><a class="" href="references.html"><span class="header-section-number">8</span> References</a></li>
+<li><a class="" href="class-7.html"><span class="header-section-number">7</span> Class 7</a></li>
+<li><a class="" href="to-be-incorporated.html"><span class="header-section-number">8</span> To Be Incorporated</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">9</span> References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -146,7 +147,7 @@
 <span id="cb2-13"><a href="index.html#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="at">prob =</span> x<span class="sc">/</span>n)</span>
 <span id="cb2-14"><a href="index.html#cb2-14" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb2-15"><a href="index.html#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x2)</span>
-<span id="cb2-16"><a href="index.html#cb2-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.692506</span></span></code></pre></div>
+<span id="cb2-16"><a href="index.html#cb2-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.691866</span></span></code></pre></div>
 <div class="example lizi">
 <p><span id="exm:repairs" class="example"><strong>Example 1.3  (repairs) </strong></span>Suppose costs of a repair have a gamma distribution with mean $100 and standard deviation $50. How many items will I be able to repair for $1000?</p>
 </div>
@@ -162,10 +163,10 @@
 <span id="cb3-10"><a href="index.html#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-11"><a href="index.html#cb3-11" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">rgamma</span>(<span class="dv">20</span>, <span class="at">shape =</span> a, <span class="at">scale =</span> s)</span>
 <span id="cb3-12"><a href="index.html#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cumsum</span>(X)</span>
-<span id="cb3-13"><a href="index.html#cb3-13" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>]   <span class="fl">69.91186</span>  <span class="fl">207.28872</span>  <span class="fl">237.96179</span>  <span class="fl">294.58408</span>  <span class="fl">325.60142</span></span>
-<span id="cb3-14"><a href="index.html#cb3-14" aria-hidden="true" tabindex="-1"></a> [<span class="dv">6</span>]  <span class="fl">390.36803</span>  <span class="fl">568.03599</span>  <span class="fl">628.85510</span>  <span class="fl">719.53580</span>  <span class="fl">854.38467</span></span>
-<span id="cb3-15"><a href="index.html#cb3-15" aria-hidden="true" tabindex="-1"></a>[<span class="dv">11</span>] <span class="fl">1012.79237</span> <span class="fl">1088.89943</span> <span class="fl">1280.43185</span> <span class="fl">1335.85219</span> <span class="fl">1396.11262</span></span>
-<span id="cb3-16"><a href="index.html#cb3-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">16</span>] <span class="fl">1493.13453</span> <span class="fl">1557.70749</span> <span class="fl">1708.38315</span> <span class="fl">1743.72706</span> <span class="fl">1853.91936</span></span>
+<span id="cb3-13"><a href="index.html#cb3-13" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>]   <span class="fl">56.20787</span>  <span class="fl">147.30252</span>  <span class="fl">244.49831</span>  <span class="fl">296.08107</span>  <span class="fl">454.20257</span></span>
+<span id="cb3-14"><a href="index.html#cb3-14" aria-hidden="true" tabindex="-1"></a> [<span class="dv">6</span>]  <span class="fl">494.11205</span>  <span class="fl">532.92228</span>  <span class="fl">573.29182</span>  <span class="fl">725.97754</span>  <span class="fl">901.56177</span></span>
+<span id="cb3-15"><a href="index.html#cb3-15" aria-hidden="true" tabindex="-1"></a>[<span class="dv">11</span>] <span class="fl">1028.94903</span> <span class="fl">1172.80233</span> <span class="fl">1230.39715</span> <span class="fl">1266.52078</span> <span class="fl">1348.17453</span></span>
+<span id="cb3-16"><a href="index.html#cb3-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">16</span>] <span class="fl">1404.52642</span> <span class="fl">1512.24501</span> <span class="fl">1568.78050</span> <span class="fl">1617.98163</span> <span class="fl">1755.40670</span></span>
 <span id="cb3-17"><a href="index.html#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">cumsum</span>(X) <span class="sc">&lt;=</span> <span class="dv">1000</span>)</span>
 <span id="cb3-18"><a href="index.html#cb3-18" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span>  <span class="dv">5</span>  <span class="dv">6</span>  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span> <span class="dv">10</span></span>
 <span id="cb3-19"><a href="index.html#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(<span class="fu">which</span>(<span class="fu">cumsum</span>(X) <span class="sc">&lt;=</span> <span class="dv">1000</span>))</span>
@@ -177,11 +178,11 @@
 <span id="cb3-25"><a href="index.html#cb3-25" aria-hidden="true" tabindex="-1"></a>    res[i] <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">which</span>(<span class="fu">cumsum</span>(X) <span class="sc">&lt;=</span> <span class="dv">1000</span>))</span>
 <span id="cb3-26"><a href="index.html#cb3-26" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb3-27"><a href="index.html#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(res)</span>
-<span id="cb3-28"><a href="index.html#cb3-28" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">17</span></span>
+<span id="cb3-28"><a href="index.html#cb3-28" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">16</span></span>
 <span id="cb3-29"><a href="index.html#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res)</span>
-<span id="cb3-30"><a href="index.html#cb3-30" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">9.6326</span></span>
+<span id="cb3-30"><a href="index.html#cb3-30" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">9.5916</span></span>
 <span id="cb3-31"><a href="index.html#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(res)</span>
-<span id="cb3-32"><a href="index.html#cb3-32" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.607133</span></span>
+<span id="cb3-32"><a href="index.html#cb3-32" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.604515</span></span>
 <span id="cb3-33"><a href="index.html#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-34"><a href="index.html#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb3-35"><a href="index.html#cb3-35" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">number =</span> <span class="fu">as.factor</span>(res))</span>
@@ -230,7 +231,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-10-12.</p>
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-10-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

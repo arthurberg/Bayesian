@@ -1,0 +1,42 @@
+# Class 7
+
+## Taxicab problem
+
+
+:::{.example #taxicabs name="Taxicabs" .lizi}
+A simple implementation of the taxicab problem with a single sample is presented using JAGS. 
+:::
+
+
+```{r}
+library(R2jags)
+
+model= function(){
+M ~ dcat(p1)
+# sampling distribution is uniform over first N integers
+# use step function to change p1[j] to 0 for j>N
+for (j in 1:1000) {
+p1[j] <- step(N - j + 0.01)/N
+}
+N ~ dcat(p2)
+for (j in 1:1000) {
+recip[j] <- 1/j
+p2[j] <- recip[j]/sum.recip
+}
+sum.recip <- sum(recip)
+}
+data=list("M"=100)
+fit <- jags(data=data, model=model,parameters.to.save=c("N","M"), n.chain=2, n.iter=100, n.thin=1, n.burn=0, DIC=FALSE)
+fit
+```
+
+
+:::{.exercise #taxi-counter name="Taxi counter" .prob}
+Suppose taxis were sampled with the following code
+```{r}
+myrange=sort(rnbinom(2,5,mu=rgamma(2,shape=50,rate=1/200)))
+taxis=sample(myrange[1]:myrange[2],10,replace=TRUE)
+```
+Knowing the data generating mechanism, construct a Bayesian estimate of the total number of taxis (`diff(myrange)+1`) based on the data provided by `taxis`. You can use JAGS or R as you like. 
+:::
+

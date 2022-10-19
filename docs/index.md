@@ -1,7 +1,7 @@
 --- 
 title: "PHS 528: Bayesian Methods"
 author: "Arthur Berg"
-date: "2022-10-12"
+date: "2022-10-19"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [CompBayesBook.bib, packages.bib]
@@ -87,7 +87,7 @@ x2 = sapply(x1, function(x) {
     rbinom(1, 1, prob = x/n)
 })
 mean(x2)
-[1] 0.692506
+[1] 0.691866
 ```
 
 :::{.example #repairs name="repairs" .lizi}
@@ -108,10 +108,10 @@ a * s^2  #variance
 
 X = rgamma(20, shape = a, scale = s)
 cumsum(X)
- [1]   69.91186  207.28872  237.96179  294.58408  325.60142
- [6]  390.36803  568.03599  628.85510  719.53580  854.38467
-[11] 1012.79237 1088.89943 1280.43185 1335.85219 1396.11262
-[16] 1493.13453 1557.70749 1708.38315 1743.72706 1853.91936
+ [1]   56.20787  147.30252  244.49831  296.08107  454.20257
+ [6]  494.11205  532.92228  573.29182  725.97754  901.56177
+[11] 1028.94903 1172.80233 1230.39715 1266.52078 1348.17453
+[16] 1404.52642 1512.24501 1568.78050 1617.98163 1755.40670
 which(cumsum(X) <= 1000)
  [1]  1  2  3  4  5  6  7  8  9 10
 max(which(cumsum(X) <= 1000))
@@ -123,11 +123,11 @@ for (i in 1:R) {
     res[i] = max(which(cumsum(X) <= 1000))
 }
 max(res)
-[1] 17
+[1] 16
 mean(res)
-[1] 9.6326
+[1] 9.5916
 sd(res)
-[1] 1.607133
+[1] 1.604515
 
 library(ggplot2)
 df = data.frame(number = as.factor(res))

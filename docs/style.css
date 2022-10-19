@@ -46,4 +46,9 @@ pre code {
   background-image: url("images2/lizi.png");
 }
 
-
+.container-fluid {
+    max-width: 2400rem;
+}
+.container-fluid main {
+    max-width: 240rem;
+}
