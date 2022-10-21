@@ -14,6 +14,7 @@ exr:loaded
 exr:sticks
 exm:taxicabs
 exr:taxi-counter
+exr:baseball
 class-1
 probability-fundamentals
 monte-carlo
@@ -30,6 +31,8 @@ class-6
 stick-breaking
 class-7
 taxicab-problem
+class-8
+bayesian-shrinkage
 to-be-incorporated
 jags
 references
