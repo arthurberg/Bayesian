@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>11 Class 11 | PHS 528: Bayesian Methods</title>
+<meta name="author" content="Arthur Berg">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="11 Class 11 | PHS 528: Bayesian Methods">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://arthurberg.github.io/Bayesian/class-11.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11 Class 11 | PHS 528: Bayesian Methods">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="11.1 Prior distributions  Example 11.1 (Power analysis) We consider the sample size estimation of a two-arm randomized trial with a continuous primary outcome and \(n\) subjects randomized to each...">
+<meta property="og:description" content="11.1 Prior distributions  Example 11.1 (Power analysis) We consider the sample size estimation of a two-arm randomized trial with a continuous primary outcome and \(n\) subjects randomized to each...">
+<meta name="twitter:description" content="11.1 Prior distributions  Example 11.1 (Power analysis) We consider the sample size estimation of a two-arm randomized trial with a continuous primary outcome and \(n\) subjects randomized to each...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">PHS 528: Bayesian Methods</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Class 1</a></li>
+<li><a class="" href="class-2.html"><span class="header-section-number">2</span> Class 2</a></li>
+<li><a class="" href="class-3.html"><span class="header-section-number">3</span> Class 3</a></li>
+<li><a class="" href="class-4.html"><span class="header-section-number">4</span> Class 4</a></li>
+<li><a class="" href="class-5.html"><span class="header-section-number">5</span> Class 5</a></li>
+<li><a class="" href="class-6.html"><span class="header-section-number">6</span> Class 6</a></li>
+<li><a class="" href="class-7.html"><span class="header-section-number">7</span> Class 7</a></li>
+<li><a class="" href="class-8.html"><span class="header-section-number">8</span> Class 8</a></li>
+<li><a class="" href="class-9.html"><span class="header-section-number">9</span> Class 9</a></li>
+<li><a class="" href="class-10.html"><span class="header-section-number">10</span> Class 10</a></li>
+<li><a class="active" href="class-11.html"><span class="header-section-number">11</span> Class 11</a></li>
+<li><a class="" href="class-12.html"><span class="header-section-number">12</span> Class 12</a></li>
+<li><a class="" href="class-13.html"><span class="header-section-number">13</span> Class 13</a></li>
+<li><a class="" href="to-be-incorporated.html"><span class="header-section-number">14</span> To Be Incorporated</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">15</span> References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/arthurberg/Bayesian">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="class-11" class="section level1" number="11">
+<h1>
+<span class="header-section-number">11</span> Class 11<a class="anchor" aria-label="anchor" href="#class-11"><i class="fas fa-link"></i></a>
+</h1>
+<div id="prior-distributions" class="section level2" number="11.1">
+<h2>
+<span class="header-section-number">11.1</span> Prior distributions<a class="anchor" aria-label="anchor" href="#prior-distributions"><i class="fas fa-link"></i></a>
+</h2>
+<div class="example lizi">
+<p><span id="exm:power-analysis" class="example"><strong>Example 11.1  (Power analysis) </strong></span>We consider the sample size estimation of a two-arm randomized trial with a continuous primary outcome and <span class="math inline">\(n\)</span> subjects randomized to each arm. Assuming a normal distribution of the primary outcome and a common within-treatment standard deviation of <span class="math inline">\(\sigma\)</span>, the estimated treatment effect is assumed to have a <span class="math inline">\(\mathcal{N}(\theta,2\sigma^2/n)\)</span> distribution. Thus, the <a href="https://en.wikipedia.org/wiki/Sample_size_determination#Cumulative_distribution_function">sample size determination</a> is found to be
+<span class="math display">\[
+n=\frac{2\sigma^2}{\theta^2}\left(z_{1-\alpha/2}+z_{1-\beta}\right)^2,
+\]</span>
+where <span class="math inline">\(z_p=\Phi^{-1}(p)\)</span>. Solving for <span class="math inline">\(1-\beta\)</span> gives
+<span class="math display">\[
+\text{Power}=\Phi\left(\sqrt{\frac{n\theta^2}{2\sigma^2}}-z_{1-\alpha/2}\right).
+\]</span>
+Supposing historical data suggests <span class="math inline">\(\theta\)</span> likely (interpreted as 1 standard deviation) to be between 3 and 7 suggests the prior <span class="math inline">\(\theta\sim\mathcal{N}(5,2^2)\)</span>. The parameter <span class="math inline">\(\sigma\)</span> is estimated to be around 10 and based on around 40 observations. This leads to a <span class="math inline">\(\mathrm{GammaSR}(a,b)\)</span> prior for <span class="math inline">\(\tau=1/\sigma^2\)</span> with <span class="math inline">\(a/b=1/10^2\)</span> and <span class="math inline">\(2a=40\)</span>; i.e. <span class="math inline">\(\tau\sim\mathrm{GammaSR}(20,2000)\)</span>. Another set of priors are considered: the prior for <span class="math inline">\(\sigma\)</span> is assumed to be based on 20 observations instead of 40 (effectively a power prior) leading to the modified prior distribution <span class="math inline">\(\tau\sim\mathrm{GammaSR}(10,1000)\)</span>, and the prior for <span class="math inline">\(\theta\)</span> is assumed to have a mean bias of -1 with standard deviation of 2 with the constraint that <span class="math inline">\(\theta&gt;0\)</span> thus leading to the modified prior distribution <span class="math inline">\(\theta\sim \mathcal{N}^+(5-1,2^2+2^2)\)</span>.</p>
+<p>The Type I error <span class="math inline">\(\alpha\)</span> is set to <span class="math inline">\(0.05\)</span>. Three quantities are tracked: (i) the calculated sample size <span class="math inline">\(n\)</span> for 90% power, (ii) that power based on <span class="math inline">\(n=84\)</span> (frequentest estimate with fixed <span class="math inline">\(\theta=5\)</span>, <span class="math inline">\(\sigma=10\)</span>, and 90% power), and (iii) with <span class="math inline">\(n=84\)</span>, the probability the power is at least 70%.</p>
+</div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mcmc-jags.sourceforge.io">rjags</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">model</span> <span class="op">=</span><span class="st">"</span></span>
+<span><span class="st">model{</span></span>
+<span><span class="st"></span></span>
+<span><span class="st"> tau ~ dgamma(20, 2000)</span></span>
+<span><span class="st"> tauDis ~ dgamma(10, 1000) # discounted by 2</span></span>
+<span><span class="st"> </span></span>
+<span><span class="st"> sigma &lt;- 1/sqrt(tau) </span></span>
+<span><span class="st"> sigmaDis &lt;- 1/sqrt(tauDis) </span></span>
+<span><span class="st"> </span></span>
+<span><span class="st"> theta ~ dnorm(5, 0.25) </span></span>
+<span><span class="st"> thetaDis ~ dnorm(4, 0.125) I(0,)  # 4 added to var and shifted by -1, constrained to be &gt;0</span></span>
+<span><span class="st"> </span></span>
+<span><span class="st"> n &lt;- 2*pow((1.28 + 1.96)*sigma/theta, 2) # n for 90% power </span></span>
+<span><span class="st"> power &lt;- phi(sqrt(84/2)*theta/sigma - 1.96) # power for n = 84 </span></span>
+<span><span class="st"> p70 &lt;- step(power - 0.7) # Pr(power &gt; 70%)</span></span>
+<span><span class="st"> </span></span>
+<span><span class="st"> nDis &lt;- 2*pow((1.28 + 1.96)*sigmaDis/thetaDis, 2) # n for 90% power </span></span>
+<span><span class="st"> powerDis &lt;- phi(sqrt(84/2)*thetaDis/sigmaDis - 1.96) # power for n = 84 </span></span>
+<span><span class="st"> p70Dis &lt;- step(powerDis - 0.7) # Pr(power &gt; 70%)</span></span>
+<span><span class="st"> }"</span></span>
+<span></span>
+<span></span>
+<span><span class="va">data</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">jmodel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rjags/man/jags.model.html">jags.model</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/textconnections.html">textConnection</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span>,n.chains <span class="op">=</span> <span class="fl">3</span>, n.adapt<span class="op">=</span> <span class="fl">100</span>,quiet<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">jmodel</span>, <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">mcmc_samples</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rjags/man/coda.samples.html">coda.samples</a></span><span class="op">(</span><span class="va">jmodel</span>, variable.names<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"n"</span>,<span class="st">"power"</span>,<span class="st">"p70"</span>,<span class="st">"nDis"</span>,<span class="st">"powerDis"</span>,<span class="st">"p70Dis"</span><span class="op">)</span>, n.iter<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mcmc_samples</span><span class="op">)</span></span></code></pre></div>
+<p><img src="11_files/figure-html/unnamed-chunk-1-1.png" width="672"><img src="11_files/figure-html/unnamed-chunk-1-2.png" width="672"></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="class-11.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mcmc_samples)</span>
+<span id="cb22-2"><a href="class-11.html#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="class-11.html#cb22-3" aria-hidden="true" tabindex="-1"></a>Iterations <span class="ot">=</span> <span class="dv">101</span><span class="sc">:</span><span class="dv">1100</span></span>
+<span id="cb22-4"><a href="class-11.html#cb22-4" aria-hidden="true" tabindex="-1"></a>Thinning interval <span class="ot">=</span> <span class="dv">1</span> </span>
+<span id="cb22-5"><a href="class-11.html#cb22-5" aria-hidden="true" tabindex="-1"></a>Number of chains <span class="ot">=</span> <span class="dv">3</span> </span>
+<span id="cb22-6"><a href="class-11.html#cb22-6" aria-hidden="true" tabindex="-1"></a>Sample size per chain <span class="ot">=</span> <span class="dv">1000</span> </span>
+<span id="cb22-7"><a href="class-11.html#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="class-11.html#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> Empirical mean and standard deviation <span class="cf">for</span> each variable,</span>
+<span id="cb22-9"><a href="class-11.html#cb22-9" aria-hidden="true" tabindex="-1"></a>   plus standard error of the mean<span class="sc">:</span></span>
+<span id="cb22-10"><a href="class-11.html#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="class-11.html#cb22-11" aria-hidden="true" tabindex="-1"></a>              Mean        SD  Naive SE Time<span class="sc">-</span>series SE</span>
+<span id="cb22-12"><a href="class-11.html#cb22-12" aria-hidden="true" tabindex="-1"></a>n        <span class="fl">1.416e+03</span> <span class="fl">3.457e+04</span> <span class="fl">6.312e+02</span>      <span class="fl">6.312e+02</span></span>
+<span id="cb22-13"><a href="class-11.html#cb22-13" aria-hidden="true" tabindex="-1"></a>nDis     <span class="fl">4.274e+07</span> <span class="fl">2.326e+09</span> <span class="fl">4.246e+07</span>      <span class="fl">4.246e+07</span></span>
+<span id="cb22-14"><a href="class-11.html#cb22-14" aria-hidden="true" tabindex="-1"></a>p70      <span class="fl">7.007e-01</span> <span class="fl">4.580e-01</span> <span class="fl">8.363e-03</span>      <span class="fl">8.513e-03</span></span>
+<span id="cb22-15"><a href="class-11.html#cb22-15" aria-hidden="true" tabindex="-1"></a>p70Dis   <span class="fl">5.467e-01</span> <span class="fl">4.979e-01</span> <span class="fl">9.090e-03</span>      <span class="fl">9.087e-03</span></span>
+<span id="cb22-16"><a href="class-11.html#cb22-16" aria-hidden="true" tabindex="-1"></a>power    <span class="fl">7.706e-01</span> <span class="fl">2.661e-01</span> <span class="fl">4.859e-03</span>      <span class="fl">4.883e-03</span></span>
+<span id="cb22-17"><a href="class-11.html#cb22-17" aria-hidden="true" tabindex="-1"></a>powerDis <span class="fl">6.602e-01</span> <span class="fl">3.259e-01</span> <span class="fl">5.950e-03</span>      <span class="fl">5.950e-03</span></span>
+<span id="cb22-18"><a href="class-11.html#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="class-11.html#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> Quantiles <span class="cf">for</span> each variable<span class="sc">:</span></span>
+<span id="cb22-20"><a href="class-11.html#cb22-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-21"><a href="class-11.html#cb22-21" aria-hidden="true" tabindex="-1"></a>             <span class="fl">2.5</span><span class="sc">%     25%</span>      <span class="dv">50</span><span class="sc">%      75%</span> <span class="fl">97.5</span>%</span>
+<span id="cb22-22"><a href="class-11.html#cb22-22" aria-hidden="true" tabindex="-1"></a>n        <span class="fl">23.90597</span> <span class="fl">53.0114</span>  <span class="fl">88.2762</span> <span class="fl">166.9580</span>  <span class="dv">1730</span></span>
+<span id="cb22-23"><a href="class-11.html#cb22-23" aria-hidden="true" tabindex="-1"></a>nDis     <span class="fl">20.83304</span> <span class="fl">58.8898</span> <span class="fl">123.6087</span> <span class="fl">317.4457</span> <span class="dv">13747</span></span>
+<span id="cb22-24"><a href="class-11.html#cb22-24" aria-hidden="true" tabindex="-1"></a>p70       <span class="fl">0.00000</span>  <span class="fl">0.0000</span>   <span class="fl">1.0000</span>   <span class="fl">1.0000</span>     <span class="dv">1</span></span>
+<span id="cb22-25"><a href="class-11.html#cb22-25" aria-hidden="true" tabindex="-1"></a>p70Dis    <span class="fl">0.00000</span>  <span class="fl">0.0000</span>   <span class="fl">1.0000</span>   <span class="fl">1.0000</span>     <span class="dv">1</span></span>
+<span id="cb22-26"><a href="class-11.html#cb22-26" aria-hidden="true" tabindex="-1"></a>power     <span class="fl">0.10199</span>  <span class="fl">0.6324</span>   <span class="fl">0.8850</span>   <span class="fl">0.9829</span>     <span class="dv">1</span></span>
+<span id="cb22-27"><a href="class-11.html#cb22-27" aria-hidden="true" tabindex="-1"></a>powerDis  <span class="fl">0.04394</span>  <span class="fl">0.3846</span>   <span class="fl">0.7614</span>   <span class="fl">0.9719</span>     <span class="dv">1</span></span></code></pre></div>
+<div class="example lizi">
+<p><span id="exm:great" class="example"><strong>Example 11.2  (GREAT study) </strong></span>The region early trial (GREAT) found that patients with suspected acute myocardial infarction had lower 3-month mortality if treated early with .</p>
+<p>Let <span class="math inline">\(r_j\)</span>, <span class="math inline">\(n_j\)</span>, and <span class="math inline">\(p_j\)</span> denote the number of deaths, total number of patients, and underlying mortality rate, respectively, in group <span class="math inline">\(j\in\{1,2\}\)</span> (1=anistreplase; 2=placebo). We are interested in conducting inference on the log-odds ratio for mortality in the anistreplase group compared to placebo; i.e. 
+<span class="math display">\[
+\theta=\log\left\{\frac{p_1/(1-p_1)}{p_2/(1-p_2)}\right\}=\text{logit}(p_1) - \text{logit}(p_2)
+\]</span>
+A natural estimator of <span class="math inline">\(\theta\)</span> is
+<span class="math display">\[
+\hat{\theta}=\log\left\{\frac{r_1/(n_1-r_1)}{r_2/(n_2-r_2)}\right\} \approx -0.753
+\]</span>
+<span class="math display">\[
+\text{Var}(\hat\theta)\approx \frac{1}{r_1}+\frac{1}{r_2}+\frac{1}{n_1-r_1}+\frac{1}{n_2-r_2}\approx 0.135
+\]</span></p>
+<p>The following Bayesian models are considered.</p>
+<p><strong>Model A (normal dist on effect, uniform prior):</strong> <span class="math inline">\(\hat\theta\sim\mathcal{N}(\theta,0.135)\)</span> with <span class="math inline">\(\theta\sim\text{Uniform}(-10,10)\)</span>.</p>
+<p><strong>Model B (binomial dist on rates, Jeffreys priors):</strong> <span class="math inline">\(r_j\sim\text{Binomial}(p_j,n_j)\)</span> with <span class="math inline">\(p_j\sim\Beta(.5,.5)\)</span>, <span class="math inline">\(j=1,2\)</span>.</p>
+<p><strong>Model C (binomial dist on rates, logit transform, clinical prior):</strong> The parameters <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span> are reparameterized in terms of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\theta\)</span> as
+<span class="math display">\[
+\begin{split}
+\text{logit}(p_1) &amp;= \alpha + \theta/2\\
+\text{logit}(p_2) &amp;= \alpha - \theta/2
+\end{split}
+\]</span>
+The <span class="math inline">\(\alpha\)</span> is a nuisance parameter and is given a practically flat prior: <span class="math inline">\(\alpha\sim\mathcal{N}(0,100^2)\)</span>. The “clinical” prior for <span class="math inline">\(\theta\)</span> is based on expert elicitation: a senior cardiologist, informed by one unpublished and two published trials, expressed belief that “an expectation of 15-20% reduction in mortality is highly plausible, while the extremes of no benefit and a 40% relative reduction are both unlikely”.</p>
+<p>This is translated into a 95% interval for the odds ratio being (.6,1), which corresponds to the interval (-.51,0) on the log-odds scale. A normal distribution with this property leads to <span class="math inline">\(\theta\sim\mathcal{N}(\mu_0,\sigma_{0}^2)\)</span>, where <span class="math inline">\(\mu_0=(-.51+0)/2=-.26\)</span> and <span class="math inline">\(\sigma_0=.26/1.96\approx .13\)</span>.</p>
+<p><strong>Model D (binomial dist on rates, logit transform, skeptical prior):</strong> This model follows the same approach as Model C but with a ``skeptical’’ prior placed on <span class="math inline">\(\theta\)</span> to avoid early stopping of trials due to fortuitously positive results. Specifically, a prior for <span class="math inline">\(\theta\)</span> is constructed to have a 95% confidence interval of (.5, 2) on the odds ratio scale, which is equivalent to the interval of (-.69,69) on the log-odds scale. A normal distribution with this property leads to <span class="math inline">\(\theta\sim\mathcal{N}(0,.35^2)\)</span>.</p>
+</div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="class-11.html#cb23-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">mat=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">13</span>,<span class="dv">150</span>,<span class="dv">23</span>,<span class="dv">125</span>),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">"death"</span>,<span class="st">"no death"</span>),<span class="fu">c</span>(<span class="st">"anistreplase"</span>,<span class="st">"placebo"</span>))))</span>
+<span id="cb23-2"><a href="class-11.html#cb23-2" aria-hidden="true" tabindex="-1"></a>         anistreplase placebo</span>
+<span id="cb23-3"><a href="class-11.html#cb23-3" aria-hidden="true" tabindex="-1"></a>death              <span class="dv">13</span>      <span class="dv">23</span></span>
+<span id="cb23-4"><a href="class-11.html#cb23-4" aria-hidden="true" tabindex="-1"></a>no death          <span class="dv">150</span>     <span class="dv">125</span></span>
+<span id="cb23-5"><a href="class-11.html#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(mat)</span>
+<span id="cb23-6"><a href="class-11.html#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="class-11.html#cb23-7" aria-hidden="true" tabindex="-1"></a>    Fisher<span class="st">'s Exact Test for Count Data</span></span>
+<span id="cb23-8"><a href="class-11.html#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="class-11.html#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="st">data:  mat</span></span>
+<span id="cb23-10"><a href="class-11.html#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="st">p-value = 0.05002</span></span>
+<span id="cb23-11"><a href="class-11.html#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="st">alternative hypothesis: true odds ratio is not equal to 1</span></span>
+<span id="cb23-12"><a href="class-11.html#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="st">95 percent confidence interval:</span></span>
+<span id="cb23-13"><a href="class-11.html#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="st"> 0.2104046 1.0183476</span></span>
+<span id="cb23-14"><a href="class-11.html#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="st">sample estimates:</span></span>
+<span id="cb23-15"><a href="class-11.html#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="st">odds ratio </span></span>
+<span id="cb23-16"><a href="class-11.html#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="st"> 0.4721467 </span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="class-11.html#cb24-1" aria-hidden="true" tabindex="-1"></a>model<span class="ot">=</span> <span class="cf">function</span>(){</span>
+<span id="cb24-2"><a href="class-11.html#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="class-11.html#cb24-3" aria-hidden="true" tabindex="-1"></a>  pr.mean[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.26</span></span>
+<span id="cb24-4"><a href="class-11.html#cb24-4" aria-hidden="true" tabindex="-1"></a>  pr.sd[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fl">0.13</span> <span class="co"># clinical prior</span></span>
+<span id="cb24-5"><a href="class-11.html#cb24-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-6"><a href="class-11.html#cb24-6" aria-hidden="true" tabindex="-1"></a>  pr.mean[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb24-7"><a href="class-11.html#cb24-7" aria-hidden="true" tabindex="-1"></a>  pr.sd[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fl">0.35</span> <span class="co"># skeptical prior</span></span>
+<span id="cb24-8"><a href="class-11.html#cb24-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-9"><a href="class-11.html#cb24-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-10"><a href="class-11.html#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Likelihoods</span></span>
+<span id="cb24-11"><a href="class-11.html#cb24-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-12"><a href="class-11.html#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model A</span></span>
+<span id="cb24-13"><a href="class-11.html#cb24-13" aria-hidden="true" tabindex="-1"></a>  theta.mle <span class="sc">~</span> <span class="fu">dnorm</span>(thetaA, <span class="dv">1</span><span class="sc">/</span>.<span class="dv">135</span>) </span>
+<span id="cb24-14"><a href="class-11.html#cb24-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-15"><a href="class-11.html#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model B</span></span>
+<span id="cb24-16"><a href="class-11.html#cb24-16" aria-hidden="true" tabindex="-1"></a>  r.rep[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">~</span> <span class="fu">dbin</span>(pB[<span class="dv">1</span>],n.rep[<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb24-17"><a href="class-11.html#cb24-17" aria-hidden="true" tabindex="-1"></a>  r.rep[<span class="dv">1</span>,<span class="dv">2</span>] <span class="sc">~</span> <span class="fu">dbin</span>(pB[<span class="dv">2</span>],n.rep[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<span id="cb24-18"><a href="class-11.html#cb24-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-19"><a href="class-11.html#cb24-19" aria-hidden="true" tabindex="-1"></a>  thetaB <span class="ot">&lt;-</span> <span class="fu">logit</span>(pB[<span class="dv">1</span>]) <span class="sc">-</span> <span class="fu">logit</span>(pB[<span class="dv">2</span>])</span>
+<span id="cb24-20"><a href="class-11.html#cb24-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-21"><a href="class-11.html#cb24-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model C</span></span>
+<span id="cb24-22"><a href="class-11.html#cb24-22" aria-hidden="true" tabindex="-1"></a>  r.rep[<span class="dv">2</span>,<span class="dv">1</span>] <span class="sc">~</span> <span class="fu">dbin</span>(pC[<span class="dv">1</span>],n.rep[<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb24-23"><a href="class-11.html#cb24-23" aria-hidden="true" tabindex="-1"></a>  r.rep[<span class="dv">2</span>,<span class="dv">2</span>] <span class="sc">~</span> <span class="fu">dbin</span>(pC[<span class="dv">2</span>],n.rep[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<span id="cb24-24"><a href="class-11.html#cb24-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-25"><a href="class-11.html#cb24-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">logit</span>(pC[<span class="dv">1</span>]) <span class="ot">&lt;-</span> alphaC <span class="sc">+</span> thetaC<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb24-26"><a href="class-11.html#cb24-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">logit</span>(pC[<span class="dv">2</span>]) <span class="ot">&lt;-</span> alphaC <span class="sc">-</span> thetaC<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb24-27"><a href="class-11.html#cb24-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-28"><a href="class-11.html#cb24-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model D</span></span>
+<span id="cb24-29"><a href="class-11.html#cb24-29" aria-hidden="true" tabindex="-1"></a>  r.rep[<span class="dv">3</span>,<span class="dv">1</span>] <span class="sc">~</span> <span class="fu">dbin</span>(pD[<span class="dv">1</span>],n.rep[<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb24-30"><a href="class-11.html#cb24-30" aria-hidden="true" tabindex="-1"></a>  r.rep[<span class="dv">3</span>,<span class="dv">2</span>] <span class="sc">~</span> <span class="fu">dbin</span>(pD[<span class="dv">2</span>],n.rep[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<span id="cb24-31"><a href="class-11.html#cb24-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-32"><a href="class-11.html#cb24-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">logit</span>(pD[<span class="dv">1</span>]) <span class="ot">&lt;-</span> alphaD <span class="sc">+</span> thetaD<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb24-33"><a href="class-11.html#cb24-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">logit</span>(pD[<span class="dv">2</span>]) <span class="ot">&lt;-</span> alphaD <span class="sc">-</span> thetaD<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb24-34"><a href="class-11.html#cb24-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-35"><a href="class-11.html#cb24-35" aria-hidden="true" tabindex="-1"></a>  <span class="do">## priors</span></span>
+<span id="cb24-36"><a href="class-11.html#cb24-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-37"><a href="class-11.html#cb24-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model A</span></span>
+<span id="cb24-38"><a href="class-11.html#cb24-38" aria-hidden="true" tabindex="-1"></a>  thetaA <span class="sc">~</span> <span class="fu">dunif</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>) <span class="co"># locally uniform prior</span></span>
+<span id="cb24-39"><a href="class-11.html#cb24-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-40"><a href="class-11.html#cb24-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model B</span></span>
+<span id="cb24-41"><a href="class-11.html#cb24-41" aria-hidden="true" tabindex="-1"></a>  pB[<span class="dv">1</span>] <span class="sc">~</span> <span class="fu">dbeta</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>) </span>
+<span id="cb24-42"><a href="class-11.html#cb24-42" aria-hidden="true" tabindex="-1"></a>  pB[<span class="dv">2</span>] <span class="sc">~</span> <span class="fu">dbeta</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>) </span>
+<span id="cb24-43"><a href="class-11.html#cb24-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-44"><a href="class-11.html#cb24-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model C (clinical prior)</span></span>
+<span id="cb24-45"><a href="class-11.html#cb24-45" aria-hidden="true" tabindex="-1"></a>  alphaC <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.0001</span>)</span>
+<span id="cb24-46"><a href="class-11.html#cb24-46" aria-hidden="true" tabindex="-1"></a>  thetaC <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="sc">-</span>.<span class="dv">26</span>, <span class="dv">1</span><span class="sc">/</span><span class="fu">pow</span>(.<span class="dv">13</span>, <span class="dv">2</span>))</span>
+<span id="cb24-47"><a href="class-11.html#cb24-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-48"><a href="class-11.html#cb24-48" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model D (skeptical prior)</span></span>
+<span id="cb24-49"><a href="class-11.html#cb24-49" aria-hidden="true" tabindex="-1"></a>  alphaD <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.0001</span>)</span>
+<span id="cb24-50"><a href="class-11.html#cb24-50" aria-hidden="true" tabindex="-1"></a>  thetaD <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">1</span><span class="sc">/</span><span class="fu">pow</span>(.<span class="dv">35</span>, <span class="dv">2</span>))</span>
+<span id="cb24-51"><a href="class-11.html#cb24-51" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-52"><a href="class-11.html#cb24-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-53"><a href="class-11.html#cb24-53" aria-hidden="true" tabindex="-1"></a>r<span class="ot">=</span><span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">23</span>)</span>
+<span id="cb24-54"><a href="class-11.html#cb24-54" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="fu">c</span>(<span class="dv">163</span>, <span class="dv">148</span>)</span>
+<span id="cb24-55"><a href="class-11.html#cb24-55" aria-hidden="true" tabindex="-1"></a>r.rep<span class="ot">=</span><span class="fu">array</span>(<span class="fu">rep</span>(r,<span class="at">each=</span><span class="dv">3</span>),<span class="at">dim=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>))</span>
+<span id="cb24-56"><a href="class-11.html#cb24-56" aria-hidden="true" tabindex="-1"></a>n.rep<span class="ot">=</span><span class="fu">array</span>(<span class="fu">rep</span>(n,<span class="at">each=</span><span class="dv">3</span>),<span class="at">dim=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>))</span>
+<span id="cb24-57"><a href="class-11.html#cb24-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-58"><a href="class-11.html#cb24-58" aria-hidden="true" tabindex="-1"></a>r.rep</span>
+<span id="cb24-59"><a href="class-11.html#cb24-59" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb24-60"><a href="class-11.html#cb24-60" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]   <span class="dv">13</span>   <span class="dv">23</span></span>
+<span id="cb24-61"><a href="class-11.html#cb24-61" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]   <span class="dv">13</span>   <span class="dv">23</span></span>
+<span id="cb24-62"><a href="class-11.html#cb24-62" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,]   <span class="dv">13</span>   <span class="dv">23</span></span>
+<span id="cb24-63"><a href="class-11.html#cb24-63" aria-hidden="true" tabindex="-1"></a>n.rep</span>
+<span id="cb24-64"><a href="class-11.html#cb24-64" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb24-65"><a href="class-11.html#cb24-65" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]  <span class="dv">163</span>  <span class="dv">148</span></span>
+<span id="cb24-66"><a href="class-11.html#cb24-66" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]  <span class="dv">163</span>  <span class="dv">148</span></span>
+<span id="cb24-67"><a href="class-11.html#cb24-67" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,]  <span class="dv">163</span>  <span class="dv">148</span></span>
+<span id="cb24-68"><a href="class-11.html#cb24-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-69"><a href="class-11.html#cb24-69" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">list</span>(<span class="at">r.rep =</span> r.rep, <span class="at">n.rep =</span> n.rep,<span class="at">theta.mle=</span> <span class="sc">-</span><span class="fl">0.753</span>)</span>
+<span id="cb24-70"><a href="class-11.html#cb24-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-71"><a href="class-11.html#cb24-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-72"><a href="class-11.html#cb24-72" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
+<span id="cb24-73"><a href="class-11.html#cb24-73" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data=</span>data, <span class="at">model=</span>model,<span class="at">parameters.to.save=</span><span class="fu">c</span>(<span class="st">"thetaA"</span>,<span class="st">"thetaB"</span>,<span class="st">"thetaC"</span>,<span class="st">"thetaD"</span>), <span class="at">n.chain=</span><span class="dv">2</span>, <span class="at">n.iter=</span><span class="dv">5000</span>, <span class="at">n.thin=</span><span class="dv">1</span>, <span class="at">n.burn=</span><span class="dv">100</span>, <span class="at">DIC=</span><span class="cn">FALSE</span>)</span>
+<span id="cb24-74"><a href="class-11.html#cb24-74" aria-hidden="true" tabindex="-1"></a>module glm loaded</span>
+<span id="cb24-75"><a href="class-11.html#cb24-75" aria-hidden="true" tabindex="-1"></a>module dic loaded</span>
+<span id="cb24-76"><a href="class-11.html#cb24-76" aria-hidden="true" tabindex="-1"></a>Compiling model graph</span>
+<span id="cb24-77"><a href="class-11.html#cb24-77" aria-hidden="true" tabindex="-1"></a>   Resolving undeclared variables</span>
+<span id="cb24-78"><a href="class-11.html#cb24-78" aria-hidden="true" tabindex="-1"></a>   Allocating nodes</span>
+<span id="cb24-79"><a href="class-11.html#cb24-79" aria-hidden="true" tabindex="-1"></a>Graph information<span class="sc">:</span></span>
+<span id="cb24-80"><a href="class-11.html#cb24-80" aria-hidden="true" tabindex="-1"></a>   Observed stochastic nodes<span class="sc">:</span> <span class="dv">7</span></span>
+<span id="cb24-81"><a href="class-11.html#cb24-81" aria-hidden="true" tabindex="-1"></a>   Unobserved stochastic nodes<span class="sc">:</span> <span class="dv">7</span></span>
+<span id="cb24-82"><a href="class-11.html#cb24-82" aria-hidden="true" tabindex="-1"></a>   Total graph size<span class="sc">:</span> <span class="dv">50</span></span>
+<span id="cb24-83"><a href="class-11.html#cb24-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-84"><a href="class-11.html#cb24-84" aria-hidden="true" tabindex="-1"></a>Initializing model</span>
+<span id="cb24-85"><a href="class-11.html#cb24-85" aria-hidden="true" tabindex="-1"></a>fit.mcmc <span class="ot">&lt;-</span> <span class="fu">as.mcmc</span>(fit)</span>
+<span id="cb24-86"><a href="class-11.html#cb24-86" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit.mcmc)</span></code></pre></div>
+<div class="inline-figure"><img src="11_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="class-11.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.mcmc)</span>
+<span id="cb25-2"><a href="class-11.html#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="class-11.html#cb25-3" aria-hidden="true" tabindex="-1"></a>Iterations <span class="ot">=</span> <span class="dv">101</span><span class="sc">:</span><span class="dv">5000</span></span>
+<span id="cb25-4"><a href="class-11.html#cb25-4" aria-hidden="true" tabindex="-1"></a>Thinning interval <span class="ot">=</span> <span class="dv">1</span> </span>
+<span id="cb25-5"><a href="class-11.html#cb25-5" aria-hidden="true" tabindex="-1"></a>Number of chains <span class="ot">=</span> <span class="dv">2</span> </span>
+<span id="cb25-6"><a href="class-11.html#cb25-6" aria-hidden="true" tabindex="-1"></a>Sample size per chain <span class="ot">=</span> <span class="dv">4900</span> </span>
+<span id="cb25-7"><a href="class-11.html#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="class-11.html#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> Empirical mean and standard deviation <span class="cf">for</span> each variable,</span>
+<span id="cb25-9"><a href="class-11.html#cb25-9" aria-hidden="true" tabindex="-1"></a>   plus standard error of the mean<span class="sc">:</span></span>
+<span id="cb25-10"><a href="class-11.html#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="class-11.html#cb25-11" aria-hidden="true" tabindex="-1"></a>          Mean     SD Naive SE Time<span class="sc">-</span>series SE</span>
+<span id="cb25-12"><a href="class-11.html#cb25-12" aria-hidden="true" tabindex="-1"></a>thetaA <span class="sc">-</span><span class="fl">0.7530</span> <span class="fl">0.3741</span> <span class="fl">0.003779</span>       <span class="fl">0.004664</span></span>
+<span id="cb25-13"><a href="class-11.html#cb25-13" aria-hidden="true" tabindex="-1"></a>thetaB <span class="sc">-</span><span class="fl">0.7473</span> <span class="fl">0.3711</span> <span class="fl">0.003749</span>       <span class="fl">0.004767</span></span>
+<span id="cb25-14"><a href="class-11.html#cb25-14" aria-hidden="true" tabindex="-1"></a>thetaC <span class="sc">-</span><span class="fl">0.3171</span> <span class="fl">0.1227</span> <span class="fl">0.001239</span>       <span class="fl">0.002252</span></span>
+<span id="cb25-15"><a href="class-11.html#cb25-15" aria-hidden="true" tabindex="-1"></a>thetaD <span class="sc">-</span><span class="fl">0.3737</span> <span class="fl">0.2557</span> <span class="fl">0.002583</span>       <span class="fl">0.009054</span></span>
+<span id="cb25-16"><a href="class-11.html#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="class-11.html#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> Quantiles <span class="cf">for</span> each variable<span class="sc">:</span></span>
+<span id="cb25-18"><a href="class-11.html#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="class-11.html#cb25-19" aria-hidden="true" tabindex="-1"></a>          <span class="fl">2.5</span><span class="sc">%     25%</span>     <span class="dv">50</span><span class="sc">%     75%</span>    <span class="fl">97.5</span>%</span>
+<span id="cb25-20"><a href="class-11.html#cb25-20" aria-hidden="true" tabindex="-1"></a>thetaA <span class="sc">-</span><span class="fl">1.4841</span> <span class="sc">-</span><span class="fl">1.0046</span> <span class="sc">-</span><span class="fl">0.7609</span> <span class="sc">-</span><span class="fl">0.5050</span> <span class="sc">-</span><span class="fl">0.01045</span></span>
+<span id="cb25-21"><a href="class-11.html#cb25-21" aria-hidden="true" tabindex="-1"></a>thetaB <span class="sc">-</span><span class="fl">1.5069</span> <span class="sc">-</span><span class="fl">0.9924</span> <span class="sc">-</span><span class="fl">0.7388</span> <span class="sc">-</span><span class="fl">0.4951</span> <span class="sc">-</span><span class="fl">0.04037</span></span>
+<span id="cb25-22"><a href="class-11.html#cb25-22" aria-hidden="true" tabindex="-1"></a>thetaC <span class="sc">-</span><span class="fl">0.5600</span> <span class="sc">-</span><span class="fl">0.4000</span> <span class="sc">-</span><span class="fl">0.3171</span> <span class="sc">-</span><span class="fl">0.2329</span> <span class="sc">-</span><span class="fl">0.07888</span></span>
+<span id="cb25-23"><a href="class-11.html#cb25-23" aria-hidden="true" tabindex="-1"></a>thetaD <span class="sc">-</span><span class="fl">0.8795</span> <span class="sc">-</span><span class="fl">0.5459</span> <span class="sc">-</span><span class="fl">0.3697</span> <span class="sc">-</span><span class="fl">0.2014</span>  <span class="fl">0.12704</span></span>
+<span id="cb25-24"><a href="class-11.html#cb25-24" aria-hidden="true" tabindex="-1"></a>mat<span class="ot">=</span><span class="fu">as.matrix</span>(<span class="fu">as.mcmc</span>(fit))</span>
+<span id="cb25-25"><a href="class-11.html#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(mat)</span>
+<span id="cb25-26"><a href="class-11.html#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="inline-figure"><img src="11_files/figure-html/unnamed-chunk-3-2.png" width="672"></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://mc-stan.org/bayesplot/">"bayesplot"</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span></span>
+<span><span class="va">plot_title</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Posterior distributions"</span>,</span>
+<span>                      <span class="st">"with medians and 95% intervals"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-intervals.html">mcmc_areas</a></span><span class="op">(</span><span class="va">mat</span>,</span>
+<span>           pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"thetaA"</span>, <span class="st">"thetaB"</span>, <span class="st">"thetaC"</span>, <span class="st">"thetaD"</span><span class="op">)</span>,</span>
+<span>           prob <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op">+</span> <span class="va">plot_title</span></span></code></pre></div>
+<div class="inline-figure"><img src="11_files/figure-html/unnamed-chunk-3-3.png" width="672"></div>
+</div>
+<div id="bayes-factor" class="section level2" number="11.2">
+<h2>
+<span class="header-section-number">11.2</span> Bayes factor<a class="anchor" aria-label="anchor" href="#bayes-factor"><i class="fas fa-link"></i></a>
+</h2>
+<div class="example lizi">
+<p><span id="exm:octopus" class="example"><strong>Example 11.3  (Paul the psychic octopus) </strong></span>In the 2020 soccer World Cup competition, Paul the psychic octopus correctly made 8 out 8 predictions of the winner. Let <span class="math inline">\(H_0\)</span> represent the hypothesis that the predictions were a coincidence, and let <span class="math inline">\(H_1\)</span> represent the hypothesis that Paul has some psychic ability. More specifically, we ignore the possibility of a draw and assume the predictions follow a binomial distribution with parameter <span class="math inline">\(\theta\)</span> representing the probability of a correct prediction. We wish to compare the following hypotheses
+<span class="math display">\[
+\begin{split}
+    &amp;H_0: \theta=.5\\
+    &amp;H_1: \theta\sim\text{Uniform}(.5,1)
+\end{split}
+\]</span></p>
+</div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="class-11.html#cb27-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>() { </span>
+<span id="cb27-2"><a href="class-11.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  q[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="co"># prior probabilities</span></span>
+<span id="cb27-3"><a href="class-11.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  q[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fl">0.5</span> </span>
+<span id="cb27-4"><a href="class-11.html#cb27-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-5"><a href="class-11.html#cb27-5" aria-hidden="true" tabindex="-1"></a>  theta[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="co"># H0</span></span>
+<span id="cb27-6"><a href="class-11.html#cb27-6" aria-hidden="true" tabindex="-1"></a>  theta[<span class="dv">2</span>] <span class="sc">~</span> <span class="fu">dunif</span>(<span class="fl">0.5</span>, <span class="dv">1</span>) <span class="co"># H1</span></span>
+<span id="cb27-7"><a href="class-11.html#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="class-11.html#cb27-8" aria-hidden="true" tabindex="-1"></a>  r <span class="sc">~</span> <span class="fu">dbin</span>(theta[pick], n) <span class="co"># likelihood</span></span>
+<span id="cb27-9"><a href="class-11.html#cb27-9" aria-hidden="true" tabindex="-1"></a>  pick <span class="sc">~</span> <span class="fu">dcat</span>(q[])</span>
+<span id="cb27-10"><a href="class-11.html#cb27-10" aria-hidden="true" tabindex="-1"></a>  psychic <span class="ot">&lt;-</span> pick <span class="sc">-</span> <span class="dv">1</span> <span class="co"># 1 if psychic, 0 otherwise</span></span>
+<span id="cb27-11"><a href="class-11.html#cb27-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-12"><a href="class-11.html#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="class-11.html#cb27-13" aria-hidden="true" tabindex="-1"></a>Data <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">r =</span> <span class="dv">8</span>, <span class="at">n =</span> <span class="dv">8</span>)</span>
+<span id="cb27-14"><a href="class-11.html#cb27-14" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">jags</span>(Data, <span class="at">model =</span> model, <span class="at">param =</span> <span class="fu">c</span>(<span class="st">"theta"</span>,</span>
+<span id="cb27-15"><a href="class-11.html#cb27-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"psychic"</span>), <span class="at">n.chain =</span> <span class="dv">2</span>, <span class="at">n.iter =</span> <span class="dv">10000</span>, <span class="at">n.thin =</span> <span class="dv">1</span>,</span>
+<span id="cb27-16"><a href="class-11.html#cb27-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">n.burn =</span> <span class="dv">0</span>, <span class="at">DIC =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb27-17"><a href="class-11.html#cb27-17" aria-hidden="true" tabindex="-1"></a>module glm loaded</span>
+<span id="cb27-18"><a href="class-11.html#cb27-18" aria-hidden="true" tabindex="-1"></a>module dic loaded</span>
+<span id="cb27-19"><a href="class-11.html#cb27-19" aria-hidden="true" tabindex="-1"></a>Compiling model graph</span>
+<span id="cb27-20"><a href="class-11.html#cb27-20" aria-hidden="true" tabindex="-1"></a>   Resolving undeclared variables</span>
+<span id="cb27-21"><a href="class-11.html#cb27-21" aria-hidden="true" tabindex="-1"></a>   Allocating nodes</span>
+<span id="cb27-22"><a href="class-11.html#cb27-22" aria-hidden="true" tabindex="-1"></a>Graph information<span class="sc">:</span></span>
+<span id="cb27-23"><a href="class-11.html#cb27-23" aria-hidden="true" tabindex="-1"></a>   Observed stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb27-24"><a href="class-11.html#cb27-24" aria-hidden="true" tabindex="-1"></a>   Unobserved stochastic nodes<span class="sc">:</span> <span class="dv">2</span></span>
+<span id="cb27-25"><a href="class-11.html#cb27-25" aria-hidden="true" tabindex="-1"></a>   Total graph size<span class="sc">:</span> <span class="dv">9</span></span>
+<span id="cb27-26"><a href="class-11.html#cb27-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-27"><a href="class-11.html#cb27-27" aria-hidden="true" tabindex="-1"></a>Initializing model</span>
+<span id="cb27-28"><a href="class-11.html#cb27-28" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fit)</span>
+<span id="cb27-29"><a href="class-11.html#cb27-29" aria-hidden="true" tabindex="-1"></a>Inference <span class="cf">for</span> Bugs model at <span class="st">"/var/folders/fy/_0t49sys0713k84msqwk44fc0000gp/T//Rtmp5yyCFv/model1518d707f84d2.txt"</span>, fit using jags,</span>
+<span id="cb27-30"><a href="class-11.html#cb27-30" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> chains, each with <span class="dv">10000</span> <span class="fu">iterations</span> (first <span class="dv">0</span> discarded)</span>
+<span id="cb27-31"><a href="class-11.html#cb27-31" aria-hidden="true" tabindex="-1"></a> n.sims <span class="ot">=</span> <span class="dv">20000</span> iterations saved</span>
+<span id="cb27-32"><a href="class-11.html#cb27-32" aria-hidden="true" tabindex="-1"></a>         mu.vect sd.vect  <span class="fl">2.5</span><span class="sc">%   25%</span>   <span class="dv">50</span><span class="sc">%   75%</span> <span class="fl">97.5</span>%</span>
+<span id="cb27-33"><a href="class-11.html#cb27-33" aria-hidden="true" tabindex="-1"></a>psychic    <span class="fl">0.983</span>   <span class="fl">0.127</span> <span class="fl">1.000</span> <span class="fl">1.000</span> <span class="fl">1.000</span> <span class="fl">1.000</span> <span class="fl">1.000</span></span>
+<span id="cb27-34"><a href="class-11.html#cb27-34" aria-hidden="true" tabindex="-1"></a>theta[<span class="dv">1</span>]   <span class="fl">0.500</span>   <span class="fl">0.000</span> <span class="fl">0.500</span> <span class="fl">0.500</span> <span class="fl">0.500</span> <span class="fl">0.500</span> <span class="fl">0.500</span></span>
+<span id="cb27-35"><a href="class-11.html#cb27-35" aria-hidden="true" tabindex="-1"></a>theta[<span class="dv">2</span>]   <span class="fl">0.900</span>   <span class="fl">0.089</span> <span class="fl">0.663</span> <span class="fl">0.857</span> <span class="fl">0.925</span> <span class="fl">0.969</span> <span class="fl">0.997</span></span>
+<span id="cb27-36"><a href="class-11.html#cb27-36" aria-hidden="true" tabindex="-1"></a>          Rhat n.eff</span>
+<span id="cb27-37"><a href="class-11.html#cb27-37" aria-hidden="true" tabindex="-1"></a>psychic  <span class="fl">1.001</span> <span class="dv">20000</span></span>
+<span id="cb27-38"><a href="class-11.html#cb27-38" aria-hidden="true" tabindex="-1"></a>theta[<span class="dv">1</span>] <span class="fl">1.000</span>     <span class="dv">1</span></span>
+<span id="cb27-39"><a href="class-11.html#cb27-39" aria-hidden="true" tabindex="-1"></a>theta[<span class="dv">2</span>] <span class="fl">1.005</span>  <span class="dv">1200</span></span>
+<span id="cb27-40"><a href="class-11.html#cb27-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-41"><a href="class-11.html#cb27-41" aria-hidden="true" tabindex="-1"></a>For each parameter, n.eff is a crude measure of effective sample size,</span>
+<span id="cb27-42"><a href="class-11.html#cb27-42" aria-hidden="true" tabindex="-1"></a>and Rhat is the potential scale reduction <span class="fu">factor</span> (at convergence, <span class="at">Rhat=</span><span class="dv">1</span>).</span>
+<span id="cb27-43"><a href="class-11.html#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="fu">attach.jags</span>(fit)</span>
+<span id="cb27-44"><a href="class-11.html#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(theta[,<span class="dv">2</span>])</span></code></pre></div>
+<div class="inline-figure"><img src="11_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<p>In particular, notice how this hypothesis testing problem has been translated into an inference problem.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="class-10.html"><span class="header-section-number">10</span> Class 10</a></div>
+<div class="next"><a href="class-12.html"><span class="header-section-number">12</span> Class 12</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#class-11"><span class="header-section-number">11</span> Class 11</a></li>
+<li><a class="nav-link" href="#prior-distributions"><span class="header-section-number">11.1</span> Prior distributions</a></li>
+<li><a class="nav-link" href="#bayes-factor"><span class="header-section-number">11.2</span> Bayes factor</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/arthurberg/Bayesian/blob/main/11.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/arthurberg/Bayesian/edit/main/11.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-11-15.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

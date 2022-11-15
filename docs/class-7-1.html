@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>11 Class 7 | PHS 528: Bayesian Methods</title>
+<meta name="author" content="Arthur Berg">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="11 Class 7 | PHS 528: Bayesian Methods">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://arthurberg.github.io/Bayesian/class-7-1.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11 Class 7 | PHS 528: Bayesian Methods">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="11.1 Prior distributions  Example 11.1 (Power analysis) We consider the sample size estimation of a two-arm randomized trial with a continuous primary outcome and \(n\) subjects randomized to each...">
+<meta property="og:description" content="11.1 Prior distributions  Example 11.1 (Power analysis) We consider the sample size estimation of a two-arm randomized trial with a continuous primary outcome and \(n\) subjects randomized to each...">
+<meta name="twitter:description" content="11.1 Prior distributions  Example 11.1 (Power analysis) We consider the sample size estimation of a two-arm randomized trial with a continuous primary outcome and \(n\) subjects randomized to each...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">PHS 528: Bayesian Methods</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Class 1</a></li>
+<li><a class="" href="class-2.html"><span class="header-section-number">2</span> Class 2</a></li>
+<li><a class="" href="class-3.html"><span class="header-section-number">3</span> Class 3</a></li>
+<li><a class="" href="class-4.html"><span class="header-section-number">4</span> Class 4</a></li>
+<li><a class="" href="class-5.html"><span class="header-section-number">5</span> Class 5</a></li>
+<li><a class="" href="class-6.html"><span class="header-section-number">6</span> Class 6</a></li>
+<li><a class="" href="class-7.html"><span class="header-section-number">7</span> Class 7</a></li>
+<li><a class="" href="class-8.html"><span class="header-section-number">8</span> Class 8</a></li>
+<li><a class="" href="class-9.html"><span class="header-section-number">9</span> Class 9</a></li>
+<li><a class="" href="class-10.html"><span class="header-section-number">10</span> Class 10</a></li>
+<li><a class="active" href="class-7-1.html"><span class="header-section-number">11</span> Class 7</a></li>
+<li><a class="" href="to-be-incorporated.html"><span class="header-section-number">12</span> To Be Incorporated</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">13</span> References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/arthurberg/Bayesian">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="class-7-1" class="section level1" number="11">
+<h1>
+<span class="header-section-number">11</span> Class 7<a class="anchor" aria-label="anchor" href="#class-7-1"><i class="fas fa-link"></i></a>
+</h1>
+<div id="prior-distributions" class="section level2" number="11.1">
+<h2>
+<span class="header-section-number">11.1</span> Prior distributions<a class="anchor" aria-label="anchor" href="#prior-distributions"><i class="fas fa-link"></i></a>
+</h2>
+<div class="example lizi">
+<p><span id="exm:power-analysis" class="example"><strong>Example 11.1  (Power analysis) </strong></span>We consider the sample size estimation of a two-arm randomized trial with a continuous primary outcome and <span class="math inline">\(n\)</span> subjects randomized to each arm. Assuming a normal distribution of the primary outcome and a common within-treatment standard deviation of <span class="math inline">\(\sigma\)</span>, the estimated treatment effect is assumed to have a <span class="math inline">\(\N(\theta,2\sigma^2/n)\)</span> distribution. Thus, the <a href="https://en.wikipedia.org/wiki/Sample_size_determination#Cumulative_distribution_function">sample size determination</a> is found to be
+<span class="math display">\[
+n=\frac{2\sigma^2}{\theta^2}\left(z_{1-\alpha/2}+z_{1-\beta}\right)^2,
+\]</span>
+where <span class="math inline">\(z_p=\Phi^{-1}(p)\)</span>. Solving for <span class="math inline">\(1-\beta\)</span> gives
+<span class="math display">\[
+\text{Power}=\Phi\left(\sqrt{\frac{n\theta^2}{2\sigma^2}}-z_{1-\alpha/2}\right).
+\]</span>
+Supposing historical data suggests <span class="math inline">\(\theta\)</span> likely (interpreted as 1 standard deviation) to be between 3 and 7 suggests the prior <span class="math inline">\(\theta\sim\N(5,2^2)\)</span>. The parameter <span class="math inline">\(\sigma\)</span> is estimated to be around 10 and based on around 40 observations. This leads to a <span class="math inline">\(\mathrm{GammaSR}(a,b)\)</span> prior for <span class="math inline">\(\tau=1/\sigma^2\)</span> with <span class="math inline">\(a/b=1/10^2\)</span> and <span class="math inline">\(2a=40\)</span>; i.e. <span class="math inline">\(\tau\sim\mathrm{GammaSR}(20,2000)\)</span>. Another set of priors are considered: the prior for <span class="math inline">\(\sigma\)</span> is assumed to be based on 20 observations instead of 40 (effectively a power prior) leading to the modified prior distribution <span class="math inline">\(\tau\sim\mathrm{GammaSR}(10,1000)\)</span>, and the prior for <span class="math inline">\(\theta\)</span> is assumed to have a mean bias of -1 with standard deviation of 2 with the constraint that <span class="math inline">\(\theta&gt;0\)</span> thus leading to the modified prior distribution <span class="math inline">\(\theta\sim \mathcal{N}^+(5-1,2^2+2^2)\)</span>.</p>
+<p>The Type I error <span class="math inline">\(\alpha\)</span> is set to <span class="math inline">\(0.05\)</span>. Three quantities are tracked: (i) the calculated sample size <span class="math inline">\(n\)</span> for 90% power, (ii) that power based on <span class="math inline">\(n=84\)</span> (frequentest estimate with fixed <span class="math inline">\(\theta=5\)</span>, <span class="math inline">\(\sigma=10\)</span>, and 90% power), and (iii) with <span class="math inline">\(n=84\)</span>, the probability the power is at least 70%.</p>
+</div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="class-7-1.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
+<span id="cb21-2"><a href="class-7-1.html#cb21-2" aria-hidden="true" tabindex="-1"></a>Loading required package<span class="sc">:</span> rjags</span>
+<span id="cb21-3"><a href="class-7-1.html#cb21-3" aria-hidden="true" tabindex="-1"></a>Loading required package<span class="sc">:</span> coda</span>
+<span id="cb21-4"><a href="class-7-1.html#cb21-4" aria-hidden="true" tabindex="-1"></a>Linked to JAGS <span class="dv">4</span>.<span class="fl">3.0</span></span>
+<span id="cb21-5"><a href="class-7-1.html#cb21-5" aria-hidden="true" tabindex="-1"></a>Loaded modules<span class="sc">:</span> basemod,bugs</span>
+<span id="cb21-6"><a href="class-7-1.html#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="class-7-1.html#cb21-7" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">'R2jags'</span></span>
+<span id="cb21-8"><a href="class-7-1.html#cb21-8" aria-hidden="true" tabindex="-1"></a>The following object is masked from <span class="st">'package:coda'</span><span class="sc">:</span></span>
+<span id="cb21-9"><a href="class-7-1.html#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="class-7-1.html#cb21-10" aria-hidden="true" tabindex="-1"></a>    traceplot</span>
+<span id="cb21-11"><a href="class-7-1.html#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="class-7-1.html#cb21-12" aria-hidden="true" tabindex="-1"></a>model<span class="ot">=</span> <span class="cf">function</span>(){</span>
+<span id="cb21-13"><a href="class-7-1.html#cb21-13" aria-hidden="true" tabindex="-1"></a>M <span class="sc">~</span> <span class="fu">dcat</span>(p1)</span>
+<span id="cb21-14"><a href="class-7-1.html#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co"># sampling distribution is uniform over first N integers</span></span>
+<span id="cb21-15"><a href="class-7-1.html#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co"># use step function to change p1[j] to 0 for j&gt;N</span></span>
+<span id="cb21-16"><a href="class-7-1.html#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb21-17"><a href="class-7-1.html#cb21-17" aria-hidden="true" tabindex="-1"></a>p1[j] <span class="ot">&lt;-</span> <span class="fu">step</span>(N <span class="sc">-</span> j <span class="sc">+</span> <span class="fl">0.01</span>)<span class="sc">/</span>N</span>
+<span id="cb21-18"><a href="class-7-1.html#cb21-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-19"><a href="class-7-1.html#cb21-19" aria-hidden="true" tabindex="-1"></a>N <span class="sc">~</span> <span class="fu">dcat</span>(p2)</span>
+<span id="cb21-20"><a href="class-7-1.html#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb21-21"><a href="class-7-1.html#cb21-21" aria-hidden="true" tabindex="-1"></a>recip[j] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>j</span>
+<span id="cb21-22"><a href="class-7-1.html#cb21-22" aria-hidden="true" tabindex="-1"></a>p2[j] <span class="ot">&lt;-</span> recip[j]<span class="sc">/</span>sum.recip</span>
+<span id="cb21-23"><a href="class-7-1.html#cb21-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-24"><a href="class-7-1.html#cb21-24" aria-hidden="true" tabindex="-1"></a>sum.recip <span class="ot">&lt;-</span> <span class="fu">sum</span>(recip)</span>
+<span id="cb21-25"><a href="class-7-1.html#cb21-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-26"><a href="class-7-1.html#cb21-26" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">list</span>(<span class="st">"M"</span><span class="ot">=</span><span class="dv">100</span>)</span>
+<span id="cb21-27"><a href="class-7-1.html#cb21-27" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data=</span>data, <span class="at">model=</span>model,<span class="at">parameters.to.save=</span><span class="fu">c</span>(<span class="st">"N"</span>,<span class="st">"M"</span>), <span class="at">n.chain=</span><span class="dv">2</span>, <span class="at">n.iter=</span><span class="dv">100</span>, <span class="at">n.thin=</span><span class="dv">1</span>, <span class="at">n.burn=</span><span class="dv">0</span>, <span class="at">DIC=</span><span class="cn">FALSE</span>)</span>
+<span id="cb21-28"><a href="class-7-1.html#cb21-28" aria-hidden="true" tabindex="-1"></a>module glm loaded</span>
+<span id="cb21-29"><a href="class-7-1.html#cb21-29" aria-hidden="true" tabindex="-1"></a>module dic loaded</span>
+<span id="cb21-30"><a href="class-7-1.html#cb21-30" aria-hidden="true" tabindex="-1"></a>Compiling model graph</span>
+<span id="cb21-31"><a href="class-7-1.html#cb21-31" aria-hidden="true" tabindex="-1"></a>   Resolving undeclared variables</span>
+<span id="cb21-32"><a href="class-7-1.html#cb21-32" aria-hidden="true" tabindex="-1"></a>   Allocating nodes</span>
+<span id="cb21-33"><a href="class-7-1.html#cb21-33" aria-hidden="true" tabindex="-1"></a>Graph information<span class="sc">:</span></span>
+<span id="cb21-34"><a href="class-7-1.html#cb21-34" aria-hidden="true" tabindex="-1"></a>   Observed stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb21-35"><a href="class-7-1.html#cb21-35" aria-hidden="true" tabindex="-1"></a>   Unobserved stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb21-36"><a href="class-7-1.html#cb21-36" aria-hidden="true" tabindex="-1"></a>   Total graph size<span class="sc">:</span> <span class="dv">7007</span></span>
+<span id="cb21-37"><a href="class-7-1.html#cb21-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-38"><a href="class-7-1.html#cb21-38" aria-hidden="true" tabindex="-1"></a>Initializing model</span>
+<span id="cb21-39"><a href="class-7-1.html#cb21-39" aria-hidden="true" tabindex="-1"></a>fit</span>
+<span id="cb21-40"><a href="class-7-1.html#cb21-40" aria-hidden="true" tabindex="-1"></a>Inference <span class="cf">for</span> Bugs model at <span class="st">"/var/folders/fy/_0t49sys0713k84msqwk44fc0000gp/T//RtmpryP5Xz/model16cbbad64aeb.txt"</span>, fit using jags,</span>
+<span id="cb21-41"><a href="class-7-1.html#cb21-41" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> chains, each with <span class="dv">100</span> <span class="fu">iterations</span> (first <span class="dv">0</span> discarded)</span>
+<span id="cb21-42"><a href="class-7-1.html#cb21-42" aria-hidden="true" tabindex="-1"></a> n.sims <span class="ot">=</span> <span class="dv">200</span> iterations saved</span>
+<span id="cb21-43"><a href="class-7-1.html#cb21-43" aria-hidden="true" tabindex="-1"></a>  mu.vect sd.vect    <span class="fl">2.5</span><span class="sc">% 25%</span>   <span class="dv">50</span><span class="sc">%    75%</span> <span class="fl">97.5</span>%  Rhat</span>
+<span id="cb21-44"><a href="class-7-1.html#cb21-44" aria-hidden="true" tabindex="-1"></a>M <span class="fl">100.000</span>   <span class="fl">0.000</span> <span class="fl">100.000</span> <span class="dv">100</span> <span class="fl">100.0</span> <span class="fl">100.00</span>   <span class="dv">100</span> <span class="fl">1.000</span></span>
+<span id="cb21-45"><a href="class-7-1.html#cb21-45" aria-hidden="true" tabindex="-1"></a>N <span class="fl">229.615</span> <span class="fl">171.565</span> <span class="fl">102.975</span> <span class="dv">125</span> <span class="fl">162.5</span> <span class="fl">268.75</span>   <span class="dv">831</span> <span class="fl">1.102</span></span>
+<span id="cb21-46"><a href="class-7-1.html#cb21-46" aria-hidden="true" tabindex="-1"></a>  n.eff</span>
+<span id="cb21-47"><a href="class-7-1.html#cb21-47" aria-hidden="true" tabindex="-1"></a>M     <span class="dv">1</span></span>
+<span id="cb21-48"><a href="class-7-1.html#cb21-48" aria-hidden="true" tabindex="-1"></a>N    <span class="dv">36</span></span>
+<span id="cb21-49"><a href="class-7-1.html#cb21-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-50"><a href="class-7-1.html#cb21-50" aria-hidden="true" tabindex="-1"></a>For each parameter, n.eff is a crude measure of effective sample size,</span>
+<span id="cb21-51"><a href="class-7-1.html#cb21-51" aria-hidden="true" tabindex="-1"></a>and Rhat is the potential scale reduction <span class="fu">factor</span> (at convergence, <span class="at">Rhat=</span><span class="dv">1</span>).</span></code></pre></div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="class-10.html"><span class="header-section-number">10</span> Class 10</a></div>
+<div class="next"><a href="to-be-incorporated.html"><span class="header-section-number">12</span> To Be Incorporated</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#class-7-1"><span class="header-section-number">11</span> Class 7</a></li>
+<li><a class="nav-link" href="#prior-distributions"><span class="header-section-number">11.1</span> Prior distributions</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/arthurberg/Bayesian/blob/main/11.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/arthurberg/Bayesian/edit/main/11.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-11-08.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

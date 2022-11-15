@@ -1,0 +1,14 @@
+# Class 10
+
+## Minimax
+
+:::{.exercise #minimax-urns name="Minimax urns" .prob}
+
+Consider the setup in the "Minimax urns" example. Prepare a program that inputs nonegative integer values for $r_i$, $b_i$, $g_i$, and positive values for  $l_i$  ($i=1,2$ throughout). 
+
+(a) Identify non-randomized Bayes rules for the different values of $\lambda\in[0,1]$ and produce an effective graphic that shows the Bayes risk for the Bayesian estimators for $\lambda$ in $[0,1]$. 
+(b) Let $d_j$, $j=1,\ldots,8$ represent the 8 non-randomized estimators, and define $S\subset\mathbb{R}^2$ as 
+$S=\left\{\left(R(\theta_1,d_j),R(\theta_2,d_j)\right)\right\}_{j=1}^8$. Graph the points of $S$ and its convex hull. Identify the closest point of this convex hull to the origin, and label this point $M$. 
+(c) The point $M$ in (b) corresponds to a (possibly randomized) minimax estimator $d_M$ that can be represented as $d_M=(d_{\text{red}}, d_{\text{blue}}, d_{\text{green}})$, where $d_x$ is the probability of selecting urn 1 if color $X=x$ is chosen. Determine the components of $d_M$ and graph its Bayes risk on the same graphic prepared in (a). 
+:::
+

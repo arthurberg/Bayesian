@@ -1,0 +1,17 @@
+# Class 9
+
+## Bayes estimator
+
+:::{.exercise #world-cities name="World cities" .prob}
+A database of world cities can be accessed [here](https://public.opendatasoft.com/explore/dataset/geonames-all-cities-with-a-population-1000/information/). After excluding cities with zero/missing values in the variable `Population` and missing values in the variable `Country Code`, a sample of $n$ cities is randomly sampled without replacement and probability proportional to the variable `Population`. The data you are provided with is the latitude of the city, rounded to the closes integer, and the number of digits in the variable `Population` for that city. So your estimator of the actual country is a function of these two integers.  For a randomly sampled city with rounded integer latitude $lat$, let $\theta$ be the country code corresponding to the city, let $d$ be the predicted value of country code corresponding to the city, let $pop_d$ be the total population of all cities corresponding to $d$, and let $\Theta_{lat}$ be the set of country codes for which there is a city in that country with rounded integer latitude $lat$. Now consider the following loss function,
+\[
+l(\theta,d)=
+\begin{cases}
+0, & d=\theta\\
+pop_d, & d\not=\theta \text{ and }d\in\Theta_{lat}\\
+\infty, & d\not\in\Theta_{lat}
+\end{cases}
+\]
+The goal is to provide country code predictions so as to minimize the sum of losses across the sampled cities. 
+:::
+

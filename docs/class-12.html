@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>12 Class 12 | PHS 528: Bayesian Methods</title>
+<meta name="author" content="Arthur Berg">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="12 Class 12 | PHS 528: Bayesian Methods">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://arthurberg.github.io/Bayesian/class-12.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="12 Class 12 | PHS 528: Bayesian Methods">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="12.1 Information Theory  Exercise 12.1 (五音不全 - part 1) Wordle is a popular interactive word game that has given rise to a numerous Wordle variants. This exercise seeks to identify optimal...">
+<meta property="og:description" content="12.1 Information Theory  Exercise 12.1 (五音不全 - part 1) Wordle is a popular interactive word game that has given rise to a numerous Wordle variants. This exercise seeks to identify optimal...">
+<meta name="twitter:description" content="12.1 Information Theory  Exercise 12.1 (五音不全 - part 1) Wordle is a popular interactive word game that has given rise to a numerous Wordle variants. This exercise seeks to identify optimal...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">PHS 528: Bayesian Methods</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Class 1</a></li>
+<li><a class="" href="class-2.html"><span class="header-section-number">2</span> Class 2</a></li>
+<li><a class="" href="class-3.html"><span class="header-section-number">3</span> Class 3</a></li>
+<li><a class="" href="class-4.html"><span class="header-section-number">4</span> Class 4</a></li>
+<li><a class="" href="class-5.html"><span class="header-section-number">5</span> Class 5</a></li>
+<li><a class="" href="class-6.html"><span class="header-section-number">6</span> Class 6</a></li>
+<li><a class="" href="class-7.html"><span class="header-section-number">7</span> Class 7</a></li>
+<li><a class="" href="class-8.html"><span class="header-section-number">8</span> Class 8</a></li>
+<li><a class="" href="class-9.html"><span class="header-section-number">9</span> Class 9</a></li>
+<li><a class="" href="class-10.html"><span class="header-section-number">10</span> Class 10</a></li>
+<li><a class="" href="class-11.html"><span class="header-section-number">11</span> Class 11</a></li>
+<li><a class="active" href="class-12.html"><span class="header-section-number">12</span> Class 12</a></li>
+<li><a class="" href="class-13.html"><span class="header-section-number">13</span> Class 13</a></li>
+<li><a class="" href="to-be-incorporated.html"><span class="header-section-number">14</span> To Be Incorporated</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">15</span> References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/arthurberg/Bayesian">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="class-12" class="section level1" number="12">
+<h1>
+<span class="header-section-number">12</span> Class 12<a class="anchor" aria-label="anchor" href="#class-12"><i class="fas fa-link"></i></a>
+</h1>
+<div id="information-theory" class="section level2" number="12.1">
+<h2>
+<span class="header-section-number">12.1</span> Information Theory<a class="anchor" aria-label="anchor" href="#information-theory"><i class="fas fa-link"></i></a>
+</h2>
+<div class="exercise prob">
+<p><span id="exr:chengyu" class="exercise"><strong>Exercise 12.1  (五音不全 - part 1) </strong></span><a href="https://en.wikipedia.org/wiki/Wordle">Wordle</a> is a popular interactive word game that has given rise to a numerous <a href="https://gist.github.com/maxspero/0a2f536b9561d829caf6bd994a34193d">Wordle variants</a>. This exercise seeks to identify optimal strategies (using information theory) to solve a Wordle variant constructed just for this class and termed <a href="https://baike.baidu.com/item/%E4%BA%94%E9%9F%B3%E4%B8%8D%E5%85%A8/2719697">五音不全</a>. Here’s how it works:</p>
+<p>A set of <span class="math inline">\(n\)</span> four character Chinese idioms (<a href="https://en.wikipedia.org/wiki/Chengyu">成语</a>) are randomly selected without replacement according to a provided probability distribution (roughly proportional to publication frequency). Each idiom is mapped to a four digit signature where each digit corresponds to the <a href="https://en.wikipedia.org/wiki/Pinyin">pinyin</a> tone of each of the four characters (the neutral tone is considered here as the “fifth” tone). Your goal is to guess the four-digit signature for each of the randomly selected idioms. Interactive feedback is provided as in a typical Wordle puzzle. You start with an initial four-digit guess, then feedback is provided indicating which digits are in the correct location, which digits are present but in the wrong location, and which of the <em>remaining</em> digits are not present in the answer.</p>
+<p>Your ultimate goal will be to produce two functions that automatically provide subsequent guesses based on feedback from the <code>compare_words</code> function. For this exercise, follow an approach in the spirit of Grant Sanderson’s 3Blue1Brown videos and identify your optimal initial guess. In the next assignment you will be asked to generate a function that inputs previous guesses and feedback data and outputs the next guess.</p>
+<p>Primitive forms of such functions are provided along with a mock contest. These primitive functions will be swapped out and replaced with your prepared functions and a similar contest will be run. The scores over all rounds will be averaged and the individual with the smallest average (most efficient routine) will be gifted a prize basket from <a href="http://www.asiancenterpa.com/">美亞超市</a> in keeping with the Chinese theme.</p>
+</div>
+<p><font size="5"> Shiny simulation to demonstrate the wordle variant </font></p>
+<iframe src="https://glow.shinyapps.io/chengyu/" width="672" height="325px" data-external="1">
+</iframe>
+<p><font size="5"> Comparison functions </font></p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"mydict2.RData"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">compare_words</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">target_str</span>, <span class="va">guess_str</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">target_str</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">|</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">guess_str</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"target and guess string must be length 4."</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span></span>
+<span>    <span class="va">target</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">target_str</span>, <span class="st">""</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span>    <span class="va">guess</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">guess_str</span>, <span class="st">""</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span>    <span class="va">result</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">guess_str</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="kw">if</span> <span class="op">(</span><span class="va">guess</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">==</span> <span class="va">target</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="va">result</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="st">"correct"</span></span>
+<span>            <span class="va">target</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="st">""</span></span>
+<span>            <span class="va">guess</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="st">""</span></span>
+<span>        <span class="op">}</span></span>
+<span>    <span class="op">}</span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="kw">if</span> <span class="op">(</span><span class="va">guess</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">!=</span> <span class="st">""</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html">is.element</a></span><span class="op">(</span><span class="va">guess</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">target</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>                <span class="va">result</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="st">"in-word"</span></span>
+<span>                <span class="va">target</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">target</span> <span class="op">==</span> <span class="va">guess</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="st">""</span></span>
+<span>                <span class="kw">next</span></span>
+<span>            <span class="op">}</span></span>
+<span>            <span class="va">result</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="st">"not-in-word"</span></span>
+<span>        <span class="op">}</span></span>
+<span>    <span class="op">}</span></span>
+<span>    <span class="va">result</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">check_words</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">target_str</span>, <span class="va">guess_str</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">compare_result</span> <span class="op">=</span> <span class="fu">compare_words</span><span class="op">(</span><span class="va">target_str</span>, <span class="va">guess_str</span><span class="op">)</span></span>
+<span>    <span class="va">result</span> <span class="op">=</span> <span class="st">"keep guessing"</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="va">compare_result</span> <span class="op">==</span> <span class="st">"correct"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">result</span> <span class="op">=</span> <span class="st">"solved"</span></span>
+<span>    <span class="op">}</span></span>
+<span>    <span class="va">result</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p><font size="5"> Example functions </font></p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">f.init1</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">word_num</span>, <span class="va">score</span>, <span class="va">words</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="st">"1234"</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">f.init2</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">word_num</span>, <span class="va">score</span>, <span class="va">words</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="st">"1324"</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">f.init3</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">word_num</span>, <span class="va">score</span>, <span class="va">words</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="st">"1243"</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">f.init4</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">word_num</span>, <span class="va">score</span>, <span class="va">words</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="st">"1233"</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">f.init5</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">word_num</span>, <span class="va">score</span>, <span class="va">words</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="st">"1142"</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="va">f.main1</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">word_num</span>, <span class="va">scores.current</span>, <span class="va">words</span>, <span class="va">guess_number</span>,</span>
+<span>    <span class="va">myguesses</span>, <span class="va">myfeedback</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>    <span class="va">correct</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span></span>
+<span>    <span class="va">chars</span> <span class="op">=</span> <span class="cn">NA</span></span>
+<span></span>
+<span>    <span class="va">mymat</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="st">"maybe"</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">mymat</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">mymat</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">guess_number</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">nums</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">myguesses</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="st">""</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span>        <span class="va">pos</span> <span class="op">=</span> <span class="va">myfeedback</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span></span>
+<span></span>
+<span>        <span class="va">cor</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">pos</span> <span class="op">==</span> <span class="st">"correct"</span><span class="op">)</span></span>
+<span>        <span class="va">iw</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">pos</span> <span class="op">==</span> <span class="st">"in-word"</span><span class="op">)</span></span>
+<span></span>
+<span>        <span class="va">niw</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">nums</span><span class="op">[</span><span class="va">pos</span> <span class="op">==</span> <span class="st">"not-in-word"</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">nums</span><span class="op">[</span><span class="va">cor</span><span class="op">]</span>,</span>
+<span>            <span class="va">nums</span><span class="op">[</span><span class="va">iw</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span>        <span class="va">niw2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html">intersect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">nums</span><span class="op">[</span><span class="va">cor</span><span class="op">]</span>, <span class="va">nums</span><span class="op">[</span><span class="va">iw</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">nums</span><span class="op">[</span><span class="va">pos</span> <span class="op">==</span></span>
+<span>            <span class="st">"not-in-word"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span>        <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">niw2</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">niw2</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>                <span class="va">mymat</span><span class="op">[</span><span class="va">niw2</span><span class="op">[</span><span class="va">j</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">pos</span> <span class="op">==</span> <span class="st">"not-in-word"</span> <span class="op">&amp;</span> <span class="va">nums</span> <span class="op">==</span></span>
+<span>                  <span class="va">niw2</span><span class="op">[</span><span class="va">j</span><span class="op">]</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="st">"no"</span></span>
+<span>            <span class="op">}</span></span>
+<span>        <span class="op">}</span></span>
+<span></span>
+<span>        <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">niw</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">niw</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>                <span class="va">mymat</span><span class="op">[</span><span class="va">niw</span><span class="op">[</span><span class="va">j</span><span class="op">]</span>, <span class="op">]</span> <span class="op">=</span> <span class="st">"no"</span></span>
+<span>            <span class="op">}</span></span>
+<span>        <span class="op">}</span></span>
+<span></span>
+<span>        <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">cor</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="va">correct</span><span class="op">[</span><span class="va">cor</span><span class="op">]</span> <span class="op">=</span> <span class="va">nums</span><span class="op">[</span><span class="va">cor</span><span class="op">]</span></span>
+<span>            <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">chars</span><span class="op">)</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>                <span class="va">chars</span> <span class="op">=</span> <span class="va">nums</span><span class="op">[</span><span class="va">cor</span><span class="op">]</span></span>
+<span>            <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>                <span class="va">chars</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op">(</span><span class="va">chars</span>, <span class="va">nums</span><span class="op">[</span><span class="va">cor</span><span class="op">]</span><span class="op">)</span></span>
+<span>            <span class="op">}</span></span>
+<span>            <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">cor</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>                <span class="va">mymat</span><span class="op">[</span>, <span class="va">cor</span><span class="op">[</span><span class="va">j</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="st">"no"</span></span>
+<span>                <span class="va">mymat</span><span class="op">[</span><span class="va">nums</span><span class="op">[</span><span class="va">cor</span><span class="op">[</span><span class="va">j</span><span class="op">]</span><span class="op">]</span>, <span class="va">cor</span><span class="op">[</span><span class="va">j</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="st">"yes"</span></span>
+<span>            <span class="op">}</span></span>
+<span>        <span class="op">}</span></span>
+<span></span>
+<span>        <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">iw</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">chars</span><span class="op">)</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>                <span class="va">chars</span> <span class="op">=</span> <span class="va">nums</span><span class="op">[</span><span class="va">iw</span><span class="op">]</span></span>
+<span>            <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>                <span class="va">chars</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op">(</span><span class="va">chars</span>, <span class="va">nums</span><span class="op">[</span><span class="va">iw</span><span class="op">]</span><span class="op">)</span></span>
+<span>            <span class="op">}</span></span>
+<span></span>
+<span>            <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">iw</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>                <span class="va">mymat</span><span class="op">[</span><span class="va">nums</span><span class="op">[</span><span class="va">iw</span><span class="op">[</span><span class="va">j</span><span class="op">]</span><span class="op">]</span>, <span class="va">iw</span><span class="op">[</span><span class="va">j</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="st">"no"</span></span>
+<span>            <span class="op">}</span></span>
+<span>        <span class="op">}</span></span>
+<span></span>
+<span>        <span class="va">chars</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span><span class="op">(</span><span class="va">chars</span>, <span class="va">correct</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="op">}</span>  <span class="co">#end of i loop </span></span>
+<span></span>
+<span>    <span class="va">chars.og</span> <span class="op">=</span> <span class="va">chars</span></span>
+<span>    <span class="va">mymat.og</span> <span class="op">=</span> <span class="va">mymat</span></span>
+<span>    <span class="va">done</span> <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span></span>
+<span>    <span class="kw">while</span> <span class="op">(</span><span class="op">!</span><span class="va">done</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">mymat</span> <span class="op">=</span> <span class="va">mymat.og</span></span>
+<span>        <span class="va">chars</span> <span class="op">=</span> <span class="va">chars.og</span></span>
+<span>        <span class="va">out</span> <span class="op">=</span> <span class="va">correct</span></span>
+<span>        <span class="va">ind</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">correct</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span>        <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ind</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ind</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>                <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">chars</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>                  <span class="va">mypos</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span>                  <span class="va">mynum</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">mymat</span><span class="op">[</span>, <span class="va">mypos</span><span class="op">]</span> <span class="op">==</span></span>
+<span>                    <span class="st">"maybe"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span>                  <span class="va">out</span><span class="op">[</span><span class="va">mypos</span><span class="op">]</span> <span class="op">=</span> <span class="va">mynum</span></span>
+<span>                  <span class="va">mymat</span><span class="op">[</span>, <span class="va">mypos</span><span class="op">]</span> <span class="op">=</span> <span class="st">"X"</span></span>
+<span>                <span class="op">}</span></span>
+<span></span>
+<span>                <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">chars</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>                  <span class="va">n.maybe</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">mymat</span><span class="op">[</span><span class="va">chars</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="op">]</span> <span class="op">==</span> <span class="st">"maybe"</span><span class="op">)</span></span>
+<span>                  <span class="kw">if</span> <span class="op">(</span><span class="va">n.maybe</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>                    <span class="va">mypos</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">mymat</span><span class="op">[</span><span class="va">chars</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>                      <span class="op">]</span> <span class="op">==</span> <span class="st">"maybe"</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span>                    <span class="va">out</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">mypos</span><span class="op">)</span><span class="op">]</span> <span class="op">=</span> <span class="va">chars</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span>                    <span class="va">mymat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">mypos</span><span class="op">)</span><span class="op">]</span> <span class="op">=</span> <span class="st">"X"</span></span>
+<span>                    <span class="va">chars</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span><span class="op">(</span><span class="va">chars</span>, <span class="va">chars</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span>                  <span class="op">}</span></span>
+<span>                <span class="op">}</span></span>
+<span></span>
+<span>            <span class="op">}</span></span>
+<span>        <span class="op">}</span></span>
+<span></span>
+<span>        <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">4</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="va">done</span> <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>        <span class="op">}</span></span>
+<span>    <span class="op">}</span>  <span class="co">#end of while  </span></span>
+<span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">out</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">f.main2</span> <span class="op">=</span> <span class="va">f.main3</span> <span class="op">=</span> <span class="va">f.main4</span> <span class="op">=</span> <span class="va">f.main5</span> <span class="op">=</span> <span class="va">f.main1</span></span></code></pre></div>
+<p><font size="5"> Mock contest </font></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="class-12.html#cb30-1" aria-hidden="true" tabindex="-1"></a>myseed <span class="ot">=</span> <span class="dv">31428212</span>  <span class="co"># seed will be changed for competition</span></span>
+<span id="cb30-2"><a href="class-12.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(myseed)</span>
+<span id="cb30-3"><a href="class-12.html#cb30-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb30-4"><a href="class-12.html#cb30-4" aria-hidden="true" tabindex="-1"></a>comp_words <span class="ot">=</span> mydict[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(mydict)[<span class="dv">1</span>], n, <span class="at">prob =</span> mydict<span class="sc">$</span>freq,</span>
+<span id="cb30-5"><a href="class-12.html#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">replace =</span> <span class="cn">FALSE</span>), <span class="st">"sig"</span>]</span>
+<span id="cb30-6"><a href="class-12.html#cb30-6" aria-hidden="true" tabindex="-1"></a>guesses <span class="ot">=</span> <span class="fu">array</span>(<span class="fu">as.character</span>(<span class="cn">NA</span>), <span class="at">dim =</span> <span class="fu">c</span>(n, <span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb30-7"><a href="class-12.html#cb30-7" aria-hidden="true" tabindex="-1"></a>feedback <span class="ot">=</span> <span class="fu">array</span>(<span class="fu">as.character</span>(<span class="cn">NA</span>), <span class="at">dim =</span> <span class="fu">c</span>(n, <span class="dv">10</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span>
+<span id="cb30-8"><a href="class-12.html#cb30-8" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> <span class="dv">5</span>)</span>
+<span id="cb30-9"><a href="class-12.html#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="class-12.html#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (word_num <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb30-11"><a href="class-12.html#cb30-11" aria-hidden="true" tabindex="-1"></a>    words <span class="ot">=</span> <span class="cf">if</span> (word_num <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb30-12"><a href="class-12.html#cb30-12" aria-hidden="true" tabindex="-1"></a>        <span class="cn">NA</span></span>
+<span id="cb30-13"><a href="class-12.html#cb30-13" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb30-14"><a href="class-12.html#cb30-14" aria-hidden="true" tabindex="-1"></a>        words <span class="ot">=</span> comp_words[<span class="dv">1</span><span class="sc">:</span>(word_num <span class="sc">-</span> <span class="dv">1</span>)]</span>
+<span id="cb30-15"><a href="class-12.html#cb30-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb30-16"><a href="class-12.html#cb30-16" aria-hidden="true" tabindex="-1"></a>    scores.current <span class="ot">=</span> <span class="fu">apply</span>(<span class="fu">matrix</span>(scores[<span class="dv">1</span><span class="sc">:</span>word_num, ], <span class="at">ncol =</span> <span class="dv">5</span>),</span>
+<span id="cb30-17"><a href="class-12.html#cb30-17" aria-hidden="true" tabindex="-1"></a>        <span class="dv">2</span>, sum)</span>
+<span id="cb30-18"><a href="class-12.html#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-19"><a href="class-12.html#cb30-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb30-20"><a href="class-12.html#cb30-20" aria-hidden="true" tabindex="-1"></a>        guess_number <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb30-21"><a href="class-12.html#cb30-21" aria-hidden="true" tabindex="-1"></a>        f.init <span class="ot">=</span> <span class="fu">get</span>(<span class="fu">paste0</span>(<span class="st">"f.init"</span>, i))</span>
+<span id="cb30-22"><a href="class-12.html#cb30-22" aria-hidden="true" tabindex="-1"></a>        guess <span class="ot">=</span> <span class="fu">f.init</span>(word_num, scores.current, words)</span>
+<span id="cb30-23"><a href="class-12.html#cb30-23" aria-hidden="true" tabindex="-1"></a>        guesses[word_num, <span class="dv">1</span>, i] <span class="ot">=</span> guess</span>
+<span id="cb30-24"><a href="class-12.html#cb30-24" aria-hidden="true" tabindex="-1"></a>        res <span class="ot">=</span> <span class="fu">check_words</span>(comp_words[word_num], guess)</span>
+<span id="cb30-25"><a href="class-12.html#cb30-25" aria-hidden="true" tabindex="-1"></a>        feedback[word_num, guess_number, , i] <span class="ot">=</span> <span class="fu">compare_words</span>(comp_words[word_num],</span>
+<span id="cb30-26"><a href="class-12.html#cb30-26" aria-hidden="true" tabindex="-1"></a>            guess)</span>
+<span id="cb30-27"><a href="class-12.html#cb30-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-28"><a href="class-12.html#cb30-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> (res <span class="sc">==</span> <span class="st">"keep guessing"</span> <span class="sc">&amp;</span> guess_number <span class="sc">&lt;=</span> <span class="dv">9</span>) {</span>
+<span id="cb30-29"><a href="class-12.html#cb30-29" aria-hidden="true" tabindex="-1"></a>            myguesses <span class="ot">=</span> guesses[word_num, <span class="dv">1</span><span class="sc">:</span>guess_number, i]</span>
+<span id="cb30-30"><a href="class-12.html#cb30-30" aria-hidden="true" tabindex="-1"></a>            myfeedback <span class="ot">=</span> <span class="fu">matrix</span>(feedback[word_num, <span class="dv">1</span><span class="sc">:</span>guess_number,</span>
+<span id="cb30-31"><a href="class-12.html#cb30-31" aria-hidden="true" tabindex="-1"></a>                , i], <span class="at">nrow =</span> guess_number, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb30-32"><a href="class-12.html#cb30-32" aria-hidden="true" tabindex="-1"></a>            f.main <span class="ot">=</span> <span class="fu">get</span>(<span class="fu">paste0</span>(<span class="st">"f.main"</span>, i))</span>
+<span id="cb30-33"><a href="class-12.html#cb30-33" aria-hidden="true" tabindex="-1"></a>            guess <span class="ot">=</span> <span class="fu">f.main</span>(word_num, scores.current, words, guess_number,</span>
+<span id="cb30-34"><a href="class-12.html#cb30-34" aria-hidden="true" tabindex="-1"></a>                myguesses, myfeedback)</span>
+<span id="cb30-35"><a href="class-12.html#cb30-35" aria-hidden="true" tabindex="-1"></a>            guess_number <span class="ot">=</span> guess_number <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb30-36"><a href="class-12.html#cb30-36" aria-hidden="true" tabindex="-1"></a>            guesses[word_num, guess_number, i] <span class="ot">=</span> guess</span>
+<span id="cb30-37"><a href="class-12.html#cb30-37" aria-hidden="true" tabindex="-1"></a>            res <span class="ot">=</span> <span class="fu">check_words</span>(comp_words[word_num], guess)</span>
+<span id="cb30-38"><a href="class-12.html#cb30-38" aria-hidden="true" tabindex="-1"></a>            feedback[word_num, guess_number, , i] <span class="ot">=</span> <span class="fu">compare_words</span>(comp_words[word_num],</span>
+<span id="cb30-39"><a href="class-12.html#cb30-39" aria-hidden="true" tabindex="-1"></a>                guess)</span>
+<span id="cb30-40"><a href="class-12.html#cb30-40" aria-hidden="true" tabindex="-1"></a>            res</span>
+<span id="cb30-41"><a href="class-12.html#cb30-41" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb30-42"><a href="class-12.html#cb30-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-43"><a href="class-12.html#cb30-43" aria-hidden="true" tabindex="-1"></a>        scores[word_num, i] <span class="ot">=</span> guess_number</span>
+<span id="cb30-44"><a href="class-12.html#cb30-44" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb30-45"><a href="class-12.html#cb30-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-46"><a href="class-12.html#cb30-46" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb30-47"><a href="class-12.html#cb30-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-48"><a href="class-12.html#cb30-48" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(scores, <span class="dv">2</span>, mean)</span>
+<span id="cb30-49"><a href="class-12.html#cb30-49" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.879</span> <span class="fl">2.822</span> <span class="fl">2.878</span> <span class="fl">3.452</span> <span class="fl">3.203</span></span></code></pre></div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="class-11.html"><span class="header-section-number">11</span> Class 11</a></div>
+<div class="next"><a href="class-13.html"><span class="header-section-number">13</span> Class 13</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#class-12"><span class="header-section-number">12</span> Class 12</a></li>
+<li><a class="nav-link" href="#information-theory"><span class="header-section-number">12.1</span> Information Theory</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/arthurberg/Bayesian/blob/main/12.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/arthurberg/Bayesian/edit/main/12.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-11-15.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
