@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>7 Class 7: Taxicab problem | PHS 528: Bayesian Methods</title>
+<meta name="author" content="Arthur Berg">
+<meta name="generator" content="bookdown 0.30 with bs4_book()">
+<meta property="og:title" content="7 Class 7: Taxicab problem | PHS 528: Bayesian Methods">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://arthurberg.github.io/Bayesian/class-7-taxicab-problem.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="7 Class 7: Taxicab problem | PHS 528: Bayesian Methods">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.1/transition.js"></script><script src="libs/bs3compat-0.4.1/tabs.js"></script><script src="libs/bs3compat-0.4.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="7.1 Exercise 1: Taxicabs with JAGS  Example 7.1 (Taxicabs with JAGS) A simple implementation of the taxicab problem with a single sample is presented using JAGS. library(R2jags) Loading required...">
+<meta property="og:description" content="7.1 Exercise 1: Taxicabs with JAGS  Example 7.1 (Taxicabs with JAGS) A simple implementation of the taxicab problem with a single sample is presented using JAGS. library(R2jags) Loading required...">
+<meta name="twitter:description" content="7.1 Exercise 1: Taxicabs with JAGS  Example 7.1 (Taxicabs with JAGS) A simple implementation of the taxicab problem with a single sample is presented using JAGS. library(R2jags) Loading required...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">PHS 528: Bayesian Methods</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Class 1: Probability Fundamentals &amp; Monte Carlo</a></li>
+<li><a class="" href="class-2-diagnostic-testing.html"><span class="header-section-number">2</span> Class 2: Diagnostic Testing</a></li>
+<li><a class="" href="class-3-bayes-theorem-practice.html"><span class="header-section-number">3</span> Class 3: Bayes’ Theorem Practice</a></li>
+<li><a class="" href="class-4-beta-binomial.html"><span class="header-section-number">4</span> Class 4: Beta-binomial</a></li>
+<li><a class="" href="class-5-covid-19-vaccine-trials-bayesian-dice.html"><span class="header-section-number">5</span> Class 5: COVID-19 Vaccine Trials &amp; Bayesian Dice</a></li>
+<li><a class="" href="class-6-stick-breaking.html"><span class="header-section-number">6</span> Class 6: Stick Breaking</a></li>
+<li><a class="active" href="class-7-taxicab-problem.html"><span class="header-section-number">7</span> Class 7: Taxicab problem</a></li>
+<li><a class="" href="class-8-bayesian-shrinkage.html"><span class="header-section-number">8</span> Class 8: Bayesian shrinkage</a></li>
+<li><a class="" href="class-9-bayes-estimator.html"><span class="header-section-number">9</span> Class 9: Bayes estimator</a></li>
+<li><a class="" href="class-10-minimax.html"><span class="header-section-number">10</span> Class 10: Minimax</a></li>
+<li><a class="" href="class-11-prior-distributions.html"><span class="header-section-number">11</span> Class 11: Prior distributions</a></li>
+<li><a class="" href="class-12-information-theory.html"><span class="header-section-number">12</span> Class 12: Information Theory</a></li>
+<li><a class="" href="class-13.html"><span class="header-section-number">13</span> Class 13</a></li>
+<li><a class="" href="class-14-hierarchical-models.html"><span class="header-section-number">14</span> Class 14: Hierarchical Models</a></li>
+<li><a class="" href="to-be-incorporated.html"><span class="header-section-number">15</span> To Be Incorporated</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">16</span> References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/arthurberg/Bayesian">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="class-7-taxicab-problem" class="section level1" number="7">
+<h1>
+<span class="header-section-number">7</span> Class 7: Taxicab problem<a class="anchor" aria-label="anchor" href="#class-7-taxicab-problem"><i class="fas fa-link"></i></a>
+</h1>
+<div id="exercise-1-taxicabs-with-jags" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> Exercise 1: Taxicabs with JAGS<a class="anchor" aria-label="anchor" href="#exercise-1-taxicabs-with-jags"><i class="fas fa-link"></i></a>
+</h2>
+<div class="example lizi">
+<p><span id="exm:taxicabs" class="example"><strong>Example 7.1  (Taxicabs with JAGS) </strong></span>A simple implementation of the taxicab problem with a single sample is presented using JAGS.</p>
+</div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="class-7-taxicab-problem.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
+<span id="cb19-2"><a href="class-7-taxicab-problem.html#cb19-2" aria-hidden="true" tabindex="-1"></a>Loading required package<span class="sc">:</span> rjags</span>
+<span id="cb19-3"><a href="class-7-taxicab-problem.html#cb19-3" aria-hidden="true" tabindex="-1"></a>Loading required package<span class="sc">:</span> coda</span>
+<span id="cb19-4"><a href="class-7-taxicab-problem.html#cb19-4" aria-hidden="true" tabindex="-1"></a>Linked to JAGS <span class="dv">4</span>.<span class="fl">3.0</span></span>
+<span id="cb19-5"><a href="class-7-taxicab-problem.html#cb19-5" aria-hidden="true" tabindex="-1"></a>Loaded modules<span class="sc">:</span> basemod,bugs</span>
+<span id="cb19-6"><a href="class-7-taxicab-problem.html#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="class-7-taxicab-problem.html#cb19-7" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">'R2jags'</span></span>
+<span id="cb19-8"><a href="class-7-taxicab-problem.html#cb19-8" aria-hidden="true" tabindex="-1"></a>The following object is masked from <span class="st">'package:coda'</span><span class="sc">:</span></span>
+<span id="cb19-9"><a href="class-7-taxicab-problem.html#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="class-7-taxicab-problem.html#cb19-10" aria-hidden="true" tabindex="-1"></a>    traceplot</span>
+<span id="cb19-11"><a href="class-7-taxicab-problem.html#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="class-7-taxicab-problem.html#cb19-12" aria-hidden="true" tabindex="-1"></a>model<span class="ot">=</span> <span class="cf">function</span>(){</span>
+<span id="cb19-13"><a href="class-7-taxicab-problem.html#cb19-13" aria-hidden="true" tabindex="-1"></a>M <span class="sc">~</span> <span class="fu">dcat</span>(p1)</span>
+<span id="cb19-14"><a href="class-7-taxicab-problem.html#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># sampling distribution is uniform over first N integers</span></span>
+<span id="cb19-15"><a href="class-7-taxicab-problem.html#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co"># use step function to change p1[j] to 0 for j&gt;N</span></span>
+<span id="cb19-16"><a href="class-7-taxicab-problem.html#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb19-17"><a href="class-7-taxicab-problem.html#cb19-17" aria-hidden="true" tabindex="-1"></a>p1[j] <span class="ot">&lt;-</span> <span class="fu">step</span>(N <span class="sc">-</span> j <span class="sc">+</span> <span class="fl">0.01</span>)<span class="sc">/</span>N</span>
+<span id="cb19-18"><a href="class-7-taxicab-problem.html#cb19-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-19"><a href="class-7-taxicab-problem.html#cb19-19" aria-hidden="true" tabindex="-1"></a>N <span class="sc">~</span> <span class="fu">dcat</span>(p2)</span>
+<span id="cb19-20"><a href="class-7-taxicab-problem.html#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb19-21"><a href="class-7-taxicab-problem.html#cb19-21" aria-hidden="true" tabindex="-1"></a>recip[j] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>j</span>
+<span id="cb19-22"><a href="class-7-taxicab-problem.html#cb19-22" aria-hidden="true" tabindex="-1"></a>p2[j] <span class="ot">&lt;-</span> recip[j]<span class="sc">/</span>sum.recip</span>
+<span id="cb19-23"><a href="class-7-taxicab-problem.html#cb19-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-24"><a href="class-7-taxicab-problem.html#cb19-24" aria-hidden="true" tabindex="-1"></a>sum.recip <span class="ot">&lt;-</span> <span class="fu">sum</span>(recip)</span>
+<span id="cb19-25"><a href="class-7-taxicab-problem.html#cb19-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-26"><a href="class-7-taxicab-problem.html#cb19-26" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">list</span>(<span class="st">"M"</span><span class="ot">=</span><span class="dv">100</span>)</span>
+<span id="cb19-27"><a href="class-7-taxicab-problem.html#cb19-27" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data=</span>data, <span class="at">model=</span>model,<span class="at">parameters.to.save=</span><span class="fu">c</span>(<span class="st">"N"</span>,<span class="st">"M"</span>), <span class="at">n.chain=</span><span class="dv">2</span>, <span class="at">n.iter=</span><span class="dv">100</span>, <span class="at">n.thin=</span><span class="dv">1</span>, <span class="at">n.burn=</span><span class="dv">0</span>, <span class="at">DIC=</span><span class="cn">FALSE</span>)</span>
+<span id="cb19-28"><a href="class-7-taxicab-problem.html#cb19-28" aria-hidden="true" tabindex="-1"></a>module glm loaded</span>
+<span id="cb19-29"><a href="class-7-taxicab-problem.html#cb19-29" aria-hidden="true" tabindex="-1"></a>module dic loaded</span>
+<span id="cb19-30"><a href="class-7-taxicab-problem.html#cb19-30" aria-hidden="true" tabindex="-1"></a>Compiling model graph</span>
+<span id="cb19-31"><a href="class-7-taxicab-problem.html#cb19-31" aria-hidden="true" tabindex="-1"></a>   Resolving undeclared variables</span>
+<span id="cb19-32"><a href="class-7-taxicab-problem.html#cb19-32" aria-hidden="true" tabindex="-1"></a>   Allocating nodes</span>
+<span id="cb19-33"><a href="class-7-taxicab-problem.html#cb19-33" aria-hidden="true" tabindex="-1"></a>Graph information<span class="sc">:</span></span>
+<span id="cb19-34"><a href="class-7-taxicab-problem.html#cb19-34" aria-hidden="true" tabindex="-1"></a>   Observed stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb19-35"><a href="class-7-taxicab-problem.html#cb19-35" aria-hidden="true" tabindex="-1"></a>   Unobserved stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb19-36"><a href="class-7-taxicab-problem.html#cb19-36" aria-hidden="true" tabindex="-1"></a>   Total graph size<span class="sc">:</span> <span class="dv">7007</span></span>
+<span id="cb19-37"><a href="class-7-taxicab-problem.html#cb19-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-38"><a href="class-7-taxicab-problem.html#cb19-38" aria-hidden="true" tabindex="-1"></a>Initializing model</span>
+<span id="cb19-39"><a href="class-7-taxicab-problem.html#cb19-39" aria-hidden="true" tabindex="-1"></a>fit</span>
+<span id="cb19-40"><a href="class-7-taxicab-problem.html#cb19-40" aria-hidden="true" tabindex="-1"></a>Inference <span class="cf">for</span> Bugs model at <span class="st">"/var/folders/fy/_0t49sys0713k84msqwk44fc0000gp/T//RtmpAKgqWq/model1572d33e5b650.txt"</span>, fit using jags,</span>
+<span id="cb19-41"><a href="class-7-taxicab-problem.html#cb19-41" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> chains, each with <span class="dv">100</span> <span class="fu">iterations</span> (first <span class="dv">0</span> discarded)</span>
+<span id="cb19-42"><a href="class-7-taxicab-problem.html#cb19-42" aria-hidden="true" tabindex="-1"></a> n.sims <span class="ot">=</span> <span class="dv">200</span> iterations saved</span>
+<span id="cb19-43"><a href="class-7-taxicab-problem.html#cb19-43" aria-hidden="true" tabindex="-1"></a>  mu.vect sd.vect    <span class="fl">2.5</span><span class="sc">% 25%</span> <span class="dv">50</span><span class="sc">% 75%</span> <span class="fl">97.5</span>%  Rhat n.eff</span>
+<span id="cb19-44"><a href="class-7-taxicab-problem.html#cb19-44" aria-hidden="true" tabindex="-1"></a>M <span class="fl">100.000</span>   <span class="fl">0.000</span> <span class="fl">100.000</span> <span class="dv">100</span> <span class="dv">100</span> <span class="dv">100</span> <span class="fl">100.0</span> <span class="fl">1.000</span>     <span class="dv">1</span></span>
+<span id="cb19-45"><a href="class-7-taxicab-problem.html#cb19-45" aria-hidden="true" tabindex="-1"></a>N <span class="fl">260.485</span> <span class="fl">197.328</span> <span class="fl">102.975</span> <span class="dv">127</span> <span class="dv">191</span> <span class="dv">307</span> <span class="fl">874.1</span> <span class="fl">1.002</span>   <span class="dv">200</span></span>
+<span id="cb19-46"><a href="class-7-taxicab-problem.html#cb19-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-47"><a href="class-7-taxicab-problem.html#cb19-47" aria-hidden="true" tabindex="-1"></a>For each parameter, n.eff is a crude measure of effective sample size,</span>
+<span id="cb19-48"><a href="class-7-taxicab-problem.html#cb19-48" aria-hidden="true" tabindex="-1"></a>and Rhat is the potential scale reduction <span class="fu">factor</span> (at convergence, <span class="at">Rhat=</span><span class="dv">1</span>).</span></code></pre></div>
+</div>
+<div id="exercise-2-taxi-counter" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> Exercise 2: Taxi counter<a class="anchor" aria-label="anchor" href="#exercise-2-taxi-counter"><i class="fas fa-link"></i></a>
+</h2>
+<div class="exercise prob">
+<p><span id="exr:taxi-counter" class="exercise"><strong>Exercise 7.1  (Taxi counter) </strong></span>Suppose taxis were sampled with the following code</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">myrange</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/NegBinomial.html">rnbinom</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">5</span>,mu<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/GammaDist.html">rgamma</a></span><span class="op">(</span><span class="fl">2</span>,shape<span class="op">=</span><span class="fl">50</span>,rate<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="fl">200</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">taxis</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">myrange</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">:</span><span class="va">myrange</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,<span class="fl">10</span>,replace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>Knowing the data generating mechanism, construct a Bayesian estimate of the total number of taxis (<code>diff(myrange)+1</code>) based on the data provided by <code>taxis</code>. You can use JAGS or R as you like.</p>
+</div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="class-6-stick-breaking.html"><span class="header-section-number">6</span> Class 6: Stick Breaking</a></div>
+<div class="next"><a href="class-8-bayesian-shrinkage.html"><span class="header-section-number">8</span> Class 8: Bayesian shrinkage</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#class-7-taxicab-problem"><span class="header-section-number">7</span> Class 7: Taxicab problem</a></li>
+<li><a class="nav-link" href="#exercise-1-taxicabs-with-jags"><span class="header-section-number">7.1</span> Exercise 1: Taxicabs with JAGS</a></li>
+<li><a class="nav-link" href="#exercise-2-taxi-counter"><span class="header-section-number">7.2</span> Exercise 2: Taxi counter</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/arthurberg/Bayesian/blob/main/07.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/arthurberg/Bayesian/edit/main/07.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-12-01.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

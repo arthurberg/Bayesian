@@ -1,6 +1,6 @@
-# Class 6
+# Class 6: Stick Breaking
 
-## Stick Breaking
+## Stick breaking
 
 :::{.exercise #sticks name="Stick breaking" .prob}
 Given positive integer $k$ and positive numbers $\alpha_i$, $i=1,\ldots,k$, simulate a Dirichlet distribution via the stick breaking method described in (Frigyik et al, 2010) [@Frigyik:2010].

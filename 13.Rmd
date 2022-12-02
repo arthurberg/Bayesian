@@ -2,7 +2,7 @@
 
 :::{.exercise #chengyu2 name="五音不全 - part 2" .prob}
 
-In continuation of [the previous exercise](class-12.html#exr:chengyu), generate a function that inputs previous guesses and feedback data and outputs the next guess. Example inputs and outputs are provided. You two finally submitted functions should be able to smoothly run in the mock contest previously provided. 
+In continuation of [the previous exercise](class-12.html#exr:chengyu), generate a function that inputs previous guesses and feedback data and outputs the next guess. Example inputs and outputs are provided. Your two finally submitted functions should be able to smoothly run in the mock contest previously provided. 
 :::
 
 
@@ -192,7 +192,7 @@ for(word_num in 1:n){
 
 <font size="5"> Sample input and output for `f.init` function </font> 
 
-```{r}
+```{r,tidy=TRUE }
 word_num
 scores.current
 words
@@ -201,7 +201,7 @@ f.init(word_num,scores.current,words)
 
 <font size="5"> Sample input and output for `f.main` function </font> 
 
-```{r}
+```{r,tidy=TRUE}
 word_num
 scores.current
 words

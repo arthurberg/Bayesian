@@ -1,0 +1,174 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Class 14: Hierarchical Models
+
+## Example 1: 
+
+
+```{r,tidy=TRUE}
+library(tidyverse)
+library(kableExtra)
+bristol=data.frame(hospital=c("Bristol", "Leicester", "Leeds", "Oxford", "Guys", "Liverpool", "Southampton", "Great Ormond St", "Newcastle", "Harefield", "Birmingham", "Brompton"), operations=c(143,187,323,122,164,405,239,482,195,177,581,301), deaths=c(41,25, 24, 23, 25, 42,24,53,26,25,58,31)) %>% mutate(mortality=deaths/operations) %>% arrange(desc(mortality))
+
+#xtable(bristol,digits=c(0,0,0,0,2))
+
+kbl(bristol) %>% kable_classic_2(full_width=F)
+```
+
+### Constant-risk model
+
+```{r}
+model= function(){
+
+  ## Likelihood
+  for (i in 1:12) {
+    y[i] ~ dbin(theta, n[i])
+    res[i] <- (y[i] - n[i]*theta)/sqrt(n[i]*theta*(1-theta)) 
+    res2[i] <- res[i]*res[i]
+    }
+  
+  ## prior
+  theta ~ dunif(0, 1)
+  X2.obs <- sum(res2[])
+
+  }
+
+
+data=list(n = bristol$operations, y=bristol$deaths)
+
+library(R2jags)
+fit <- jags(data=data, model=model,parameters.to.save=c("theta","res","X2.obs"), n.chain=2, n.iter=5000, n.thin=1, n.burn=100, DIC=FALSE)
+fit.mcmc <- as.mcmc(fit)
+summary(fit.mcmc)
+```
+
+```{r, fig.width=12}
+mat=as.matrix(as.mcmc(fit))
+theta.avg=mean(mat[,"theta"])
+boxplot(mat[,paste0("res[",1:12,"]")])
+abline(h=0)
+
+library("bayesplot")
+library("ggplot2")
+plot_title <- ggtitle("Posterior distributions",
+                      "with medians and 95% intervals")
+mcmc_areas(mat,
+           pars = paste0("res[",1:12,"]"),
+           prob = 0.95) + plot_title
+
+```
+
+
+### Independent-parameters model 
+
+```{r}
+model= function(){
+
+  ## Likelihood
+  for (i in 1:12) {
+    y[i] ~ dbin(theta[i], n[i])
+    }
+  
+  ## priors
+  for (i in 1:12) {
+    theta[i] ~ dunif(0,1)
+    }
+  }
+
+
+data=list(n = bristol$operations, y=bristol$deaths)
+
+fit <- jags(data=data, model=model,parameters.to.save=c("theta"), n.chain=2, n.iter=5000, n.thin=1, n.burn=100, DIC=FALSE)
+fit.mcmc <- as.mcmc(fit)
+summary(fit.mcmc)
+```
+
+```{r, fig.width=12}
+mat=as.matrix(as.mcmc(fit))
+
+mat.ind=mat[,paste0("theta[",1:12,"]")]
+
+plot_title <- ggtitle("Posterior distributions",
+                      "with medians and 95% intervals")
+mcmc_areas(mat,
+           pars = paste0("theta[",1:12,"]"),
+           prob = 0.95) + plot_title
+
+```
+
+
+### Hierarchical model 
+
+
+```{r}
+model= function(){
+
+  ## Likelihood
+  for (i in 1:12) {
+    y[i] ~ dbin(theta[i], n[i])
+    logit(theta[i]) <- logit.theta[i]
+    logit.theta[i] ~ dnorm(mu,inv.sigma.squared)
+    }
+  
+  ## priors
+  inv.sigma.squared <- 1/pow(sigma,2)
+  sigma ~ dunif(0,100)
+  mu ~ dunif(-100,100)
+  }
+
+
+data=list(n = bristol$operations, y=bristol$deaths)
+
+fit <- jags(data=data, model=model,parameters.to.save=c("theta","mu","sigma"), n.chain=2, n.iter=5000, n.thin=1, n.burn=100, DIC=FALSE)
+fit.mcmc <- as.mcmc(fit)
+summary(fit.mcmc)
+```
+
+
+```{r, fig.width=12}
+mat=as.matrix(as.mcmc(fit))
+
+mat.hier=mat[,paste0("theta[",1:12,"]")]
+
+plot_title <- ggtitle("Posterior distributions",
+                      "with medians and 95% intervals")
+mcmc_areas(mat,
+           pars = paste0("theta[",1:12,"]"),
+           prob = 0.95) + plot_title
+
+```
+
+
+```{r}
+library(reshape2)
+df1=melt(mat.ind) %>% mutate(model="independent")
+df2=melt(mat.hier) %>% mutate(model="hierarchical")
+df=bind_rows(df1,df2)
+df$hospital=c("Bristol", "Leicester", "Leeds", "Oxford", "Guys", "Liverpool", "Southampton", "Great Ormond St", "Newcastle", "Harefield", "Birmingham", "Brompton")[as.numeric(as.factor(df$Var2))]
+
+library(tidyverse)
+library(hrbrthemes)
+library(viridis)
+library(ggridges)
+
+df %>%
+  ggplot( aes(y=hospital, x=value,  fill=model)) +
+    geom_density_ridges(alpha=0.6) +
+    scale_fill_viridis(discrete=TRUE) +
+    scale_color_viridis(discrete=TRUE) +
+    theme_ipsum() +
+    theme(
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    ) +
+    xlab("") +
+    ylab("Posterior Distributions") + 
+  geom_vline(xintercept = theta.avg, linetype="dotted", 
+                color = "blue", size=1.5)
+
+```

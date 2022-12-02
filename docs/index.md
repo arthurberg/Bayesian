@@ -1,7 +1,7 @@
 --- 
 title: "PHS 528: Bayesian Methods"
 author: "Arthur Berg"
-date: "2022-11-15"
+date: "2022-12-01"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [CompBayesBook.bib, packages.bib]
@@ -17,12 +17,11 @@ editor_options:
 
 
 
-# Class 1
+# Class 1: Probability Fundamentals &  Monte Carlo
 
-## Probability Fundamentals
+## Example 1: Binomial flips
 
-
-:::{.example #binomial-flips name="binomial flips" .lizi}
+:::{.example #binomial-flips name="Binomial flips" .lizi}
 Consider 100 flips of a fair coin.
 
 (a) What is the probability of observing exactly 50 heads in 100 flips of a fair coin?
@@ -56,7 +55,9 @@ qbinom(0.05, 100, prob = 1/2, lower.tail = FALSE)
 ```
 
 
-:::{.exercise #marbles name="marbles" .prob}
+## Exercise 1: Marbles
+
+:::{.exercise #marbles name="Marbles" .prob}
 Suppose there’s a bag containing 50 marbles with each marble being either red or yellow. 
 
 (a) Five marbles are randomly selected **with replacement** and each one is found to be yellow. What is the probability all of the marbles in the bag are yellow?
@@ -64,9 +65,9 @@ Suppose there’s a bag containing 50 marbles with each marble being either red 
 (b) Five marbles are randomly selected **without replacement** and all are found to be yellow. What is the probability all of the marbles in the bag are yellow?
 :::
 
-## Monte Carlo
+## Example 2: Gemstones
 
-:::{.example #gemstones name="gemstones" .lizi}
+:::{.example #gemstones name="Gemstones" .lizi}
 Suppose there are $n$ bags labeled $1,\ldots,n$ with bag $i$ containing $i$ rubies and $n-i$ diamonds. Suppose a bag $i$ is selected with probability directly proportional with $i$, and a random gemstone is selected from that bag. What is the probability that it is a diamond? Provide a theoretical calculation and a simulated approximation.
 :::
 
@@ -90,7 +91,9 @@ mean(x2)
 [1] 0.691866
 ```
 
-:::{.example #repairs name="repairs" .lizi}
+## Example 3: Repairs
+
+:::{.example #repairs name="Repairs" .lizi}
 Suppose costs of a repair have a gamma distribution with mean $100 and standard deviation $50.  How many items will I be able to repair for $1000?
 :::
 
@@ -135,6 +138,8 @@ ggplot(df, aes(x = number)) + geom_bar()
 ```
 
 <img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+
+## Exercise 2: ICER
 
 :::{.exercise #icer name="ICER" .prob}
 Suppose a patient with heart failure has a survival time that is exponential with mean $\theta_N$ years. Suppose a heart transplant has a $\theta_T$ operative survival rate, and, if they survive, their survival, $s_P$, follows an exponential distribution with mean $\theta_P$. Assume the operation costs $D_{\text{operation}}$ dollars and each post-operative year medical costs for immunosuppressants and other prescriptions amount to $D_\text{annual}$ dollars. 

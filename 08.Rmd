@@ -1,7 +1,6 @@
-# Class 8
+# Class 8: Bayesian shrinkage
 
-## Bayesian shrinkage
-
+## Exercise 1: Baseball shrinkage
 
 :::{.exercise #baseball name="Baseball" .prob}
 Using the baseball dataset in (Efron and Morris, 1977) [@Efron:1977], compare the [root mean square deviation](https://en.wikipedia.org/wiki/Root-mean-square_deviation) of the James-Stein predictions to predictions from a Bayesian model with a justified prior. Implementation in R, JAGS, or Stan are all fine; [this reference](https://bookdown.org/staedler_n/highdimstats/ridge-regression-and-shrinkage.html#bayesian-shrinkage) may be helpful for implementation in JAGS. 

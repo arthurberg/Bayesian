@@ -1,7 +1,7 @@
-# Class 7
+# Class 7: Taxicab problem
 
-## Taxicab problem
 
+## Exercise 1: Taxicabs with JAGS
 
 :::{.example #taxicabs name="Taxicabs with JAGS" .lizi}
 A simple implementation of the taxicab problem with a single sample is presented using JAGS. 
@@ -30,6 +30,8 @@ fit <- jags(data=data, model=model,parameters.to.save=c("N","M"), n.chain=2, n.i
 fit
 ```
 
+
+## Exercise 2: Taxi counter
 
 :::{.exercise #taxi-counter name="Taxi counter" .prob}
 Suppose taxis were sampled with the following code

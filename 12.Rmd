@@ -1,8 +1,6 @@
 
 
-# Class 12
-
-## Information Theory
+# Class 12: Information Theory
 
 :::{.exercise #chengyu name="五音不全 - part 1" .prob}
 

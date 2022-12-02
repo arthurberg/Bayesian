@@ -1,12 +1,12 @@
-# Class 5
+# Class 5: COVID-19 Vaccine Trials \& Bayesian Dice
 
-## COVID-19 Vaccine Trials
+## Exercise 1: Vaccine Efficacy
 
 :::{.exercise #vaccine-efficacy name="Vaccine Efficacy" .prob}
 Reproduce a plot similar to Figure 3 in (Senn, 2022)[@Senn:2022] and provide a table of the ten left and right endpoints in the graphic. 
 :::
 
-## Bayesian Dice
+## Exercise 2: Loaded Die?
 
 :::{.exercise #loaded name="Loaded Die?" .prob}
 As introduced in (Berg, 2021)[@Berg:2021], consider a three-loaded die with the probability of rolling the numbers one through six being 8%, 8%, 64%, 1%, and 6%, respectively. A die is rolled and you suspect it may be the three loaded die assigning it a prior probability of 50% with the other 50% prior probability being given to a standard fair die with equal probabilities. In actuality, a die with probabilities of 3%, 17%, 51%, 14%, 14%, and 1% (corresponding to the numbers one through six) is rolled. Mimic this process with a simulation, and, for a given set of rolls from your simulation, calculate the posterior probability that the rolled die is a standard die. Let the number of rolls grow very large to determine which die the posterior probability settles on (if any).

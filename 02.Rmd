@@ -1,9 +1,9 @@
-# Class 2
-
-## Diagnostic Testing
+# Class 2: Diagnostic Testing
 
 
-:::{.example #roc name="pregnancy testing" .lizi}
+## Example 1: Pregnancy testing
+
+:::{.example #roc name="Pregnancy testing" .lizi}
 [Human Chorionic Gonadotropin (hCG)](https://en.wikipedia.org/wiki/Human_chorionic_gonadotropin) is a hormone that dramatically increases during pregnancy. Levels of this hormone may also be high for individuals with [some cancers](https://en.wikipedia.org/wiki/Human_chorionic_gonadotropin#Tumor_marker).
 
 Levels of hCG can first be detected by a blood test about 11 days after conception and about 12-14 days after conception by a urine test, and will peak in the first 8-11 weeks of pregnancy and then will decline and level off for the remainder of the pregnancy.
@@ -187,6 +187,7 @@ pred3@cutoffs[[1]][which.min(cost.perf4@y.values[[1]])]
 exp(pred3@cutoffs[[1]][which.min(cost.perf4@y.values[[1]])])
 ```
 
+## Example 2: PPV by prevalence
 
 :::{.example #ppv name="PPV by prevalence" .lizi}
 For user-specified values of sensitivity and specificity, we graph the positive predictive value over a range of prevalence values.
