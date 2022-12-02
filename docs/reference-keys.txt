@@ -54,7 +54,7 @@ exercise-1-minimax-urns
 class-11-prior-distributions
 bayes-factor
 class-12-information-theory
-class-13-information-theory-cont.
+class-13-information-theory-cont
 class-14-hierarchical-models
 example-1
 constant-risk-model
