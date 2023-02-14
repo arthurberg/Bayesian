@@ -7,7 +7,37 @@ editor_options:
 
 # Class 14: Hierarchical Models
 
-## Example 1: 
+## Example 1: Bristol babies
+
+:::{.example #bristol-babies name="Bristol babies" .lizi}
+
+The [Bristol heart scandal](https://en.wikipedia.org/wiki/Bristol_heart_scandal came about after it was discovered that babies were dying at high rates after cardiac surgery when treated at the [Bristol Royal Infirmary](https://en.wikipedia.org/wiki/Bristol_Royal_Infirmary). The comprehensive report [@Kennedy:2001] subsequently led to substantial changes in health service monitoring in the UK. Data from this incident was statistically analyzed in [@Spiegelhalter:2002] and [@Marshall:2007], and includes the table below. The following models are fit: 
+
+* constant-risk model
+\[
+\begin{split}
+X_i&\sim\text{Binomial}(n_i,\theta)\\
+\theta&\sim\text{Uniform}(0,1)
+\end{split}
+\]
+* independent parameters model
+\[
+\begin{split}
+X_i&\sim\text{Binomial}(n_i,\theta_i)\\
+\theta_i&\sim\text{Uniform}(0,1)
+\end{split}
+\]
+* hierarchical model
+\[
+\begin{split}
+X_i&\sim\text{Binomial}(n_i,\theta_i)\\
+\text{logit_i}(\theta)&\sim \mathcal{N}(\mu,\sigma^2)\\
+\mu&\sim\text{Uniform}(-100,100)\\
+1/\sigma^2&\sim\text{Uniform}(0,100)
+\end{split}
+\]
+Residual analysis of the constant-risk model shows a poor model selection. Shrinkage is observed for the parameters in the hierarchical model.
+:::
 
 
 ```{r,tidy=TRUE}
@@ -22,7 +52,7 @@ kbl(bristol) %>% kable_classic_2(full_width=F)
 
 ### Constant-risk model
 
-```{r}
+```{r, tidy=TRUE}
 model= function(){
 
   ## Likelihood
@@ -55,7 +85,7 @@ abline(h=0)
 
 library("bayesplot")
 library("ggplot2")
-plot_title <- ggtitle("Posterior distributions",
+plot_title <- ggtitle("Posterior distributions  of residuals",
                       "with medians and 95% intervals")
 mcmc_areas(mat,
            pars = paste0("res[",1:12,"]"),
@@ -66,7 +96,7 @@ mcmc_areas(mat,
 
 ### Independent-parameters model 
 
-```{r}
+```{r, tidy=TRUE}
 model= function(){
 
   ## Likelihood
@@ -93,7 +123,7 @@ mat=as.matrix(as.mcmc(fit))
 
 mat.ind=mat[,paste0("theta[",1:12,"]")]
 
-plot_title <- ggtitle("Posterior distributions",
+plot_title <- ggtitle("Posterior distributions of thetas",
                       "with medians and 95% intervals")
 mcmc_areas(mat,
            pars = paste0("theta[",1:12,"]"),
@@ -105,7 +135,7 @@ mcmc_areas(mat,
 ### Hierarchical model 
 
 
-```{r}
+```{r, tidy=TRUE}
 model= function(){
 
   ## Likelihood
@@ -135,7 +165,7 @@ mat=as.matrix(as.mcmc(fit))
 
 mat.hier=mat[,paste0("theta[",1:12,"]")]
 
-plot_title <- ggtitle("Posterior distributions",
+plot_title <- ggtitle("Posterior distributions of thetas",
                       "with medians and 95% intervals")
 mcmc_areas(mat,
            pars = paste0("theta[",1:12,"]"),
@@ -144,7 +174,7 @@ mcmc_areas(mat,
 ```
 
 
-```{r}
+```{r, tidy=TRUE}
 library(reshape2)
 df1=melt(mat.ind) %>% mutate(model="independent")
 df2=melt(mat.hier) %>% mutate(model="hierarchical")
@@ -172,3 +202,130 @@ df %>%
                 color = "blue", size=1.5)
 
 ```
+Vertical line is the mean theta parameter from the constant-risk model
+
+## Example 2: James-Stein Baseball
+
+:::{.example #baseball name="James-Stein baseball" .lizi}
+See [this vignette](https://mc-stan.org/rstanarm/articles/pooling.html) for more details of this example. The James-Stein baseball data [@Efron:1977] is analyzed using `stan_glm` in the `rstanarm` package. This includes model fits with complete pooling (constant-risk model), no pooling (independent-parameter model), and partial pooling (hierarchical model). 
+:::
+
+
+```{r, tidy=TRUE}
+library(rstanarm)
+data(bball1970)
+bball <- bball1970
+
+#xtable(bball)
+
+kbl(bball) %>% kable_classic_2(full_width=F)
+
+N <- nrow(bball)
+K <- bball$AB
+y <- bball$Hits
+K_new <- bball$RemainingAB
+y_new <- bball$RemainingHits
+
+batting_avg <- function(x) print(format(round(x, digits = 3), nsmall = 3), quote = FALSE)
+player_avgs <- y / K # player avgs through 45 AB
+tot_avg <- sum(y) / sum(K) # overall avg through 45 AB
+
+cat("Player averages through 45 at-bats:\n")
+batting_avg(player_avgs)
+cat("Overall average through 45 at-bats:\n")
+batting_avg(tot_avg)
+
+```
+
+### Complete pooling
+
+```{r, tidy=TRUE}
+SEED <- 202
+wi_prior <- normal(-1, 1)  # weakly informative prior on log-odds
+fit_pool <- stan_glm(cbind(Hits, AB - Hits) ~ 1, data = bball, family = binomial("logit"),
+                     prior_intercept = wi_prior, seed = SEED)
+
+invlogit <- plogis  # function(x) 1/(1 + exp(-x))
+summary_stats <- function(posterior) {
+  x <- invlogit(posterior)  # log-odds -> probabilities
+  t(apply(x, 2, quantile, probs = c(0.1, 0.5, 0.9))) 
+}
+
+pool <- summary_stats(as.matrix(fit_pool))  # as.matrix extracts the posterior draws
+pool <- matrix(pool,  # replicate to give each player the same estimates
+               nrow(bball), ncol(pool), byrow = TRUE, 
+               dimnames = list(bball$Player, c("10%", "50%", "90%")))
+batting_avg(pool)
+
+invlogit <- plogis  # function(x) 1/(1 + exp(-x))
+summary_stats <- function(posterior) {
+  x <- invlogit(posterior)  # log-odds -> probabilities
+  t(apply(x, 2, quantile, probs = c(0.1, 0.5, 0.9)))
+}
+
+pool <- summary_stats(as.matrix(fit_pool))  # as.matrix extracts the posterior draws
+pool <- matrix(pool,  # replicate to give each player the same estimates
+               nrow(bball), ncol(pool), byrow = TRUE,
+               dimnames = list(bball$Player, c("10%", "50%", "90%")))
+batting_avg(pool)
+```
+
+### No pooling
+
+```{r, tidy=TRUE}
+fit_nopool <- update(fit_pool, formula = . ~ 0 + Player, prior = wi_prior)
+nopool <- summary_stats(as.matrix(fit_nopool))
+rownames(nopool) <- as.character(bball$Player)
+batting_avg(nopool)
+```
+
+
+### Partial pooling
+
+```{r, tidy=TRUE}
+fit_partialpool <-
+  stan_glmer(cbind(Hits, AB - Hits) ~ (1 | Player), data = bball,
+             family = binomial("logit"),
+             prior_intercept = wi_prior, seed = SEED)
+
+
+# shift each player's estimate by intercept (and then drop intercept)
+shift_draws <- function(draws) {
+  sweep(draws[, -1], MARGIN = 1, STATS = draws[, 1], FUN = "+")
+}
+alphas <- shift_draws(as.matrix(fit_partialpool))
+partialpool <- summary_stats(alphas)
+partialpool <- partialpool[-nrow(partialpool),]
+rownames(partialpool) <- as.character(bball$Player)
+batting_avg(partialpool)
+```
+
+### Observed vs estimated
+
+```{r, tidy=TRUE}
+library(ggplot2)
+models <- c("complete pooling", "no pooling", "partial pooling")
+estimates <- rbind(pool, nopool, partialpool)
+colnames(estimates) <- c("lb", "median", "ub")
+plotdata <- data.frame(estimates,
+                       observed = rep(player_avgs, times = length(models)),
+                       model = rep(models, each = N),
+                       row.names = NULL)
+
+ggplot(plotdata, aes(x = observed, y = median, ymin = lb, ymax = ub)) +
+  geom_hline(yintercept = tot_avg, color = "lightpink", size = 0.75) +
+  geom_abline(intercept = 0, slope = 1, color = "skyblue") +
+  geom_linerange(color = "gray60", size = 0.75) +
+  geom_point(size = 2.5, shape = 21, fill = "gray30", color = "white", stroke = 0.2) +
+  facet_grid(. ~ model) +
+  coord_fixed() +
+  scale_x_continuous(breaks = c(0.2, 0.3, 0.4)) +
+  labs(x = "Observed Hits / AB", y = "Predicted chance of hit") +
+  ggtitle("Posterior Medians and 80% Intervals")
+```
+
+:::{.exercise #rats name="Rat tumors" .prob}
+
+:::
+
+

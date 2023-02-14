@@ -22,6 +22,8 @@ exm:great
 exm:octopus
 exr:chengyu
 exr:chengyu2
+exm:bristol-babies
+exm:baseball
 class-1-probability-fundamentals-monte-carlo
 example-1-binomial-flips
 exercise-1-marbles
@@ -56,10 +58,15 @@ bayes-factor
 class-12-information-theory
 class-13-information-theory-cont
 class-14-hierarchical-models
-example-1
+example-1-bristol-babies
 constant-risk-model
 independent-parameters-model
 hierarchical-model
+example-2-james-stein-baseball
+complete-pooling
+no-pooling
+partial-pooling
+observed-vs-estimated
 to-be-incorporated
 jags
 references

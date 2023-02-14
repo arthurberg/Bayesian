@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>15 Example 2: James-Stein Baseball | PHS 528: Bayesian Methods</title>
+<meta name="author" content="Arthur Berg">
+<meta name="generator" content="bookdown 0.30 with bs4_book()">
+<meta property="og:title" content="15 Example 2: James-Stein Baseball | PHS 528: Bayesian Methods">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://arthurberg.github.io/Bayesian/example-2-james-stein-baseball.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="15 Example 2: James-Stein Baseball | PHS 528: Bayesian Methods">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.1/transition.js"></script><script src="libs/bs3compat-0.4.1/tabs.js"></script><script src="libs/bs3compat-0.4.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="Example 15.1 (James-Stein baseball) See this vignette for more details of this example. The James-Stein baseball data10 is analyzed using stan_glm in the rstanarm package. This includes model fits...">
+<meta property="og:description" content="Example 15.1 (James-Stein baseball) See this vignette for more details of this example. The James-Stein baseball data10 is analyzed using stan_glm in the rstanarm package. This includes model fits...">
+<meta name="twitter:description" content="Example 15.1 (James-Stein baseball) See this vignette for more details of this example. The James-Stein baseball data10 is analyzed using stan_glm in the rstanarm package. This includes model fits...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">PHS 528: Bayesian Methods</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Class 1: Probability Fundamentals &amp; Monte Carlo</a></li>
+<li><a class="" href="class-2-diagnostic-testing.html"><span class="header-section-number">2</span> Class 2: Diagnostic Testing</a></li>
+<li><a class="" href="class-3-bayes-theorem-practice.html"><span class="header-section-number">3</span> Class 3: Bayes’ Theorem Practice</a></li>
+<li><a class="" href="class-4-beta-binomial.html"><span class="header-section-number">4</span> Class 4: Beta-binomial</a></li>
+<li><a class="" href="class-5-covid-19-vaccine-trials-bayesian-dice.html"><span class="header-section-number">5</span> Class 5: COVID-19 Vaccine Trials &amp; Bayesian Dice</a></li>
+<li><a class="" href="class-6-stick-breaking.html"><span class="header-section-number">6</span> Class 6: Stick Breaking</a></li>
+<li><a class="" href="class-7-taxicab-problem.html"><span class="header-section-number">7</span> Class 7: Taxicab problem</a></li>
+<li><a class="" href="class-8-bayesian-shrinkage.html"><span class="header-section-number">8</span> Class 8: Bayesian shrinkage</a></li>
+<li><a class="" href="class-9-bayes-estimator.html"><span class="header-section-number">9</span> Class 9: Bayes estimator</a></li>
+<li><a class="" href="class-10-minimax.html"><span class="header-section-number">10</span> Class 10: Minimax</a></li>
+<li><a class="" href="class-11-prior-distributions.html"><span class="header-section-number">11</span> Class 11: Prior distributions</a></li>
+<li><a class="" href="class-12-information-theory.html"><span class="header-section-number">12</span> Class 12: Information Theory</a></li>
+<li><a class="" href="class-13-information-theory-cont.html"><span class="header-section-number">13</span> Class 13: Information Theory (cont)</a></li>
+<li><a class="" href="class-14-hierarchical-models.html"><span class="header-section-number">14</span> Class 14: Hierarchical Models</a></li>
+<li><a class="active" href="example-2-james-stein-baseball.html"><span class="header-section-number">15</span> Example 2: James-Stein Baseball</a></li>
+<li><a class="" href="to-be-incorporated.html"><span class="header-section-number">16</span> To Be Incorporated</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">17</span> References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/arthurberg/Bayesian">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="example-2-james-stein-baseball" class="section level1" number="15">
+<h1>
+<span class="header-section-number">15</span> Example 2: James-Stein Baseball<a class="anchor" aria-label="anchor" href="#example-2-james-stein-baseball"><i class="fas fa-link"></i></a>
+</h1>
+<div class="example lizi">
+<p><span id="exm:baseball" class="example"><strong>Example 15.1  (James-Stein baseball) </strong></span>See <a href="https://mc-stan.org/rstanarm/articles/pooling.html">this vignette</a> for more details of this example. The James-Stein baseball data<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Efron and Morris, &lt;span&gt;“Stein’s Paradox in Statistics.”&lt;/span&gt;&lt;/p&gt;"><sup>10</sup></a></span> is analyzed using <code>stan_glm</code> in the <code>rstanarm</code> package. This includes model fits with complete pooling (constant-risk model), no pooling (independent-parameter model), and partial pooling (hierarchical model).</p>
+</div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="example-2-james-stein-baseball.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstanarm)</span>
+<span id="cb42-2"><a href="example-2-james-stein-baseball.html#cb42-2" aria-hidden="true" tabindex="-1"></a>Loading required package<span class="sc">:</span> Rcpp</span>
+<span id="cb42-3"><a href="example-2-james-stein-baseball.html#cb42-3" aria-hidden="true" tabindex="-1"></a>This is rstanarm version <span class="dv">2</span>.<span class="fl">21.3</span></span>
+<span id="cb42-4"><a href="example-2-james-stein-baseball.html#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> See https<span class="sc">:</span><span class="er">//</span>mc<span class="sc">-</span>stan.org<span class="sc">/</span>rstanarm<span class="sc">/</span>articles<span class="sc">/</span>priors <span class="cf">for</span> changes to default priors<span class="sc">!</span></span>
+<span id="cb42-5"><a href="example-2-james-stein-baseball.html#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> Default priors may change, so it<span class="st">'s safest to specify priors, even if equivalent to the defaults.</span></span>
+<span id="cb42-6"><a href="example-2-james-stein-baseball.html#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="st">- For execution on a local, multicore CPU with excess RAM we recommend calling</span></span>
+<span id="cb42-7"><a href="example-2-james-stein-baseball.html#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="st">  options(mc.cores = parallel::detectCores())</span></span>
+<span id="cb42-8"><a href="example-2-james-stein-baseball.html#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="st">data(bball1970)</span></span>
+<span id="cb42-9"><a href="example-2-james-stein-baseball.html#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="st">bball &lt;- bball1970</span></span>
+<span id="cb42-10"><a href="example-2-james-stein-baseball.html#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-11"><a href="example-2-james-stein-baseball.html#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="st"># xtable(bball)</span></span>
+<span id="cb42-12"><a href="example-2-james-stein-baseball.html#cb42-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-13"><a href="example-2-james-stein-baseball.html#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="st">kbl(bball) %&gt;%</span></span>
+<span id="cb42-14"><a href="example-2-james-stein-baseball.html#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="st">    kable_classic_2(full_width = F)</span></span></code></pre></div>
+<div class="inline-table"><table class=" lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead><tr>
+<th style="text-align:left;">
+Player
+</th>
+<th style="text-align:right;">
+AB
+</th>
+<th style="text-align:right;">
+Hits
+</th>
+<th style="text-align:right;">
+RemainingAB
+</th>
+<th style="text-align:right;">
+RemainingHits
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Clemente
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+367
+</td>
+<td style="text-align:right;">
+127
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Robinson
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+426
+</td>
+<td style="text-align:right;">
+127
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Howard
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+521
+</td>
+<td style="text-align:right;">
+144
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Johnstone
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+275
+</td>
+<td style="text-align:right;">
+61
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Berry
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+418
+</td>
+<td style="text-align:right;">
+114
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Spencer
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+466
+</td>
+<td style="text-align:right;">
+126
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kessinger
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+586
+</td>
+<td style="text-align:right;">
+155
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Alvarado
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Santo
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+510
+</td>
+<td style="text-align:right;">
+137
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Swaboda
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:right;">
+46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Petrocelli
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+538
+</td>
+<td style="text-align:right;">
+142
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rodriguez
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+186
+</td>
+<td style="text-align:right;">
+42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Scott
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+435
+</td>
+<td style="text-align:right;">
+132
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Unser
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+277
+</td>
+<td style="text-align:right;">
+73
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Williams
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+591
+</td>
+<td style="text-align:right;">
+195
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Campaneris
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+558
+</td>
+<td style="text-align:right;">
+159
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Munson
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+408
+</td>
+<td style="text-align:right;">
+129
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Alvis
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+14
+</td>
+</tr>
+</tbody>
+</table></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="example-2-james-stein-baseball.html#cb43-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-2"><a href="example-2-james-stein-baseball.html#cb43-2" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(bball)</span>
+<span id="cb43-3"><a href="example-2-james-stein-baseball.html#cb43-3" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> bball<span class="sc">$</span>AB</span>
+<span id="cb43-4"><a href="example-2-james-stein-baseball.html#cb43-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> bball<span class="sc">$</span>Hits</span>
+<span id="cb43-5"><a href="example-2-james-stein-baseball.html#cb43-5" aria-hidden="true" tabindex="-1"></a>K_new <span class="ot">&lt;-</span> bball<span class="sc">$</span>RemainingAB</span>
+<span id="cb43-6"><a href="example-2-james-stein-baseball.html#cb43-6" aria-hidden="true" tabindex="-1"></a>y_new <span class="ot">&lt;-</span> bball<span class="sc">$</span>RemainingHits</span>
+<span id="cb43-7"><a href="example-2-james-stein-baseball.html#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="example-2-james-stein-baseball.html#cb43-8" aria-hidden="true" tabindex="-1"></a>batting_avg <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">print</span>(<span class="fu">format</span>(<span class="fu">round</span>(x, <span class="at">digits =</span> <span class="dv">3</span>),</span>
+<span id="cb43-9"><a href="example-2-james-stein-baseball.html#cb43-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">nsmall =</span> <span class="dv">3</span>), <span class="at">quote =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb43-10"><a href="example-2-james-stein-baseball.html#cb43-10" aria-hidden="true" tabindex="-1"></a>player_avgs <span class="ot">&lt;-</span> y<span class="sc">/</span>K  <span class="co"># player avgs through 45 AB</span></span>
+<span id="cb43-11"><a href="example-2-james-stein-baseball.html#cb43-11" aria-hidden="true" tabindex="-1"></a>tot_avg <span class="ot">&lt;-</span> <span class="fu">sum</span>(y)<span class="sc">/</span><span class="fu">sum</span>(K)  <span class="co"># overall avg through 45 AB</span></span>
+<span id="cb43-12"><a href="example-2-james-stein-baseball.html#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="example-2-james-stein-baseball.html#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Player averages through 45 at-bats:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb43-14"><a href="example-2-james-stein-baseball.html#cb43-14" aria-hidden="true" tabindex="-1"></a>Player averages through <span class="dv">45</span> at<span class="sc">-</span>bats<span class="sc">:</span></span>
+<span id="cb43-15"><a href="example-2-james-stein-baseball.html#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="fu">batting_avg</span>(player_avgs)</span>
+<span id="cb43-16"><a href="example-2-james-stein-baseball.html#cb43-16" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="fl">0.400</span> <span class="fl">0.378</span> <span class="fl">0.356</span> <span class="fl">0.333</span> <span class="fl">0.311</span> <span class="fl">0.311</span> <span class="fl">0.289</span> <span class="fl">0.267</span> <span class="fl">0.244</span></span>
+<span id="cb43-17"><a href="example-2-james-stein-baseball.html#cb43-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">10</span>] <span class="fl">0.244</span> <span class="fl">0.222</span> <span class="fl">0.222</span> <span class="fl">0.222</span> <span class="fl">0.222</span> <span class="fl">0.222</span> <span class="fl">0.200</span> <span class="fl">0.178</span> <span class="fl">0.156</span></span>
+<span id="cb43-18"><a href="example-2-james-stein-baseball.html#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Overall average through 45 at-bats:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb43-19"><a href="example-2-james-stein-baseball.html#cb43-19" aria-hidden="true" tabindex="-1"></a>Overall average through <span class="dv">45</span> at<span class="sc">-</span>bats<span class="sc">:</span></span>
+<span id="cb43-20"><a href="example-2-james-stein-baseball.html#cb43-20" aria-hidden="true" tabindex="-1"></a><span class="fu">batting_avg</span>(tot_avg)</span>
+<span id="cb43-21"><a href="example-2-james-stein-baseball.html#cb43-21" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.265</span></span></code></pre></div>
+<div id="complete-pooling" class="section level2" number="15.1">
+<h2>
+<span class="header-section-number">15.1</span> Complete pooling<a class="anchor" aria-label="anchor" href="#complete-pooling"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="example-2-james-stein-baseball.html#cb44-1" aria-hidden="true" tabindex="-1"></a>SEED <span class="ot">&lt;-</span> <span class="dv">202</span></span>
+<span id="cb44-2"><a href="example-2-james-stein-baseball.html#cb44-2" aria-hidden="true" tabindex="-1"></a>wi_prior <span class="ot">&lt;-</span> <span class="fu">normal</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)  <span class="co"># weakly informative prior on log-odds</span></span>
+<span id="cb44-3"><a href="example-2-james-stein-baseball.html#cb44-3" aria-hidden="true" tabindex="-1"></a>fit_pool <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(<span class="fu">cbind</span>(Hits, AB <span class="sc">-</span> Hits) <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> bball, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="st">"logit"</span>),</span>
+<span id="cb44-4"><a href="example-2-james-stein-baseball.html#cb44-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">prior_intercept =</span> wi_prior, <span class="at">seed =</span> SEED)</span>
+<span id="cb44-5"><a href="example-2-james-stein-baseball.html#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="example-2-james-stein-baseball.html#cb44-6" aria-hidden="true" tabindex="-1"></a>SAMPLING FOR MODEL <span class="st">'binomial'</span> <span class="fu">NOW</span> (CHAIN <span class="dv">1</span>).</span>
+<span id="cb44-7"><a href="example-2-james-stein-baseball.html#cb44-7" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb44-8"><a href="example-2-james-stein-baseball.html#cb44-8" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Gradient evaluation took <span class="fl">2.2e-05</span> seconds</span>
+<span id="cb44-9"><a href="example-2-james-stein-baseball.html#cb44-9" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> <span class="dv">1000</span> transitions using <span class="dv">10</span> leapfrog steps per transition would take <span class="fl">0.22</span> seconds.</span>
+<span id="cb44-10"><a href="example-2-james-stein-baseball.html#cb44-10" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Adjust your expectations accordingly<span class="sc">!</span></span>
+<span id="cb44-11"><a href="example-2-james-stein-baseball.html#cb44-11" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb44-12"><a href="example-2-james-stein-baseball.html#cb44-12" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb44-13"><a href="example-2-james-stein-baseball.html#cb44-13" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>    <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2000</span> [  <span class="dv">0</span>%]  (Warmup)</span>
+<span id="cb44-14"><a href="example-2-james-stein-baseball.html#cb44-14" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">10</span>%]  (Warmup)</span>
+<span id="cb44-15"><a href="example-2-james-stein-baseball.html#cb44-15" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">20</span>%]  (Warmup)</span>
+<span id="cb44-16"><a href="example-2-james-stein-baseball.html#cb44-16" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">30</span>%]  (Warmup)</span>
+<span id="cb44-17"><a href="example-2-james-stein-baseball.html#cb44-17" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">40</span>%]  (Warmup)</span>
+<span id="cb44-18"><a href="example-2-james-stein-baseball.html#cb44-18" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1000</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Warmup)</span>
+<span id="cb44-19"><a href="example-2-james-stein-baseball.html#cb44-19" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1001</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Sampling)</span>
+<span id="cb44-20"><a href="example-2-james-stein-baseball.html#cb44-20" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">60</span>%]  (Sampling)</span>
+<span id="cb44-21"><a href="example-2-james-stein-baseball.html#cb44-21" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">70</span>%]  (Sampling)</span>
+<span id="cb44-22"><a href="example-2-james-stein-baseball.html#cb44-22" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">80</span>%]  (Sampling)</span>
+<span id="cb44-23"><a href="example-2-james-stein-baseball.html#cb44-23" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">90</span>%]  (Sampling)</span>
+<span id="cb44-24"><a href="example-2-james-stein-baseball.html#cb44-24" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">2000</span> <span class="sc">/</span> <span class="dv">2000</span> [<span class="dv">100</span>%]  (Sampling)</span>
+<span id="cb44-25"><a href="example-2-james-stein-baseball.html#cb44-25" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb44-26"><a href="example-2-james-stein-baseball.html#cb44-26" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span>  Elapsed Time<span class="sc">:</span> <span class="fl">0.015257</span> <span class="fu">seconds</span> (Warm<span class="sc">-</span>up)</span>
+<span id="cb44-27"><a href="example-2-james-stein-baseball.html#cb44-27" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span>                <span class="fl">0.018122</span> <span class="fu">seconds</span> (Sampling)</span>
+<span id="cb44-28"><a href="example-2-james-stein-baseball.html#cb44-28" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span>                <span class="fl">0.033379</span> <span class="fu">seconds</span> (Total)</span>
+<span id="cb44-29"><a href="example-2-james-stein-baseball.html#cb44-29" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb44-30"><a href="example-2-james-stein-baseball.html#cb44-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-31"><a href="example-2-james-stein-baseball.html#cb44-31" aria-hidden="true" tabindex="-1"></a>SAMPLING FOR MODEL <span class="st">'binomial'</span> <span class="fu">NOW</span> (CHAIN <span class="dv">2</span>).</span>
+<span id="cb44-32"><a href="example-2-james-stein-baseball.html#cb44-32" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb44-33"><a href="example-2-james-stein-baseball.html#cb44-33" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Gradient evaluation took <span class="fl">5e-06</span> seconds</span>
+<span id="cb44-34"><a href="example-2-james-stein-baseball.html#cb44-34" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> <span class="dv">1000</span> transitions using <span class="dv">10</span> leapfrog steps per transition would take <span class="fl">0.05</span> seconds.</span>
+<span id="cb44-35"><a href="example-2-james-stein-baseball.html#cb44-35" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Adjust your expectations accordingly<span class="sc">!</span></span>
+<span id="cb44-36"><a href="example-2-james-stein-baseball.html#cb44-36" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb44-37"><a href="example-2-james-stein-baseball.html#cb44-37" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb44-38"><a href="example-2-james-stein-baseball.html#cb44-38" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>    <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2000</span> [  <span class="dv">0</span>%]  (Warmup)</span>
+<span id="cb44-39"><a href="example-2-james-stein-baseball.html#cb44-39" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">10</span>%]  (Warmup)</span>
+<span id="cb44-40"><a href="example-2-james-stein-baseball.html#cb44-40" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">20</span>%]  (Warmup)</span>
+<span id="cb44-41"><a href="example-2-james-stein-baseball.html#cb44-41" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">30</span>%]  (Warmup)</span>
+<span id="cb44-42"><a href="example-2-james-stein-baseball.html#cb44-42" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">40</span>%]  (Warmup)</span>
+<span id="cb44-43"><a href="example-2-james-stein-baseball.html#cb44-43" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1000</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Warmup)</span>
+<span id="cb44-44"><a href="example-2-james-stein-baseball.html#cb44-44" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1001</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Sampling)</span>
+<span id="cb44-45"><a href="example-2-james-stein-baseball.html#cb44-45" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">60</span>%]  (Sampling)</span>
+<span id="cb44-46"><a href="example-2-james-stein-baseball.html#cb44-46" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">70</span>%]  (Sampling)</span>
+<span id="cb44-47"><a href="example-2-james-stein-baseball.html#cb44-47" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">80</span>%]  (Sampling)</span>
+<span id="cb44-48"><a href="example-2-james-stein-baseball.html#cb44-48" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">90</span>%]  (Sampling)</span>
+<span id="cb44-49"><a href="example-2-james-stein-baseball.html#cb44-49" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">2000</span> <span class="sc">/</span> <span class="dv">2000</span> [<span class="dv">100</span>%]  (Sampling)</span>
+<span id="cb44-50"><a href="example-2-james-stein-baseball.html#cb44-50" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb44-51"><a href="example-2-james-stein-baseball.html#cb44-51" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span>  Elapsed Time<span class="sc">:</span> <span class="fl">0.015807</span> <span class="fu">seconds</span> (Warm<span class="sc">-</span>up)</span>
+<span id="cb44-52"><a href="example-2-james-stein-baseball.html#cb44-52" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span>                <span class="fl">0.017317</span> <span class="fu">seconds</span> (Sampling)</span>
+<span id="cb44-53"><a href="example-2-james-stein-baseball.html#cb44-53" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span>                <span class="fl">0.033124</span> <span class="fu">seconds</span> (Total)</span>
+<span id="cb44-54"><a href="example-2-james-stein-baseball.html#cb44-54" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb44-55"><a href="example-2-james-stein-baseball.html#cb44-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-56"><a href="example-2-james-stein-baseball.html#cb44-56" aria-hidden="true" tabindex="-1"></a>SAMPLING FOR MODEL <span class="st">'binomial'</span> <span class="fu">NOW</span> (CHAIN <span class="dv">3</span>).</span>
+<span id="cb44-57"><a href="example-2-james-stein-baseball.html#cb44-57" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb44-58"><a href="example-2-james-stein-baseball.html#cb44-58" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Gradient evaluation took <span class="fl">1.1e-05</span> seconds</span>
+<span id="cb44-59"><a href="example-2-james-stein-baseball.html#cb44-59" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> <span class="dv">1000</span> transitions using <span class="dv">10</span> leapfrog steps per transition would take <span class="fl">0.11</span> seconds.</span>
+<span id="cb44-60"><a href="example-2-james-stein-baseball.html#cb44-60" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Adjust your expectations accordingly<span class="sc">!</span></span>
+<span id="cb44-61"><a href="example-2-james-stein-baseball.html#cb44-61" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb44-62"><a href="example-2-james-stein-baseball.html#cb44-62" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb44-63"><a href="example-2-james-stein-baseball.html#cb44-63" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>    <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2000</span> [  <span class="dv">0</span>%]  (Warmup)</span>
+<span id="cb44-64"><a href="example-2-james-stein-baseball.html#cb44-64" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">10</span>%]  (Warmup)</span>
+<span id="cb44-65"><a href="example-2-james-stein-baseball.html#cb44-65" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">20</span>%]  (Warmup)</span>
+<span id="cb44-66"><a href="example-2-james-stein-baseball.html#cb44-66" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">30</span>%]  (Warmup)</span>
+<span id="cb44-67"><a href="example-2-james-stein-baseball.html#cb44-67" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">40</span>%]  (Warmup)</span>
+<span id="cb44-68"><a href="example-2-james-stein-baseball.html#cb44-68" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1000</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Warmup)</span>
+<span id="cb44-69"><a href="example-2-james-stein-baseball.html#cb44-69" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1001</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Sampling)</span>
+<span id="cb44-70"><a href="example-2-james-stein-baseball.html#cb44-70" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">60</span>%]  (Sampling)</span>
+<span id="cb44-71"><a href="example-2-james-stein-baseball.html#cb44-71" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">70</span>%]  (Sampling)</span>
+<span id="cb44-72"><a href="example-2-james-stein-baseball.html#cb44-72" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">80</span>%]  (Sampling)</span>
+<span id="cb44-73"><a href="example-2-james-stein-baseball.html#cb44-73" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">90</span>%]  (Sampling)</span>
+<span id="cb44-74"><a href="example-2-james-stein-baseball.html#cb44-74" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">2000</span> <span class="sc">/</span> <span class="dv">2000</span> [<span class="dv">100</span>%]  (Sampling)</span>
+<span id="cb44-75"><a href="example-2-james-stein-baseball.html#cb44-75" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb44-76"><a href="example-2-james-stein-baseball.html#cb44-76" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span>  Elapsed Time<span class="sc">:</span> <span class="fl">0.015199</span> <span class="fu">seconds</span> (Warm<span class="sc">-</span>up)</span>
+<span id="cb44-77"><a href="example-2-james-stein-baseball.html#cb44-77" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span>                <span class="fl">0.018457</span> <span class="fu">seconds</span> (Sampling)</span>
+<span id="cb44-78"><a href="example-2-james-stein-baseball.html#cb44-78" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span>                <span class="fl">0.033656</span> <span class="fu">seconds</span> (Total)</span>
+<span id="cb44-79"><a href="example-2-james-stein-baseball.html#cb44-79" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb44-80"><a href="example-2-james-stein-baseball.html#cb44-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-81"><a href="example-2-james-stein-baseball.html#cb44-81" aria-hidden="true" tabindex="-1"></a>SAMPLING FOR MODEL <span class="st">'binomial'</span> <span class="fu">NOW</span> (CHAIN <span class="dv">4</span>).</span>
+<span id="cb44-82"><a href="example-2-james-stein-baseball.html#cb44-82" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb44-83"><a href="example-2-james-stein-baseball.html#cb44-83" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Gradient evaluation took <span class="fl">4e-06</span> seconds</span>
+<span id="cb44-84"><a href="example-2-james-stein-baseball.html#cb44-84" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> <span class="dv">1000</span> transitions using <span class="dv">10</span> leapfrog steps per transition would take <span class="fl">0.04</span> seconds.</span>
+<span id="cb44-85"><a href="example-2-james-stein-baseball.html#cb44-85" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Adjust your expectations accordingly<span class="sc">!</span></span>
+<span id="cb44-86"><a href="example-2-james-stein-baseball.html#cb44-86" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb44-87"><a href="example-2-james-stein-baseball.html#cb44-87" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb44-88"><a href="example-2-james-stein-baseball.html#cb44-88" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>    <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2000</span> [  <span class="dv">0</span>%]  (Warmup)</span>
+<span id="cb44-89"><a href="example-2-james-stein-baseball.html#cb44-89" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">10</span>%]  (Warmup)</span>
+<span id="cb44-90"><a href="example-2-james-stein-baseball.html#cb44-90" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">20</span>%]  (Warmup)</span>
+<span id="cb44-91"><a href="example-2-james-stein-baseball.html#cb44-91" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">30</span>%]  (Warmup)</span>
+<span id="cb44-92"><a href="example-2-james-stein-baseball.html#cb44-92" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">40</span>%]  (Warmup)</span>
+<span id="cb44-93"><a href="example-2-james-stein-baseball.html#cb44-93" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1000</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Warmup)</span>
+<span id="cb44-94"><a href="example-2-james-stein-baseball.html#cb44-94" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1001</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Sampling)</span>
+<span id="cb44-95"><a href="example-2-james-stein-baseball.html#cb44-95" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">60</span>%]  (Sampling)</span>
+<span id="cb44-96"><a href="example-2-james-stein-baseball.html#cb44-96" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">70</span>%]  (Sampling)</span>
+<span id="cb44-97"><a href="example-2-james-stein-baseball.html#cb44-97" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">80</span>%]  (Sampling)</span>
+<span id="cb44-98"><a href="example-2-james-stein-baseball.html#cb44-98" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">90</span>%]  (Sampling)</span>
+<span id="cb44-99"><a href="example-2-james-stein-baseball.html#cb44-99" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">2000</span> <span class="sc">/</span> <span class="dv">2000</span> [<span class="dv">100</span>%]  (Sampling)</span>
+<span id="cb44-100"><a href="example-2-james-stein-baseball.html#cb44-100" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb44-101"><a href="example-2-james-stein-baseball.html#cb44-101" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span>  Elapsed Time<span class="sc">:</span> <span class="fl">0.01666</span> <span class="fu">seconds</span> (Warm<span class="sc">-</span>up)</span>
+<span id="cb44-102"><a href="example-2-james-stein-baseball.html#cb44-102" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span>                <span class="fl">0.018921</span> <span class="fu">seconds</span> (Sampling)</span>
+<span id="cb44-103"><a href="example-2-james-stein-baseball.html#cb44-103" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span>                <span class="fl">0.035581</span> <span class="fu">seconds</span> (Total)</span>
+<span id="cb44-104"><a href="example-2-james-stein-baseball.html#cb44-104" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb44-105"><a href="example-2-james-stein-baseball.html#cb44-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-106"><a href="example-2-james-stein-baseball.html#cb44-106" aria-hidden="true" tabindex="-1"></a>invlogit <span class="ot">&lt;-</span> plogis  <span class="co"># function(x) 1/(1 + exp(-x))</span></span>
+<span id="cb44-107"><a href="example-2-james-stein-baseball.html#cb44-107" aria-hidden="true" tabindex="-1"></a>summary_stats <span class="ot">&lt;-</span> <span class="cf">function</span>(posterior) {</span>
+<span id="cb44-108"><a href="example-2-james-stein-baseball.html#cb44-108" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">invlogit</span>(posterior)  <span class="co"># log-odds -&gt; probabilities</span></span>
+<span id="cb44-109"><a href="example-2-james-stein-baseball.html#cb44-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>(<span class="fu">apply</span>(x, <span class="dv">2</span>, quantile, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span>))) </span>
+<span id="cb44-110"><a href="example-2-james-stein-baseball.html#cb44-110" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-111"><a href="example-2-james-stein-baseball.html#cb44-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-112"><a href="example-2-james-stein-baseball.html#cb44-112" aria-hidden="true" tabindex="-1"></a>pool <span class="ot">&lt;-</span> <span class="fu">summary_stats</span>(<span class="fu">as.matrix</span>(fit_pool))  <span class="co"># as.matrix extracts the posterior draws</span></span>
+<span id="cb44-113"><a href="example-2-james-stein-baseball.html#cb44-113" aria-hidden="true" tabindex="-1"></a>pool <span class="ot">&lt;-</span> <span class="fu">matrix</span>(pool,  <span class="co"># replicate to give each player the same estimates</span></span>
+<span id="cb44-114"><a href="example-2-james-stein-baseball.html#cb44-114" aria-hidden="true" tabindex="-1"></a>               <span class="fu">nrow</span>(bball), <span class="fu">ncol</span>(pool), <span class="at">byrow =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb44-115"><a href="example-2-james-stein-baseball.html#cb44-115" aria-hidden="true" tabindex="-1"></a>               <span class="at">dimnames =</span> <span class="fu">list</span>(bball<span class="sc">$</span>Player, <span class="fu">c</span>(<span class="st">"10%"</span>, <span class="st">"50%"</span>, <span class="st">"90%"</span>)))</span>
+<span id="cb44-116"><a href="example-2-james-stein-baseball.html#cb44-116" aria-hidden="true" tabindex="-1"></a><span class="fu">batting_avg</span>(pool)</span>
+<span id="cb44-117"><a href="example-2-james-stein-baseball.html#cb44-117" aria-hidden="true" tabindex="-1"></a>           <span class="dv">10</span><span class="sc">%   50%</span>   <span class="dv">90</span>%  </span>
+<span id="cb44-118"><a href="example-2-james-stein-baseball.html#cb44-118" aria-hidden="true" tabindex="-1"></a>Clemente   <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-119"><a href="example-2-james-stein-baseball.html#cb44-119" aria-hidden="true" tabindex="-1"></a>Robinson   <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-120"><a href="example-2-james-stein-baseball.html#cb44-120" aria-hidden="true" tabindex="-1"></a>Howard     <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-121"><a href="example-2-james-stein-baseball.html#cb44-121" aria-hidden="true" tabindex="-1"></a>Johnstone  <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-122"><a href="example-2-james-stein-baseball.html#cb44-122" aria-hidden="true" tabindex="-1"></a>Berry      <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-123"><a href="example-2-james-stein-baseball.html#cb44-123" aria-hidden="true" tabindex="-1"></a>Spencer    <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-124"><a href="example-2-james-stein-baseball.html#cb44-124" aria-hidden="true" tabindex="-1"></a>Kessinger  <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-125"><a href="example-2-james-stein-baseball.html#cb44-125" aria-hidden="true" tabindex="-1"></a>Alvarado   <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-126"><a href="example-2-james-stein-baseball.html#cb44-126" aria-hidden="true" tabindex="-1"></a>Santo      <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-127"><a href="example-2-james-stein-baseball.html#cb44-127" aria-hidden="true" tabindex="-1"></a>Swaboda    <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-128"><a href="example-2-james-stein-baseball.html#cb44-128" aria-hidden="true" tabindex="-1"></a>Petrocelli <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-129"><a href="example-2-james-stein-baseball.html#cb44-129" aria-hidden="true" tabindex="-1"></a>Rodriguez  <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-130"><a href="example-2-james-stein-baseball.html#cb44-130" aria-hidden="true" tabindex="-1"></a>Scott      <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-131"><a href="example-2-james-stein-baseball.html#cb44-131" aria-hidden="true" tabindex="-1"></a>Unser      <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-132"><a href="example-2-james-stein-baseball.html#cb44-132" aria-hidden="true" tabindex="-1"></a>Williams   <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-133"><a href="example-2-james-stein-baseball.html#cb44-133" aria-hidden="true" tabindex="-1"></a>Campaneris <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-134"><a href="example-2-james-stein-baseball.html#cb44-134" aria-hidden="true" tabindex="-1"></a>Munson     <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-135"><a href="example-2-james-stein-baseball.html#cb44-135" aria-hidden="true" tabindex="-1"></a>Alvis      <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-136"><a href="example-2-james-stein-baseball.html#cb44-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-137"><a href="example-2-james-stein-baseball.html#cb44-137" aria-hidden="true" tabindex="-1"></a>invlogit <span class="ot">&lt;-</span> plogis  <span class="co"># function(x) 1/(1 + exp(-x))</span></span>
+<span id="cb44-138"><a href="example-2-james-stein-baseball.html#cb44-138" aria-hidden="true" tabindex="-1"></a>summary_stats <span class="ot">&lt;-</span> <span class="cf">function</span>(posterior) {</span>
+<span id="cb44-139"><a href="example-2-james-stein-baseball.html#cb44-139" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">invlogit</span>(posterior)  <span class="co"># log-odds -&gt; probabilities</span></span>
+<span id="cb44-140"><a href="example-2-james-stein-baseball.html#cb44-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>(<span class="fu">apply</span>(x, <span class="dv">2</span>, quantile, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span>)))</span>
+<span id="cb44-141"><a href="example-2-james-stein-baseball.html#cb44-141" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-142"><a href="example-2-james-stein-baseball.html#cb44-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-143"><a href="example-2-james-stein-baseball.html#cb44-143" aria-hidden="true" tabindex="-1"></a>pool <span class="ot">&lt;-</span> <span class="fu">summary_stats</span>(<span class="fu">as.matrix</span>(fit_pool))  <span class="co"># as.matrix extracts the posterior draws</span></span>
+<span id="cb44-144"><a href="example-2-james-stein-baseball.html#cb44-144" aria-hidden="true" tabindex="-1"></a>pool <span class="ot">&lt;-</span> <span class="fu">matrix</span>(pool,  <span class="co"># replicate to give each player the same estimates</span></span>
+<span id="cb44-145"><a href="example-2-james-stein-baseball.html#cb44-145" aria-hidden="true" tabindex="-1"></a>               <span class="fu">nrow</span>(bball), <span class="fu">ncol</span>(pool), <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb44-146"><a href="example-2-james-stein-baseball.html#cb44-146" aria-hidden="true" tabindex="-1"></a>               <span class="at">dimnames =</span> <span class="fu">list</span>(bball<span class="sc">$</span>Player, <span class="fu">c</span>(<span class="st">"10%"</span>, <span class="st">"50%"</span>, <span class="st">"90%"</span>)))</span>
+<span id="cb44-147"><a href="example-2-james-stein-baseball.html#cb44-147" aria-hidden="true" tabindex="-1"></a><span class="fu">batting_avg</span>(pool)</span>
+<span id="cb44-148"><a href="example-2-james-stein-baseball.html#cb44-148" aria-hidden="true" tabindex="-1"></a>           <span class="dv">10</span><span class="sc">%   50%</span>   <span class="dv">90</span>%  </span>
+<span id="cb44-149"><a href="example-2-james-stein-baseball.html#cb44-149" aria-hidden="true" tabindex="-1"></a>Clemente   <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-150"><a href="example-2-james-stein-baseball.html#cb44-150" aria-hidden="true" tabindex="-1"></a>Robinson   <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-151"><a href="example-2-james-stein-baseball.html#cb44-151" aria-hidden="true" tabindex="-1"></a>Howard     <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-152"><a href="example-2-james-stein-baseball.html#cb44-152" aria-hidden="true" tabindex="-1"></a>Johnstone  <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-153"><a href="example-2-james-stein-baseball.html#cb44-153" aria-hidden="true" tabindex="-1"></a>Berry      <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-154"><a href="example-2-james-stein-baseball.html#cb44-154" aria-hidden="true" tabindex="-1"></a>Spencer    <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-155"><a href="example-2-james-stein-baseball.html#cb44-155" aria-hidden="true" tabindex="-1"></a>Kessinger  <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-156"><a href="example-2-james-stein-baseball.html#cb44-156" aria-hidden="true" tabindex="-1"></a>Alvarado   <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-157"><a href="example-2-james-stein-baseball.html#cb44-157" aria-hidden="true" tabindex="-1"></a>Santo      <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-158"><a href="example-2-james-stein-baseball.html#cb44-158" aria-hidden="true" tabindex="-1"></a>Swaboda    <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-159"><a href="example-2-james-stein-baseball.html#cb44-159" aria-hidden="true" tabindex="-1"></a>Petrocelli <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-160"><a href="example-2-james-stein-baseball.html#cb44-160" aria-hidden="true" tabindex="-1"></a>Rodriguez  <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-161"><a href="example-2-james-stein-baseball.html#cb44-161" aria-hidden="true" tabindex="-1"></a>Scott      <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-162"><a href="example-2-james-stein-baseball.html#cb44-162" aria-hidden="true" tabindex="-1"></a>Unser      <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-163"><a href="example-2-james-stein-baseball.html#cb44-163" aria-hidden="true" tabindex="-1"></a>Williams   <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-164"><a href="example-2-james-stein-baseball.html#cb44-164" aria-hidden="true" tabindex="-1"></a>Campaneris <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-165"><a href="example-2-james-stein-baseball.html#cb44-165" aria-hidden="true" tabindex="-1"></a>Munson     <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span>
+<span id="cb44-166"><a href="example-2-james-stein-baseball.html#cb44-166" aria-hidden="true" tabindex="-1"></a>Alvis      <span class="fl">0.246</span> <span class="fl">0.265</span> <span class="fl">0.286</span></span></code></pre></div>
+</div>
+<div id="no-pooling" class="section level2" number="15.2">
+<h2>
+<span class="header-section-number">15.2</span> No pooling<a class="anchor" aria-label="anchor" href="#no-pooling"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="example-2-james-stein-baseball.html#cb45-1" aria-hidden="true" tabindex="-1"></a>fit_nopool <span class="ot">&lt;-</span> <span class="fu">update</span>(fit_pool, <span class="at">formula =</span> . <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> Player, <span class="at">prior =</span> wi_prior)</span>
+<span id="cb45-2"><a href="example-2-james-stein-baseball.html#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="example-2-james-stein-baseball.html#cb45-3" aria-hidden="true" tabindex="-1"></a>SAMPLING FOR MODEL <span class="st">'binomial'</span> <span class="fu">NOW</span> (CHAIN <span class="dv">1</span>).</span>
+<span id="cb45-4"><a href="example-2-james-stein-baseball.html#cb45-4" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb45-5"><a href="example-2-james-stein-baseball.html#cb45-5" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Gradient evaluation took <span class="fl">3.8e-05</span> seconds</span>
+<span id="cb45-6"><a href="example-2-james-stein-baseball.html#cb45-6" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> <span class="dv">1000</span> transitions using <span class="dv">10</span> leapfrog steps per transition would take <span class="fl">0.38</span> seconds.</span>
+<span id="cb45-7"><a href="example-2-james-stein-baseball.html#cb45-7" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Adjust your expectations accordingly<span class="sc">!</span></span>
+<span id="cb45-8"><a href="example-2-james-stein-baseball.html#cb45-8" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb45-9"><a href="example-2-james-stein-baseball.html#cb45-9" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb45-10"><a href="example-2-james-stein-baseball.html#cb45-10" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>    <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2000</span> [  <span class="dv">0</span>%]  (Warmup)</span>
+<span id="cb45-11"><a href="example-2-james-stein-baseball.html#cb45-11" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">10</span>%]  (Warmup)</span>
+<span id="cb45-12"><a href="example-2-james-stein-baseball.html#cb45-12" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">20</span>%]  (Warmup)</span>
+<span id="cb45-13"><a href="example-2-james-stein-baseball.html#cb45-13" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">30</span>%]  (Warmup)</span>
+<span id="cb45-14"><a href="example-2-james-stein-baseball.html#cb45-14" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">40</span>%]  (Warmup)</span>
+<span id="cb45-15"><a href="example-2-james-stein-baseball.html#cb45-15" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1000</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Warmup)</span>
+<span id="cb45-16"><a href="example-2-james-stein-baseball.html#cb45-16" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1001</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Sampling)</span>
+<span id="cb45-17"><a href="example-2-james-stein-baseball.html#cb45-17" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">60</span>%]  (Sampling)</span>
+<span id="cb45-18"><a href="example-2-james-stein-baseball.html#cb45-18" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">70</span>%]  (Sampling)</span>
+<span id="cb45-19"><a href="example-2-james-stein-baseball.html#cb45-19" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">80</span>%]  (Sampling)</span>
+<span id="cb45-20"><a href="example-2-james-stein-baseball.html#cb45-20" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">90</span>%]  (Sampling)</span>
+<span id="cb45-21"><a href="example-2-james-stein-baseball.html#cb45-21" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">2000</span> <span class="sc">/</span> <span class="dv">2000</span> [<span class="dv">100</span>%]  (Sampling)</span>
+<span id="cb45-22"><a href="example-2-james-stein-baseball.html#cb45-22" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb45-23"><a href="example-2-james-stein-baseball.html#cb45-23" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span>  Elapsed Time<span class="sc">:</span> <span class="fl">0.069053</span> <span class="fu">seconds</span> (Warm<span class="sc">-</span>up)</span>
+<span id="cb45-24"><a href="example-2-james-stein-baseball.html#cb45-24" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span>                <span class="fl">0.080344</span> <span class="fu">seconds</span> (Sampling)</span>
+<span id="cb45-25"><a href="example-2-james-stein-baseball.html#cb45-25" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span>                <span class="fl">0.149397</span> <span class="fu">seconds</span> (Total)</span>
+<span id="cb45-26"><a href="example-2-james-stein-baseball.html#cb45-26" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb45-27"><a href="example-2-james-stein-baseball.html#cb45-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-28"><a href="example-2-james-stein-baseball.html#cb45-28" aria-hidden="true" tabindex="-1"></a>SAMPLING FOR MODEL <span class="st">'binomial'</span> <span class="fu">NOW</span> (CHAIN <span class="dv">2</span>).</span>
+<span id="cb45-29"><a href="example-2-james-stein-baseball.html#cb45-29" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb45-30"><a href="example-2-james-stein-baseball.html#cb45-30" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Gradient evaluation took <span class="fl">1.1e-05</span> seconds</span>
+<span id="cb45-31"><a href="example-2-james-stein-baseball.html#cb45-31" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> <span class="dv">1000</span> transitions using <span class="dv">10</span> leapfrog steps per transition would take <span class="fl">0.11</span> seconds.</span>
+<span id="cb45-32"><a href="example-2-james-stein-baseball.html#cb45-32" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Adjust your expectations accordingly<span class="sc">!</span></span>
+<span id="cb45-33"><a href="example-2-james-stein-baseball.html#cb45-33" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb45-34"><a href="example-2-james-stein-baseball.html#cb45-34" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb45-35"><a href="example-2-james-stein-baseball.html#cb45-35" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>    <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2000</span> [  <span class="dv">0</span>%]  (Warmup)</span>
+<span id="cb45-36"><a href="example-2-james-stein-baseball.html#cb45-36" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">10</span>%]  (Warmup)</span>
+<span id="cb45-37"><a href="example-2-james-stein-baseball.html#cb45-37" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">20</span>%]  (Warmup)</span>
+<span id="cb45-38"><a href="example-2-james-stein-baseball.html#cb45-38" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">30</span>%]  (Warmup)</span>
+<span id="cb45-39"><a href="example-2-james-stein-baseball.html#cb45-39" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">40</span>%]  (Warmup)</span>
+<span id="cb45-40"><a href="example-2-james-stein-baseball.html#cb45-40" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1000</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Warmup)</span>
+<span id="cb45-41"><a href="example-2-james-stein-baseball.html#cb45-41" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1001</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Sampling)</span>
+<span id="cb45-42"><a href="example-2-james-stein-baseball.html#cb45-42" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">60</span>%]  (Sampling)</span>
+<span id="cb45-43"><a href="example-2-james-stein-baseball.html#cb45-43" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">70</span>%]  (Sampling)</span>
+<span id="cb45-44"><a href="example-2-james-stein-baseball.html#cb45-44" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">80</span>%]  (Sampling)</span>
+<span id="cb45-45"><a href="example-2-james-stein-baseball.html#cb45-45" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">90</span>%]  (Sampling)</span>
+<span id="cb45-46"><a href="example-2-james-stein-baseball.html#cb45-46" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">2000</span> <span class="sc">/</span> <span class="dv">2000</span> [<span class="dv">100</span>%]  (Sampling)</span>
+<span id="cb45-47"><a href="example-2-james-stein-baseball.html#cb45-47" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb45-48"><a href="example-2-james-stein-baseball.html#cb45-48" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span>  Elapsed Time<span class="sc">:</span> <span class="fl">0.067713</span> <span class="fu">seconds</span> (Warm<span class="sc">-</span>up)</span>
+<span id="cb45-49"><a href="example-2-james-stein-baseball.html#cb45-49" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span>                <span class="fl">0.076083</span> <span class="fu">seconds</span> (Sampling)</span>
+<span id="cb45-50"><a href="example-2-james-stein-baseball.html#cb45-50" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span>                <span class="fl">0.143796</span> <span class="fu">seconds</span> (Total)</span>
+<span id="cb45-51"><a href="example-2-james-stein-baseball.html#cb45-51" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb45-52"><a href="example-2-james-stein-baseball.html#cb45-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-53"><a href="example-2-james-stein-baseball.html#cb45-53" aria-hidden="true" tabindex="-1"></a>SAMPLING FOR MODEL <span class="st">'binomial'</span> <span class="fu">NOW</span> (CHAIN <span class="dv">3</span>).</span>
+<span id="cb45-54"><a href="example-2-james-stein-baseball.html#cb45-54" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb45-55"><a href="example-2-james-stein-baseball.html#cb45-55" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Gradient evaluation took <span class="fl">8e-06</span> seconds</span>
+<span id="cb45-56"><a href="example-2-james-stein-baseball.html#cb45-56" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> <span class="dv">1000</span> transitions using <span class="dv">10</span> leapfrog steps per transition would take <span class="fl">0.08</span> seconds.</span>
+<span id="cb45-57"><a href="example-2-james-stein-baseball.html#cb45-57" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Adjust your expectations accordingly<span class="sc">!</span></span>
+<span id="cb45-58"><a href="example-2-james-stein-baseball.html#cb45-58" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb45-59"><a href="example-2-james-stein-baseball.html#cb45-59" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb45-60"><a href="example-2-james-stein-baseball.html#cb45-60" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>    <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2000</span> [  <span class="dv">0</span>%]  (Warmup)</span>
+<span id="cb45-61"><a href="example-2-james-stein-baseball.html#cb45-61" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">10</span>%]  (Warmup)</span>
+<span id="cb45-62"><a href="example-2-james-stein-baseball.html#cb45-62" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">20</span>%]  (Warmup)</span>
+<span id="cb45-63"><a href="example-2-james-stein-baseball.html#cb45-63" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">30</span>%]  (Warmup)</span>
+<span id="cb45-64"><a href="example-2-james-stein-baseball.html#cb45-64" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">40</span>%]  (Warmup)</span>
+<span id="cb45-65"><a href="example-2-james-stein-baseball.html#cb45-65" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1000</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Warmup)</span>
+<span id="cb45-66"><a href="example-2-james-stein-baseball.html#cb45-66" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1001</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Sampling)</span>
+<span id="cb45-67"><a href="example-2-james-stein-baseball.html#cb45-67" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">60</span>%]  (Sampling)</span>
+<span id="cb45-68"><a href="example-2-james-stein-baseball.html#cb45-68" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">70</span>%]  (Sampling)</span>
+<span id="cb45-69"><a href="example-2-james-stein-baseball.html#cb45-69" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">80</span>%]  (Sampling)</span>
+<span id="cb45-70"><a href="example-2-james-stein-baseball.html#cb45-70" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">90</span>%]  (Sampling)</span>
+<span id="cb45-71"><a href="example-2-james-stein-baseball.html#cb45-71" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">2000</span> <span class="sc">/</span> <span class="dv">2000</span> [<span class="dv">100</span>%]  (Sampling)</span>
+<span id="cb45-72"><a href="example-2-james-stein-baseball.html#cb45-72" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb45-73"><a href="example-2-james-stein-baseball.html#cb45-73" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span>  Elapsed Time<span class="sc">:</span> <span class="fl">0.064684</span> <span class="fu">seconds</span> (Warm<span class="sc">-</span>up)</span>
+<span id="cb45-74"><a href="example-2-james-stein-baseball.html#cb45-74" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span>                <span class="fl">0.074064</span> <span class="fu">seconds</span> (Sampling)</span>
+<span id="cb45-75"><a href="example-2-james-stein-baseball.html#cb45-75" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span>                <span class="fl">0.138748</span> <span class="fu">seconds</span> (Total)</span>
+<span id="cb45-76"><a href="example-2-james-stein-baseball.html#cb45-76" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb45-77"><a href="example-2-james-stein-baseball.html#cb45-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-78"><a href="example-2-james-stein-baseball.html#cb45-78" aria-hidden="true" tabindex="-1"></a>SAMPLING FOR MODEL <span class="st">'binomial'</span> <span class="fu">NOW</span> (CHAIN <span class="dv">4</span>).</span>
+<span id="cb45-79"><a href="example-2-james-stein-baseball.html#cb45-79" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb45-80"><a href="example-2-james-stein-baseball.html#cb45-80" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Gradient evaluation took <span class="fl">7e-06</span> seconds</span>
+<span id="cb45-81"><a href="example-2-james-stein-baseball.html#cb45-81" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> <span class="dv">1000</span> transitions using <span class="dv">10</span> leapfrog steps per transition would take <span class="fl">0.07</span> seconds.</span>
+<span id="cb45-82"><a href="example-2-james-stein-baseball.html#cb45-82" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Adjust your expectations accordingly<span class="sc">!</span></span>
+<span id="cb45-83"><a href="example-2-james-stein-baseball.html#cb45-83" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb45-84"><a href="example-2-james-stein-baseball.html#cb45-84" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb45-85"><a href="example-2-james-stein-baseball.html#cb45-85" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>    <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2000</span> [  <span class="dv">0</span>%]  (Warmup)</span>
+<span id="cb45-86"><a href="example-2-james-stein-baseball.html#cb45-86" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">10</span>%]  (Warmup)</span>
+<span id="cb45-87"><a href="example-2-james-stein-baseball.html#cb45-87" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">20</span>%]  (Warmup)</span>
+<span id="cb45-88"><a href="example-2-james-stein-baseball.html#cb45-88" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">30</span>%]  (Warmup)</span>
+<span id="cb45-89"><a href="example-2-james-stein-baseball.html#cb45-89" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">40</span>%]  (Warmup)</span>
+<span id="cb45-90"><a href="example-2-james-stein-baseball.html#cb45-90" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1000</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Warmup)</span>
+<span id="cb45-91"><a href="example-2-james-stein-baseball.html#cb45-91" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1001</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Sampling)</span>
+<span id="cb45-92"><a href="example-2-james-stein-baseball.html#cb45-92" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">60</span>%]  (Sampling)</span>
+<span id="cb45-93"><a href="example-2-james-stein-baseball.html#cb45-93" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">70</span>%]  (Sampling)</span>
+<span id="cb45-94"><a href="example-2-james-stein-baseball.html#cb45-94" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">80</span>%]  (Sampling)</span>
+<span id="cb45-95"><a href="example-2-james-stein-baseball.html#cb45-95" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">90</span>%]  (Sampling)</span>
+<span id="cb45-96"><a href="example-2-james-stein-baseball.html#cb45-96" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">2000</span> <span class="sc">/</span> <span class="dv">2000</span> [<span class="dv">100</span>%]  (Sampling)</span>
+<span id="cb45-97"><a href="example-2-james-stein-baseball.html#cb45-97" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb45-98"><a href="example-2-james-stein-baseball.html#cb45-98" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span>  Elapsed Time<span class="sc">:</span> <span class="fl">0.068065</span> <span class="fu">seconds</span> (Warm<span class="sc">-</span>up)</span>
+<span id="cb45-99"><a href="example-2-james-stein-baseball.html#cb45-99" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span>                <span class="fl">0.08149</span> <span class="fu">seconds</span> (Sampling)</span>
+<span id="cb45-100"><a href="example-2-james-stein-baseball.html#cb45-100" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span>                <span class="fl">0.149555</span> <span class="fu">seconds</span> (Total)</span>
+<span id="cb45-101"><a href="example-2-james-stein-baseball.html#cb45-101" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb45-102"><a href="example-2-james-stein-baseball.html#cb45-102" aria-hidden="true" tabindex="-1"></a>nopool <span class="ot">&lt;-</span> <span class="fu">summary_stats</span>(<span class="fu">as.matrix</span>(fit_nopool))</span>
+<span id="cb45-103"><a href="example-2-james-stein-baseball.html#cb45-103" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(nopool) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(bball<span class="sc">$</span>Player)</span>
+<span id="cb45-104"><a href="example-2-james-stein-baseball.html#cb45-104" aria-hidden="true" tabindex="-1"></a><span class="fu">batting_avg</span>(nopool)</span>
+<span id="cb45-105"><a href="example-2-james-stein-baseball.html#cb45-105" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb45-106"><a href="example-2-james-stein-baseball.html#cb45-106" aria-hidden="true" tabindex="-1"></a>parameters   <span class="dv">10</span><span class="sc">%   50%</span>   <span class="dv">90</span>%  </span>
+<span id="cb45-107"><a href="example-2-james-stein-baseball.html#cb45-107" aria-hidden="true" tabindex="-1"></a>  Clemente   <span class="fl">0.297</span> <span class="fl">0.386</span> <span class="fl">0.484</span></span>
+<span id="cb45-108"><a href="example-2-james-stein-baseball.html#cb45-108" aria-hidden="true" tabindex="-1"></a>  Robinson   <span class="fl">0.281</span> <span class="fl">0.365</span> <span class="fl">0.456</span></span>
+<span id="cb45-109"><a href="example-2-james-stein-baseball.html#cb45-109" aria-hidden="true" tabindex="-1"></a>  Howard     <span class="fl">0.265</span> <span class="fl">0.345</span> <span class="fl">0.434</span></span>
+<span id="cb45-110"><a href="example-2-james-stein-baseball.html#cb45-110" aria-hidden="true" tabindex="-1"></a>  Johnstone  <span class="fl">0.242</span> <span class="fl">0.325</span> <span class="fl">0.418</span></span>
+<span id="cb45-111"><a href="example-2-james-stein-baseball.html#cb45-111" aria-hidden="true" tabindex="-1"></a>  Berry      <span class="fl">0.226</span> <span class="fl">0.306</span> <span class="fl">0.390</span></span>
+<span id="cb45-112"><a href="example-2-james-stein-baseball.html#cb45-112" aria-hidden="true" tabindex="-1"></a>  Spencer    <span class="fl">0.225</span> <span class="fl">0.304</span> <span class="fl">0.391</span></span>
+<span id="cb45-113"><a href="example-2-james-stein-baseball.html#cb45-113" aria-hidden="true" tabindex="-1"></a>  Kessinger  <span class="fl">0.207</span> <span class="fl">0.284</span> <span class="fl">0.371</span></span>
+<span id="cb45-114"><a href="example-2-james-stein-baseball.html#cb45-114" aria-hidden="true" tabindex="-1"></a>  Alvarado   <span class="fl">0.188</span> <span class="fl">0.265</span> <span class="fl">0.353</span></span>
+<span id="cb45-115"><a href="example-2-james-stein-baseball.html#cb45-115" aria-hidden="true" tabindex="-1"></a>  Santo      <span class="fl">0.175</span> <span class="fl">0.246</span> <span class="fl">0.328</span></span>
+<span id="cb45-116"><a href="example-2-james-stein-baseball.html#cb45-116" aria-hidden="true" tabindex="-1"></a>  Swaboda    <span class="fl">0.175</span> <span class="fl">0.245</span> <span class="fl">0.327</span></span>
+<span id="cb45-117"><a href="example-2-james-stein-baseball.html#cb45-117" aria-hidden="true" tabindex="-1"></a>  Petrocelli <span class="fl">0.154</span> <span class="fl">0.223</span> <span class="fl">0.304</span></span>
+<span id="cb45-118"><a href="example-2-james-stein-baseball.html#cb45-118" aria-hidden="true" tabindex="-1"></a>  Rodriguez  <span class="fl">0.155</span> <span class="fl">0.224</span> <span class="fl">0.303</span></span>
+<span id="cb45-119"><a href="example-2-james-stein-baseball.html#cb45-119" aria-hidden="true" tabindex="-1"></a>  Scott      <span class="fl">0.159</span> <span class="fl">0.223</span> <span class="fl">0.303</span></span>
+<span id="cb45-120"><a href="example-2-james-stein-baseball.html#cb45-120" aria-hidden="true" tabindex="-1"></a>  Unser      <span class="fl">0.153</span> <span class="fl">0.224</span> <span class="fl">0.307</span></span>
+<span id="cb45-121"><a href="example-2-james-stein-baseball.html#cb45-121" aria-hidden="true" tabindex="-1"></a>  Williams   <span class="fl">0.156</span> <span class="fl">0.224</span> <span class="fl">0.304</span></span>
+<span id="cb45-122"><a href="example-2-james-stein-baseball.html#cb45-122" aria-hidden="true" tabindex="-1"></a>  Campaneris <span class="fl">0.138</span> <span class="fl">0.204</span> <span class="fl">0.284</span></span>
+<span id="cb45-123"><a href="example-2-james-stein-baseball.html#cb45-123" aria-hidden="true" tabindex="-1"></a>  Munson     <span class="fl">0.124</span> <span class="fl">0.185</span> <span class="fl">0.260</span></span>
+<span id="cb45-124"><a href="example-2-james-stein-baseball.html#cb45-124" aria-hidden="true" tabindex="-1"></a>  Alvis      <span class="fl">0.107</span> <span class="fl">0.164</span> <span class="fl">0.241</span></span></code></pre></div>
+</div>
+<div id="partial-pooling" class="section level2" number="15.3">
+<h2>
+<span class="header-section-number">15.3</span> Partial pooling<a class="anchor" aria-label="anchor" href="#partial-pooling"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="example-2-james-stein-baseball.html#cb46-1" aria-hidden="true" tabindex="-1"></a>fit_partialpool <span class="ot">&lt;-</span> <span class="fu">stan_glmer</span>(<span class="fu">cbind</span>(Hits, AB <span class="sc">-</span> Hits) <span class="sc">~</span> (<span class="dv">1</span> <span class="sc">|</span> Player),</span>
+<span id="cb46-2"><a href="example-2-james-stein-baseball.html#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> bball, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="st">"logit"</span>), <span class="at">prior_intercept =</span> wi_prior,</span>
+<span id="cb46-3"><a href="example-2-james-stein-baseball.html#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">seed =</span> SEED)</span>
+<span id="cb46-4"><a href="example-2-james-stein-baseball.html#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="example-2-james-stein-baseball.html#cb46-5" aria-hidden="true" tabindex="-1"></a>SAMPLING FOR MODEL <span class="st">'binomial'</span> <span class="fu">NOW</span> (CHAIN <span class="dv">1</span>).</span>
+<span id="cb46-6"><a href="example-2-james-stein-baseball.html#cb46-6" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb46-7"><a href="example-2-james-stein-baseball.html#cb46-7" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Gradient evaluation took <span class="fl">2.7e-05</span> seconds</span>
+<span id="cb46-8"><a href="example-2-james-stein-baseball.html#cb46-8" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> <span class="dv">1000</span> transitions using <span class="dv">10</span> leapfrog steps per transition would take <span class="fl">0.27</span> seconds.</span>
+<span id="cb46-9"><a href="example-2-james-stein-baseball.html#cb46-9" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Adjust your expectations accordingly<span class="sc">!</span></span>
+<span id="cb46-10"><a href="example-2-james-stein-baseball.html#cb46-10" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb46-11"><a href="example-2-james-stein-baseball.html#cb46-11" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb46-12"><a href="example-2-james-stein-baseball.html#cb46-12" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>    <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2000</span> [  <span class="dv">0</span>%]  (Warmup)</span>
+<span id="cb46-13"><a href="example-2-james-stein-baseball.html#cb46-13" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">10</span>%]  (Warmup)</span>
+<span id="cb46-14"><a href="example-2-james-stein-baseball.html#cb46-14" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">20</span>%]  (Warmup)</span>
+<span id="cb46-15"><a href="example-2-james-stein-baseball.html#cb46-15" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">30</span>%]  (Warmup)</span>
+<span id="cb46-16"><a href="example-2-james-stein-baseball.html#cb46-16" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">40</span>%]  (Warmup)</span>
+<span id="cb46-17"><a href="example-2-james-stein-baseball.html#cb46-17" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1000</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Warmup)</span>
+<span id="cb46-18"><a href="example-2-james-stein-baseball.html#cb46-18" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1001</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Sampling)</span>
+<span id="cb46-19"><a href="example-2-james-stein-baseball.html#cb46-19" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">60</span>%]  (Sampling)</span>
+<span id="cb46-20"><a href="example-2-james-stein-baseball.html#cb46-20" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">70</span>%]  (Sampling)</span>
+<span id="cb46-21"><a href="example-2-james-stein-baseball.html#cb46-21" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">80</span>%]  (Sampling)</span>
+<span id="cb46-22"><a href="example-2-james-stein-baseball.html#cb46-22" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">90</span>%]  (Sampling)</span>
+<span id="cb46-23"><a href="example-2-james-stein-baseball.html#cb46-23" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">2000</span> <span class="sc">/</span> <span class="dv">2000</span> [<span class="dv">100</span>%]  (Sampling)</span>
+<span id="cb46-24"><a href="example-2-james-stein-baseball.html#cb46-24" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb46-25"><a href="example-2-james-stein-baseball.html#cb46-25" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span>  Elapsed Time<span class="sc">:</span> <span class="fl">0.119321</span> <span class="fu">seconds</span> (Warm<span class="sc">-</span>up)</span>
+<span id="cb46-26"><a href="example-2-james-stein-baseball.html#cb46-26" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span>                <span class="fl">0.125259</span> <span class="fu">seconds</span> (Sampling)</span>
+<span id="cb46-27"><a href="example-2-james-stein-baseball.html#cb46-27" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span>                <span class="fl">0.24458</span> <span class="fu">seconds</span> (Total)</span>
+<span id="cb46-28"><a href="example-2-james-stein-baseball.html#cb46-28" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">1</span><span class="sc">:</span> </span>
+<span id="cb46-29"><a href="example-2-james-stein-baseball.html#cb46-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-30"><a href="example-2-james-stein-baseball.html#cb46-30" aria-hidden="true" tabindex="-1"></a>SAMPLING FOR MODEL <span class="st">'binomial'</span> <span class="fu">NOW</span> (CHAIN <span class="dv">2</span>).</span>
+<span id="cb46-31"><a href="example-2-james-stein-baseball.html#cb46-31" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb46-32"><a href="example-2-james-stein-baseball.html#cb46-32" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Gradient evaluation took <span class="fl">9e-06</span> seconds</span>
+<span id="cb46-33"><a href="example-2-james-stein-baseball.html#cb46-33" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> <span class="dv">1000</span> transitions using <span class="dv">10</span> leapfrog steps per transition would take <span class="fl">0.09</span> seconds.</span>
+<span id="cb46-34"><a href="example-2-james-stein-baseball.html#cb46-34" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Adjust your expectations accordingly<span class="sc">!</span></span>
+<span id="cb46-35"><a href="example-2-james-stein-baseball.html#cb46-35" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb46-36"><a href="example-2-james-stein-baseball.html#cb46-36" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb46-37"><a href="example-2-james-stein-baseball.html#cb46-37" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>    <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2000</span> [  <span class="dv">0</span>%]  (Warmup)</span>
+<span id="cb46-38"><a href="example-2-james-stein-baseball.html#cb46-38" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">10</span>%]  (Warmup)</span>
+<span id="cb46-39"><a href="example-2-james-stein-baseball.html#cb46-39" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">20</span>%]  (Warmup)</span>
+<span id="cb46-40"><a href="example-2-james-stein-baseball.html#cb46-40" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">30</span>%]  (Warmup)</span>
+<span id="cb46-41"><a href="example-2-james-stein-baseball.html#cb46-41" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">40</span>%]  (Warmup)</span>
+<span id="cb46-42"><a href="example-2-james-stein-baseball.html#cb46-42" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1000</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Warmup)</span>
+<span id="cb46-43"><a href="example-2-james-stein-baseball.html#cb46-43" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1001</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Sampling)</span>
+<span id="cb46-44"><a href="example-2-james-stein-baseball.html#cb46-44" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">60</span>%]  (Sampling)</span>
+<span id="cb46-45"><a href="example-2-james-stein-baseball.html#cb46-45" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">70</span>%]  (Sampling)</span>
+<span id="cb46-46"><a href="example-2-james-stein-baseball.html#cb46-46" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">80</span>%]  (Sampling)</span>
+<span id="cb46-47"><a href="example-2-james-stein-baseball.html#cb46-47" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">90</span>%]  (Sampling)</span>
+<span id="cb46-48"><a href="example-2-james-stein-baseball.html#cb46-48" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">2000</span> <span class="sc">/</span> <span class="dv">2000</span> [<span class="dv">100</span>%]  (Sampling)</span>
+<span id="cb46-49"><a href="example-2-james-stein-baseball.html#cb46-49" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb46-50"><a href="example-2-james-stein-baseball.html#cb46-50" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span>  Elapsed Time<span class="sc">:</span> <span class="fl">0.141288</span> <span class="fu">seconds</span> (Warm<span class="sc">-</span>up)</span>
+<span id="cb46-51"><a href="example-2-james-stein-baseball.html#cb46-51" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span>                <span class="fl">0.106701</span> <span class="fu">seconds</span> (Sampling)</span>
+<span id="cb46-52"><a href="example-2-james-stein-baseball.html#cb46-52" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span>                <span class="fl">0.247989</span> <span class="fu">seconds</span> (Total)</span>
+<span id="cb46-53"><a href="example-2-james-stein-baseball.html#cb46-53" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">2</span><span class="sc">:</span> </span>
+<span id="cb46-54"><a href="example-2-james-stein-baseball.html#cb46-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-55"><a href="example-2-james-stein-baseball.html#cb46-55" aria-hidden="true" tabindex="-1"></a>SAMPLING FOR MODEL <span class="st">'binomial'</span> <span class="fu">NOW</span> (CHAIN <span class="dv">3</span>).</span>
+<span id="cb46-56"><a href="example-2-james-stein-baseball.html#cb46-56" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb46-57"><a href="example-2-james-stein-baseball.html#cb46-57" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Gradient evaluation took <span class="fl">6e-06</span> seconds</span>
+<span id="cb46-58"><a href="example-2-james-stein-baseball.html#cb46-58" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> <span class="dv">1000</span> transitions using <span class="dv">10</span> leapfrog steps per transition would take <span class="fl">0.06</span> seconds.</span>
+<span id="cb46-59"><a href="example-2-james-stein-baseball.html#cb46-59" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Adjust your expectations accordingly<span class="sc">!</span></span>
+<span id="cb46-60"><a href="example-2-james-stein-baseball.html#cb46-60" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb46-61"><a href="example-2-james-stein-baseball.html#cb46-61" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb46-62"><a href="example-2-james-stein-baseball.html#cb46-62" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>    <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2000</span> [  <span class="dv">0</span>%]  (Warmup)</span>
+<span id="cb46-63"><a href="example-2-james-stein-baseball.html#cb46-63" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">10</span>%]  (Warmup)</span>
+<span id="cb46-64"><a href="example-2-james-stein-baseball.html#cb46-64" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">20</span>%]  (Warmup)</span>
+<span id="cb46-65"><a href="example-2-james-stein-baseball.html#cb46-65" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">30</span>%]  (Warmup)</span>
+<span id="cb46-66"><a href="example-2-james-stein-baseball.html#cb46-66" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">40</span>%]  (Warmup)</span>
+<span id="cb46-67"><a href="example-2-james-stein-baseball.html#cb46-67" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1000</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Warmup)</span>
+<span id="cb46-68"><a href="example-2-james-stein-baseball.html#cb46-68" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1001</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Sampling)</span>
+<span id="cb46-69"><a href="example-2-james-stein-baseball.html#cb46-69" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">60</span>%]  (Sampling)</span>
+<span id="cb46-70"><a href="example-2-james-stein-baseball.html#cb46-70" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">70</span>%]  (Sampling)</span>
+<span id="cb46-71"><a href="example-2-james-stein-baseball.html#cb46-71" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">80</span>%]  (Sampling)</span>
+<span id="cb46-72"><a href="example-2-james-stein-baseball.html#cb46-72" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">90</span>%]  (Sampling)</span>
+<span id="cb46-73"><a href="example-2-james-stein-baseball.html#cb46-73" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">2000</span> <span class="sc">/</span> <span class="dv">2000</span> [<span class="dv">100</span>%]  (Sampling)</span>
+<span id="cb46-74"><a href="example-2-james-stein-baseball.html#cb46-74" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb46-75"><a href="example-2-james-stein-baseball.html#cb46-75" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span>  Elapsed Time<span class="sc">:</span> <span class="fl">0.133025</span> <span class="fu">seconds</span> (Warm<span class="sc">-</span>up)</span>
+<span id="cb46-76"><a href="example-2-james-stein-baseball.html#cb46-76" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span>                <span class="fl">0.143619</span> <span class="fu">seconds</span> (Sampling)</span>
+<span id="cb46-77"><a href="example-2-james-stein-baseball.html#cb46-77" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span>                <span class="fl">0.276644</span> <span class="fu">seconds</span> (Total)</span>
+<span id="cb46-78"><a href="example-2-james-stein-baseball.html#cb46-78" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">3</span><span class="sc">:</span> </span>
+<span id="cb46-79"><a href="example-2-james-stein-baseball.html#cb46-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-80"><a href="example-2-james-stein-baseball.html#cb46-80" aria-hidden="true" tabindex="-1"></a>SAMPLING FOR MODEL <span class="st">'binomial'</span> <span class="fu">NOW</span> (CHAIN <span class="dv">4</span>).</span>
+<span id="cb46-81"><a href="example-2-james-stein-baseball.html#cb46-81" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb46-82"><a href="example-2-james-stein-baseball.html#cb46-82" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Gradient evaluation took <span class="fl">9e-06</span> seconds</span>
+<span id="cb46-83"><a href="example-2-james-stein-baseball.html#cb46-83" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> <span class="dv">1000</span> transitions using <span class="dv">10</span> leapfrog steps per transition would take <span class="fl">0.09</span> seconds.</span>
+<span id="cb46-84"><a href="example-2-james-stein-baseball.html#cb46-84" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Adjust your expectations accordingly<span class="sc">!</span></span>
+<span id="cb46-85"><a href="example-2-james-stein-baseball.html#cb46-85" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb46-86"><a href="example-2-james-stein-baseball.html#cb46-86" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb46-87"><a href="example-2-james-stein-baseball.html#cb46-87" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>    <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2000</span> [  <span class="dv">0</span>%]  (Warmup)</span>
+<span id="cb46-88"><a href="example-2-james-stein-baseball.html#cb46-88" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">10</span>%]  (Warmup)</span>
+<span id="cb46-89"><a href="example-2-james-stein-baseball.html#cb46-89" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">20</span>%]  (Warmup)</span>
+<span id="cb46-90"><a href="example-2-james-stein-baseball.html#cb46-90" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">30</span>%]  (Warmup)</span>
+<span id="cb46-91"><a href="example-2-james-stein-baseball.html#cb46-91" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span>  <span class="dv">800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">40</span>%]  (Warmup)</span>
+<span id="cb46-92"><a href="example-2-james-stein-baseball.html#cb46-92" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1000</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Warmup)</span>
+<span id="cb46-93"><a href="example-2-james-stein-baseball.html#cb46-93" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1001</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">50</span>%]  (Sampling)</span>
+<span id="cb46-94"><a href="example-2-james-stein-baseball.html#cb46-94" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1200</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">60</span>%]  (Sampling)</span>
+<span id="cb46-95"><a href="example-2-james-stein-baseball.html#cb46-95" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1400</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">70</span>%]  (Sampling)</span>
+<span id="cb46-96"><a href="example-2-james-stein-baseball.html#cb46-96" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1600</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">80</span>%]  (Sampling)</span>
+<span id="cb46-97"><a href="example-2-james-stein-baseball.html#cb46-97" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">1800</span> <span class="sc">/</span> <span class="dv">2000</span> [ <span class="dv">90</span>%]  (Sampling)</span>
+<span id="cb46-98"><a href="example-2-james-stein-baseball.html#cb46-98" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> Iteration<span class="sc">:</span> <span class="dv">2000</span> <span class="sc">/</span> <span class="dv">2000</span> [<span class="dv">100</span>%]  (Sampling)</span>
+<span id="cb46-99"><a href="example-2-james-stein-baseball.html#cb46-99" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb46-100"><a href="example-2-james-stein-baseball.html#cb46-100" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span>  Elapsed Time<span class="sc">:</span> <span class="fl">0.116647</span> <span class="fu">seconds</span> (Warm<span class="sc">-</span>up)</span>
+<span id="cb46-101"><a href="example-2-james-stein-baseball.html#cb46-101" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span>                <span class="fl">0.084232</span> <span class="fu">seconds</span> (Sampling)</span>
+<span id="cb46-102"><a href="example-2-james-stein-baseball.html#cb46-102" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span>                <span class="fl">0.200879</span> <span class="fu">seconds</span> (Total)</span>
+<span id="cb46-103"><a href="example-2-james-stein-baseball.html#cb46-103" aria-hidden="true" tabindex="-1"></a>Chain <span class="dv">4</span><span class="sc">:</span> </span>
+<span id="cb46-104"><a href="example-2-james-stein-baseball.html#cb46-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-105"><a href="example-2-james-stein-baseball.html#cb46-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-106"><a href="example-2-james-stein-baseball.html#cb46-106" aria-hidden="true" tabindex="-1"></a><span class="co"># shift each player's estimate by intercept (and then drop</span></span>
+<span id="cb46-107"><a href="example-2-james-stein-baseball.html#cb46-107" aria-hidden="true" tabindex="-1"></a><span class="co"># intercept)</span></span>
+<span id="cb46-108"><a href="example-2-james-stein-baseball.html#cb46-108" aria-hidden="true" tabindex="-1"></a>shift_draws <span class="ot">&lt;-</span> <span class="cf">function</span>(draws) {</span>
+<span id="cb46-109"><a href="example-2-james-stein-baseball.html#cb46-109" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sweep</span>(draws[, <span class="sc">-</span><span class="dv">1</span>], <span class="at">MARGIN =</span> <span class="dv">1</span>, <span class="at">STATS =</span> draws[, <span class="dv">1</span>], <span class="at">FUN =</span> <span class="st">"+"</span>)</span>
+<span id="cb46-110"><a href="example-2-james-stein-baseball.html#cb46-110" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb46-111"><a href="example-2-james-stein-baseball.html#cb46-111" aria-hidden="true" tabindex="-1"></a>alphas <span class="ot">&lt;-</span> <span class="fu">shift_draws</span>(<span class="fu">as.matrix</span>(fit_partialpool))</span>
+<span id="cb46-112"><a href="example-2-james-stein-baseball.html#cb46-112" aria-hidden="true" tabindex="-1"></a>partialpool <span class="ot">&lt;-</span> <span class="fu">summary_stats</span>(alphas)</span>
+<span id="cb46-113"><a href="example-2-james-stein-baseball.html#cb46-113" aria-hidden="true" tabindex="-1"></a>partialpool <span class="ot">&lt;-</span> partialpool[<span class="sc">-</span><span class="fu">nrow</span>(partialpool), ]</span>
+<span id="cb46-114"><a href="example-2-james-stein-baseball.html#cb46-114" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(partialpool) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(bball<span class="sc">$</span>Player)</span>
+<span id="cb46-115"><a href="example-2-james-stein-baseball.html#cb46-115" aria-hidden="true" tabindex="-1"></a><span class="fu">batting_avg</span>(partialpool)</span>
+<span id="cb46-116"><a href="example-2-james-stein-baseball.html#cb46-116" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb46-117"><a href="example-2-james-stein-baseball.html#cb46-117" aria-hidden="true" tabindex="-1"></a>parameters   <span class="dv">10</span><span class="sc">%   50%</span>   <span class="dv">90</span>%  </span>
+<span id="cb46-118"><a href="example-2-james-stein-baseball.html#cb46-118" aria-hidden="true" tabindex="-1"></a>  Clemente   <span class="fl">0.249</span> <span class="fl">0.283</span> <span class="fl">0.349</span></span>
+<span id="cb46-119"><a href="example-2-james-stein-baseball.html#cb46-119" aria-hidden="true" tabindex="-1"></a>  Robinson   <span class="fl">0.246</span> <span class="fl">0.281</span> <span class="fl">0.341</span></span>
+<span id="cb46-120"><a href="example-2-james-stein-baseball.html#cb46-120" aria-hidden="true" tabindex="-1"></a>  Howard     <span class="fl">0.243</span> <span class="fl">0.277</span> <span class="fl">0.332</span></span>
+<span id="cb46-121"><a href="example-2-james-stein-baseball.html#cb46-121" aria-hidden="true" tabindex="-1"></a>  Johnstone  <span class="fl">0.239</span> <span class="fl">0.274</span> <span class="fl">0.324</span></span>
+<span id="cb46-122"><a href="example-2-james-stein-baseball.html#cb46-122" aria-hidden="true" tabindex="-1"></a>  Berry      <span class="fl">0.237</span> <span class="fl">0.271</span> <span class="fl">0.317</span></span>
+<span id="cb46-123"><a href="example-2-james-stein-baseball.html#cb46-123" aria-hidden="true" tabindex="-1"></a>  Spencer    <span class="fl">0.238</span> <span class="fl">0.271</span> <span class="fl">0.317</span></span>
+<span id="cb46-124"><a href="example-2-james-stein-baseball.html#cb46-124" aria-hidden="true" tabindex="-1"></a>  Kessinger  <span class="fl">0.232</span> <span class="fl">0.267</span> <span class="fl">0.309</span></span>
+<span id="cb46-125"><a href="example-2-james-stein-baseball.html#cb46-125" aria-hidden="true" tabindex="-1"></a>  Alvarado   <span class="fl">0.226</span> <span class="fl">0.265</span> <span class="fl">0.303</span></span>
+<span id="cb46-126"><a href="example-2-james-stein-baseball.html#cb46-126" aria-hidden="true" tabindex="-1"></a>  Santo      <span class="fl">0.222</span> <span class="fl">0.261</span> <span class="fl">0.298</span></span>
+<span id="cb46-127"><a href="example-2-james-stein-baseball.html#cb46-127" aria-hidden="true" tabindex="-1"></a>  Swaboda    <span class="fl">0.221</span> <span class="fl">0.261</span> <span class="fl">0.301</span></span>
+<span id="cb46-128"><a href="example-2-james-stein-baseball.html#cb46-128" aria-hidden="true" tabindex="-1"></a>  Petrocelli <span class="fl">0.217</span> <span class="fl">0.258</span> <span class="fl">0.293</span></span>
+<span id="cb46-129"><a href="example-2-james-stein-baseball.html#cb46-129" aria-hidden="true" tabindex="-1"></a>  Rodriguez  <span class="fl">0.215</span> <span class="fl">0.258</span> <span class="fl">0.294</span></span>
+<span id="cb46-130"><a href="example-2-james-stein-baseball.html#cb46-130" aria-hidden="true" tabindex="-1"></a>  Scott      <span class="fl">0.217</span> <span class="fl">0.259</span> <span class="fl">0.294</span></span>
+<span id="cb46-131"><a href="example-2-james-stein-baseball.html#cb46-131" aria-hidden="true" tabindex="-1"></a>  Unser      <span class="fl">0.214</span> <span class="fl">0.258</span> <span class="fl">0.295</span></span>
+<span id="cb46-132"><a href="example-2-james-stein-baseball.html#cb46-132" aria-hidden="true" tabindex="-1"></a>  Williams   <span class="fl">0.215</span> <span class="fl">0.258</span> <span class="fl">0.295</span></span>
+<span id="cb46-133"><a href="example-2-james-stein-baseball.html#cb46-133" aria-hidden="true" tabindex="-1"></a>  Campaneris <span class="fl">0.210</span> <span class="fl">0.255</span> <span class="fl">0.292</span></span>
+<span id="cb46-134"><a href="example-2-james-stein-baseball.html#cb46-134" aria-hidden="true" tabindex="-1"></a>  Munson     <span class="fl">0.204</span> <span class="fl">0.252</span> <span class="fl">0.287</span></span>
+<span id="cb46-135"><a href="example-2-james-stein-baseball.html#cb46-135" aria-hidden="true" tabindex="-1"></a>  Alvis      <span class="fl">0.195</span> <span class="fl">0.249</span> <span class="fl">0.284</span></span></code></pre></div>
+</div>
+<div id="observed-vs-estimated" class="section level2" number="15.4">
+<h2>
+<span class="header-section-number">15.4</span> Observed vs estimated<a class="anchor" aria-label="anchor" href="#observed-vs-estimated"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="example-2-james-stein-baseball.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb47-2"><a href="example-2-james-stein-baseball.html#cb47-2" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"complete pooling"</span>, <span class="st">"no pooling"</span>, <span class="st">"partial pooling"</span>)</span>
+<span id="cb47-3"><a href="example-2-james-stein-baseball.html#cb47-3" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">rbind</span>(pool, nopool, partialpool)</span>
+<span id="cb47-4"><a href="example-2-james-stein-baseball.html#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(estimates) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"lb"</span>, <span class="st">"median"</span>, <span class="st">"ub"</span>)</span>
+<span id="cb47-5"><a href="example-2-james-stein-baseball.html#cb47-5" aria-hidden="true" tabindex="-1"></a>plotdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(estimates, <span class="at">observed =</span> <span class="fu">rep</span>(player_avgs,</span>
+<span id="cb47-6"><a href="example-2-james-stein-baseball.html#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">times =</span> <span class="fu">length</span>(models)), <span class="at">model =</span> <span class="fu">rep</span>(models, <span class="at">each =</span> N), <span class="at">row.names =</span> <span class="cn">NULL</span>)</span>
+<span id="cb47-7"><a href="example-2-james-stein-baseball.html#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-8"><a href="example-2-james-stein-baseball.html#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plotdata, <span class="fu">aes</span>(<span class="at">x =</span> observed, <span class="at">y =</span> median, <span class="at">ymin =</span> lb, <span class="at">ymax =</span> ub)) <span class="sc">+</span></span>
+<span id="cb47-9"><a href="example-2-james-stein-baseball.html#cb47-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> tot_avg, <span class="at">color =</span> <span class="st">"lightpink"</span>, <span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb47-10"><a href="example-2-james-stein-baseball.html#cb47-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb47-11"><a href="example-2-james-stein-baseball.html#cb47-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_linerange</span>(<span class="at">color =</span> <span class="st">"gray60"</span>, <span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>,</span>
+<span id="cb47-12"><a href="example-2-james-stein-baseball.html#cb47-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">"gray30"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">stroke =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb47-13"><a href="example-2-james-stein-baseball.html#cb47-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(. <span class="sc">~</span> model) <span class="sc">+</span> <span class="fu">coord_fixed</span>() <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="fl">0.2</span>,</span>
+<span id="cb47-14"><a href="example-2-james-stein-baseball.html#cb47-14" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.3</span>, <span class="fl">0.4</span>)) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Observed Hits / AB"</span>, <span class="at">y =</span> <span class="st">"Predicted chance of hit"</span>) <span class="sc">+</span></span>
+<span id="cb47-15"><a href="example-2-james-stein-baseball.html#cb47-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Posterior Medians and 80% Intervals"</span>)</span>
+<span id="cb47-16"><a href="example-2-james-stein-baseball.html#cb47-16" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Using <span class="st">`</span><span class="at">size</span><span class="st">`</span> aesthetic <span class="cf">for</span> lines was deprecated <span class="cf">in</span> ggplot2</span>
+<span id="cb47-17"><a href="example-2-james-stein-baseball.html#cb47-17" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>.<span class="dv">4</span>.<span class="fl">0.</span></span>
+<span id="cb47-18"><a href="example-2-james-stein-baseball.html#cb47-18" aria-hidden="true" tabindex="-1"></a>ℹ Please use <span class="st">`</span><span class="at">linewidth</span><span class="st">`</span> instead.</span></code></pre></div>
+<div class="inline-figure"><img src="14_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="class-14-hierarchical-models.html"><span class="header-section-number">14</span> Class 14: Hierarchical Models</a></div>
+<div class="next"><a href="to-be-incorporated.html"><span class="header-section-number">16</span> To Be Incorporated</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#example-2-james-stein-baseball"><span class="header-section-number">15</span> Example 2: James-Stein Baseball</a></li>
+<li><a class="nav-link" href="#complete-pooling"><span class="header-section-number">15.1</span> Complete pooling</a></li>
+<li><a class="nav-link" href="#no-pooling"><span class="header-section-number">15.2</span> No pooling</a></li>
+<li><a class="nav-link" href="#partial-pooling"><span class="header-section-number">15.3</span> Partial pooling</a></li>
+<li><a class="nav-link" href="#observed-vs-estimated"><span class="header-section-number">15.4</span> Observed vs estimated</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/arthurberg/Bayesian/blob/main/14.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/arthurberg/Bayesian/edit/main/14.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-12-02.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -98,139 +98,139 @@
 <h2>
 <span class="header-section-number">15.1</span> JAGS<a class="anchor" aria-label="anchor" href="#jags"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="to-be-incorporated.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
-<span id="cb42-2"><a href="to-be-incorporated.html#cb42-2" aria-hidden="true" tabindex="-1"></a>Loading required package<span class="sc">:</span> rjags</span>
-<span id="cb42-3"><a href="to-be-incorporated.html#cb42-3" aria-hidden="true" tabindex="-1"></a>Loading required package<span class="sc">:</span> coda</span>
-<span id="cb42-4"><a href="to-be-incorporated.html#cb42-4" aria-hidden="true" tabindex="-1"></a>Linked to JAGS <span class="dv">4</span>.<span class="fl">3.0</span></span>
-<span id="cb42-5"><a href="to-be-incorporated.html#cb42-5" aria-hidden="true" tabindex="-1"></a>Loaded modules<span class="sc">:</span> basemod,bugs</span>
-<span id="cb42-6"><a href="to-be-incorporated.html#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-7"><a href="to-be-incorporated.html#cb42-7" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">'R2jags'</span></span>
-<span id="cb42-8"><a href="to-be-incorporated.html#cb42-8" aria-hidden="true" tabindex="-1"></a>The following object is masked from <span class="st">'package:coda'</span><span class="sc">:</span></span>
-<span id="cb42-9"><a href="to-be-incorporated.html#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-10"><a href="to-be-incorporated.html#cb42-10" aria-hidden="true" tabindex="-1"></a>    traceplot</span>
-<span id="cb42-11"><a href="to-be-incorporated.html#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-12"><a href="to-be-incorporated.html#cb42-12" aria-hidden="true" tabindex="-1"></a>mymodel<span class="ot">=</span> <span class="cf">function</span>(){</span>
-<span id="cb42-13"><a href="to-be-incorporated.html#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>Ntotal ) {</span>
-<span id="cb42-14"><a href="to-be-incorporated.html#cb42-14" aria-hidden="true" tabindex="-1"></a>    y[i] <span class="sc">~</span> <span class="fu">dbern</span>( theta )</span>
-<span id="cb42-15"><a href="to-be-incorporated.html#cb42-15" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb42-16"><a href="to-be-incorporated.html#cb42-16" aria-hidden="true" tabindex="-1"></a>  theta <span class="sc">~</span> <span class="fu">dbeta</span>( <span class="dv">1</span> , <span class="dv">1</span> )</span>
-<span id="cb42-17"><a href="to-be-incorporated.html#cb42-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-18"><a href="to-be-incorporated.html#cb42-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-19"><a href="to-be-incorporated.html#cb42-19" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb42-20"><a href="to-be-incorporated.html#cb42-20" aria-hidden="true" tabindex="-1"></a>theta.true <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
-<span id="cb42-21"><a href="to-be-incorporated.html#cb42-21" aria-hidden="true" tabindex="-1"></a>y.sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, theta.true)</span>
-<span id="cb42-22"><a href="to-be-incorporated.html#cb42-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-23"><a href="to-be-incorporated.html#cb42-23" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">=</span> <span class="fu">list</span>(    </span>
-<span id="cb42-24"><a href="to-be-incorporated.html#cb42-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> y.sim ,</span>
-<span id="cb42-25"><a href="to-be-incorporated.html#cb42-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ntotal =</span> n </span>
-<span id="cb42-26"><a href="to-be-incorporated.html#cb42-26" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb42-27"><a href="to-be-incorporated.html#cb42-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-28"><a href="to-be-incorporated.html#cb42-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-29"><a href="to-be-incorporated.html#cb42-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-30"><a href="to-be-incorporated.html#cb42-30" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data=</span>mydata, <span class="at">model=</span>mymodel, <span class="at">parameters.to.save =</span> <span class="fu">c</span>(<span class="st">"theta"</span>), <span class="at">n.chain=</span><span class="dv">2</span>, <span class="at">n.iter=</span><span class="dv">200</span>, <span class="at">n.thin=</span><span class="dv">1</span>, <span class="at">n.burn=</span><span class="dv">100</span>)</span>
-<span id="cb42-31"><a href="to-be-incorporated.html#cb42-31" aria-hidden="true" tabindex="-1"></a>module glm loaded</span>
-<span id="cb42-32"><a href="to-be-incorporated.html#cb42-32" aria-hidden="true" tabindex="-1"></a>Compiling model graph</span>
-<span id="cb42-33"><a href="to-be-incorporated.html#cb42-33" aria-hidden="true" tabindex="-1"></a>   Resolving undeclared variables</span>
-<span id="cb42-34"><a href="to-be-incorporated.html#cb42-34" aria-hidden="true" tabindex="-1"></a>   Allocating nodes</span>
-<span id="cb42-35"><a href="to-be-incorporated.html#cb42-35" aria-hidden="true" tabindex="-1"></a>Graph information<span class="sc">:</span></span>
-<span id="cb42-36"><a href="to-be-incorporated.html#cb42-36" aria-hidden="true" tabindex="-1"></a>   Observed stochastic nodes<span class="sc">:</span> <span class="dv">50</span></span>
-<span id="cb42-37"><a href="to-be-incorporated.html#cb42-37" aria-hidden="true" tabindex="-1"></a>   Unobserved stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
-<span id="cb42-38"><a href="to-be-incorporated.html#cb42-38" aria-hidden="true" tabindex="-1"></a>   Total graph size<span class="sc">:</span> <span class="dv">53</span></span>
-<span id="cb42-39"><a href="to-be-incorporated.html#cb42-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-40"><a href="to-be-incorporated.html#cb42-40" aria-hidden="true" tabindex="-1"></a>Initializing model</span>
-<span id="cb42-41"><a href="to-be-incorporated.html#cb42-41" aria-hidden="true" tabindex="-1"></a>fit</span>
-<span id="cb42-42"><a href="to-be-incorporated.html#cb42-42" aria-hidden="true" tabindex="-1"></a>Inference <span class="cf">for</span> Bugs model at <span class="st">"/var/folders/fy/_0t49sys0713k84msqwk44fc0000gp/T//RtmphaFY5e/model12f5f37eb986b.txt"</span>, fit using jags,</span>
-<span id="cb42-43"><a href="to-be-incorporated.html#cb42-43" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> chains, each with <span class="dv">200</span> <span class="fu">iterations</span> (first <span class="dv">100</span> discarded)</span>
-<span id="cb42-44"><a href="to-be-incorporated.html#cb42-44" aria-hidden="true" tabindex="-1"></a> n.sims <span class="ot">=</span> <span class="dv">200</span> iterations saved</span>
-<span id="cb42-45"><a href="to-be-incorporated.html#cb42-45" aria-hidden="true" tabindex="-1"></a>         mu.vect sd.vect   <span class="fl">2.5</span><span class="sc">%    25%</span>    <span class="dv">50</span><span class="sc">%    75%</span>  <span class="fl">97.5</span>%</span>
-<span id="cb42-46"><a href="to-be-incorporated.html#cb42-46" aria-hidden="true" tabindex="-1"></a>theta      <span class="fl">0.325</span>   <span class="fl">0.062</span>  <span class="fl">0.201</span>  <span class="fl">0.284</span>  <span class="fl">0.329</span>  <span class="fl">0.369</span>  <span class="fl">0.433</span></span>
-<span id="cb42-47"><a href="to-be-incorporated.html#cb42-47" aria-hidden="true" tabindex="-1"></a>deviance  <span class="fl">63.604</span>   <span class="fl">1.244</span> <span class="fl">62.688</span> <span class="fl">62.799</span> <span class="fl">63.201</span> <span class="fl">63.903</span> <span class="fl">66.765</span></span>
-<span id="cb42-48"><a href="to-be-incorporated.html#cb42-48" aria-hidden="true" tabindex="-1"></a>          Rhat n.eff</span>
-<span id="cb42-49"><a href="to-be-incorporated.html#cb42-49" aria-hidden="true" tabindex="-1"></a>theta    <span class="fl">1.045</span>    <span class="dv">82</span></span>
-<span id="cb42-50"><a href="to-be-incorporated.html#cb42-50" aria-hidden="true" tabindex="-1"></a>deviance <span class="fl">1.132</span>    <span class="dv">47</span></span>
-<span id="cb42-51"><a href="to-be-incorporated.html#cb42-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-52"><a href="to-be-incorporated.html#cb42-52" aria-hidden="true" tabindex="-1"></a>For each parameter, n.eff is a crude measure of effective sample size,</span>
-<span id="cb42-53"><a href="to-be-incorporated.html#cb42-53" aria-hidden="true" tabindex="-1"></a>and Rhat is the potential scale reduction <span class="fu">factor</span> (at convergence, <span class="at">Rhat=</span><span class="dv">1</span>).</span>
-<span id="cb42-54"><a href="to-be-incorporated.html#cb42-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-55"><a href="to-be-incorporated.html#cb42-55" aria-hidden="true" tabindex="-1"></a>DIC <span class="fu">info</span> (using the rule, <span class="at">pD =</span> <span class="fu">var</span>(deviance)<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb42-56"><a href="to-be-incorporated.html#cb42-56" aria-hidden="true" tabindex="-1"></a>pD <span class="ot">=</span> <span class="fl">0.8</span> and DIC <span class="ot">=</span> <span class="fl">64.4</span></span>
-<span id="cb42-57"><a href="to-be-incorporated.html#cb42-57" aria-hidden="true" tabindex="-1"></a>DIC is an estimate of expected predictive <span class="fu">error</span> (lower deviance is better).</span></code></pre></div>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="to-be-incorporated.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
-<span id="cb43-2"><a href="to-be-incorporated.html#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="to-be-incorporated.html#cb43-3" aria-hidden="true" tabindex="-1"></a>model<span class="ot">=</span> <span class="cf">function</span>(){</span>
-<span id="cb43-4"><a href="to-be-incorporated.html#cb43-4" aria-hidden="true" tabindex="-1"></a>M <span class="sc">~</span> <span class="fu">dcat</span>(p1)</span>
-<span id="cb43-5"><a href="to-be-incorporated.html#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co"># sampling distribution is uniform over first N integers</span></span>
-<span id="cb43-6"><a href="to-be-incorporated.html#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="co"># use step function to change p1[j] to 0 for j&gt;N</span></span>
-<span id="cb43-7"><a href="to-be-incorporated.html#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
-<span id="cb43-8"><a href="to-be-incorporated.html#cb43-8" aria-hidden="true" tabindex="-1"></a>p1[j] <span class="ot">&lt;-</span> <span class="fu">step</span>(N <span class="sc">-</span> j <span class="sc">+</span> <span class="fl">0.01</span>)<span class="sc">/</span>N</span>
-<span id="cb43-9"><a href="to-be-incorporated.html#cb43-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb43-10"><a href="to-be-incorporated.html#cb43-10" aria-hidden="true" tabindex="-1"></a>N <span class="sc">~</span> <span class="fu">dcat</span>(p2)</span>
-<span id="cb43-11"><a href="to-be-incorporated.html#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
-<span id="cb43-12"><a href="to-be-incorporated.html#cb43-12" aria-hidden="true" tabindex="-1"></a>recip[j] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>j</span>
-<span id="cb43-13"><a href="to-be-incorporated.html#cb43-13" aria-hidden="true" tabindex="-1"></a>p2[j] <span class="ot">&lt;-</span> recip[j]<span class="sc">/</span>sum.recip</span>
-<span id="cb43-14"><a href="to-be-incorporated.html#cb43-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb43-15"><a href="to-be-incorporated.html#cb43-15" aria-hidden="true" tabindex="-1"></a>sum.recip <span class="ot">&lt;-</span> <span class="fu">sum</span>(recip)</span>
-<span id="cb43-16"><a href="to-be-incorporated.html#cb43-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb43-17"><a href="to-be-incorporated.html#cb43-17" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">list</span>(<span class="st">"M"</span><span class="ot">=</span><span class="dv">100</span>)</span>
-<span id="cb43-18"><a href="to-be-incorporated.html#cb43-18" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data=</span>data, <span class="at">model=</span>model,<span class="at">parameters.to.save=</span><span class="fu">c</span>(<span class="st">"N"</span>,<span class="st">"M"</span>), <span class="at">n.chain=</span><span class="dv">2</span>, <span class="at">n.iter=</span><span class="dv">100</span>, <span class="at">n.thin=</span><span class="dv">1</span>, <span class="at">n.burn=</span><span class="dv">0</span>, <span class="at">DIC=</span><span class="cn">FALSE</span>)</span>
-<span id="cb43-19"><a href="to-be-incorporated.html#cb43-19" aria-hidden="true" tabindex="-1"></a>Compiling model graph</span>
-<span id="cb43-20"><a href="to-be-incorporated.html#cb43-20" aria-hidden="true" tabindex="-1"></a>   Resolving undeclared variables</span>
-<span id="cb43-21"><a href="to-be-incorporated.html#cb43-21" aria-hidden="true" tabindex="-1"></a>   Allocating nodes</span>
-<span id="cb43-22"><a href="to-be-incorporated.html#cb43-22" aria-hidden="true" tabindex="-1"></a>Graph information<span class="sc">:</span></span>
-<span id="cb43-23"><a href="to-be-incorporated.html#cb43-23" aria-hidden="true" tabindex="-1"></a>   Observed stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
-<span id="cb43-24"><a href="to-be-incorporated.html#cb43-24" aria-hidden="true" tabindex="-1"></a>   Unobserved stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
-<span id="cb43-25"><a href="to-be-incorporated.html#cb43-25" aria-hidden="true" tabindex="-1"></a>   Total graph size<span class="sc">:</span> <span class="dv">7007</span></span>
-<span id="cb43-26"><a href="to-be-incorporated.html#cb43-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-27"><a href="to-be-incorporated.html#cb43-27" aria-hidden="true" tabindex="-1"></a>Initializing model</span>
-<span id="cb43-28"><a href="to-be-incorporated.html#cb43-28" aria-hidden="true" tabindex="-1"></a>fit</span>
-<span id="cb43-29"><a href="to-be-incorporated.html#cb43-29" aria-hidden="true" tabindex="-1"></a>Inference <span class="cf">for</span> Bugs model at <span class="st">"/var/folders/fy/_0t49sys0713k84msqwk44fc0000gp/T//RtmphaFY5e/model12f5f261fc56b.txt"</span>, fit using jags,</span>
-<span id="cb43-30"><a href="to-be-incorporated.html#cb43-30" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> chains, each with <span class="dv">100</span> <span class="fu">iterations</span> (first <span class="dv">0</span> discarded)</span>
-<span id="cb43-31"><a href="to-be-incorporated.html#cb43-31" aria-hidden="true" tabindex="-1"></a> n.sims <span class="ot">=</span> <span class="dv">200</span> iterations saved</span>
-<span id="cb43-32"><a href="to-be-incorporated.html#cb43-32" aria-hidden="true" tabindex="-1"></a>  mu.vect sd.vect    <span class="fl">2.5</span><span class="sc">%    25%</span> <span class="dv">50</span><span class="sc">%    75%</span>   <span class="fl">97.5</span>%  Rhat</span>
-<span id="cb43-33"><a href="to-be-incorporated.html#cb43-33" aria-hidden="true" tabindex="-1"></a>M  <span class="fl">100.00</span>   <span class="fl">0.000</span> <span class="fl">100.000</span> <span class="fl">100.00</span> <span class="dv">100</span> <span class="fl">100.00</span> <span class="fl">100.000</span> <span class="fl">1.000</span></span>
-<span id="cb43-34"><a href="to-be-incorporated.html#cb43-34" aria-hidden="true" tabindex="-1"></a>N  <span class="fl">259.14</span> <span class="fl">199.757</span> <span class="fl">102.975</span> <span class="fl">130.75</span> <span class="dv">182</span> <span class="fl">292.25</span> <span class="fl">856.125</span> <span class="fl">0.996</span></span>
-<span id="cb43-35"><a href="to-be-incorporated.html#cb43-35" aria-hidden="true" tabindex="-1"></a>  n.eff</span>
-<span id="cb43-36"><a href="to-be-incorporated.html#cb43-36" aria-hidden="true" tabindex="-1"></a>M     <span class="dv">1</span></span>
-<span id="cb43-37"><a href="to-be-incorporated.html#cb43-37" aria-hidden="true" tabindex="-1"></a>N   <span class="dv">200</span></span>
-<span id="cb43-38"><a href="to-be-incorporated.html#cb43-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-39"><a href="to-be-incorporated.html#cb43-39" aria-hidden="true" tabindex="-1"></a>For each parameter, n.eff is a crude measure of effective sample size,</span>
-<span id="cb43-40"><a href="to-be-incorporated.html#cb43-40" aria-hidden="true" tabindex="-1"></a>and Rhat is the potential scale reduction <span class="fu">factor</span> (at convergence, <span class="at">Rhat=</span><span class="dv">1</span>).</span></code></pre></div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="to-be-incorporated.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rjags)</span>
-<span id="cb44-2"><a href="to-be-incorporated.html#cb44-2" aria-hidden="true" tabindex="-1"></a>model_string <span class="ot">&lt;-</span> <span class="st">"</span></span>
-<span id="cb44-3"><a href="to-be-incorporated.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="st">model {</span></span>
-<span id="cb44-4"><a href="to-be-incorporated.html#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="st">M ~ dcat(p1)</span></span>
-<span id="cb44-5"><a href="to-be-incorporated.html#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="st">for (j in 1:1000) {</span></span>
-<span id="cb44-6"><a href="to-be-incorporated.html#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="st">p1[j] &lt;- (pow(j*step(N - j + 0.01)/N,2)-pow((j-1)*step(N - j  + 0.01)/N,2))</span></span>
-<span id="cb44-7"><a href="to-be-incorporated.html#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb44-8"><a href="to-be-incorporated.html#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="st">N ~ dcat(p2[])</span></span>
-<span id="cb44-9"><a href="to-be-incorporated.html#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="st">for (j in 1:1000) {</span></span>
-<span id="cb44-10"><a href="to-be-incorporated.html#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="st">recip[j] &lt;- 1/j</span></span>
-<span id="cb44-11"><a href="to-be-incorporated.html#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="st">p2[j] &lt;- recip[j]/sum.recip</span></span>
-<span id="cb44-12"><a href="to-be-incorporated.html#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb44-13"><a href="to-be-incorporated.html#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="st">sum.recip &lt;- sum(recip)</span></span>
-<span id="cb44-14"><a href="to-be-incorporated.html#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="st">}"</span></span>
-<span id="cb44-15"><a href="to-be-incorporated.html#cb44-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-16"><a href="to-be-incorporated.html#cb44-16" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">list</span>(<span class="st">"M"</span><span class="ot">=</span><span class="dv">50</span>)</span>
-<span id="cb44-17"><a href="to-be-incorporated.html#cb44-17" aria-hidden="true" tabindex="-1"></a>jmodel <span class="ot">&lt;-</span> <span class="fu">jags.model</span>(<span class="fu">textConnection</span>(model_string), <span class="at">data =</span> data,<span class="at">inits=</span><span class="fu">list</span>(<span class="at">N=</span><span class="dv">100</span>),<span class="at">n.chains =</span> <span class="dv">2</span>, <span class="at">n.adapt=</span> <span class="dv">100</span>,<span class="at">quiet=</span><span class="cn">TRUE</span>)</span>
-<span id="cb44-18"><a href="to-be-incorporated.html#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="fu">update</span>(jmodel, <span class="dv">10</span>)</span>
-<span id="cb44-19"><a href="to-be-incorporated.html#cb44-19" aria-hidden="true" tabindex="-1"></a>mcmc_samples <span class="ot">&lt;-</span> <span class="fu">coda.samples</span>(jmodel, <span class="at">variable.names=</span><span class="fu">c</span>(<span class="st">"N"</span>), <span class="at">n.iter=</span><span class="dv">100</span>)</span>
-<span id="cb44-20"><a href="to-be-incorporated.html#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mcmc_samples)</span>
-<span id="cb44-21"><a href="to-be-incorporated.html#cb44-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-22"><a href="to-be-incorporated.html#cb44-22" aria-hidden="true" tabindex="-1"></a>Iterations <span class="ot">=</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">110</span></span>
-<span id="cb44-23"><a href="to-be-incorporated.html#cb44-23" aria-hidden="true" tabindex="-1"></a>Thinning interval <span class="ot">=</span> <span class="dv">1</span> </span>
-<span id="cb44-24"><a href="to-be-incorporated.html#cb44-24" aria-hidden="true" tabindex="-1"></a>Number of chains <span class="ot">=</span> <span class="dv">2</span> </span>
-<span id="cb44-25"><a href="to-be-incorporated.html#cb44-25" aria-hidden="true" tabindex="-1"></a>Sample size per chain <span class="ot">=</span> <span class="dv">100</span> </span>
-<span id="cb44-26"><a href="to-be-incorporated.html#cb44-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-27"><a href="to-be-incorporated.html#cb44-27" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> Empirical mean and standard deviation <span class="cf">for</span> each variable,</span>
-<span id="cb44-28"><a href="to-be-incorporated.html#cb44-28" aria-hidden="true" tabindex="-1"></a>   plus standard error of the mean<span class="sc">:</span></span>
-<span id="cb44-29"><a href="to-be-incorporated.html#cb44-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-30"><a href="to-be-incorporated.html#cb44-30" aria-hidden="true" tabindex="-1"></a>          Mean             SD       Naive SE Time<span class="sc">-</span>series SE </span>
-<span id="cb44-31"><a href="to-be-incorporated.html#cb44-31" aria-hidden="true" tabindex="-1"></a>       <span class="fl">103.310</span>         <span class="fl">86.080</span>          <span class="fl">6.087</span>          <span class="fl">6.099</span> </span>
-<span id="cb44-32"><a href="to-be-incorporated.html#cb44-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-33"><a href="to-be-incorporated.html#cb44-33" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> Quantiles <span class="cf">for</span> each variable<span class="sc">:</span></span>
-<span id="cb44-34"><a href="to-be-incorporated.html#cb44-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-35"><a href="to-be-incorporated.html#cb44-35" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2.5</span><span class="sc">%    25%</span>    <span class="dv">50</span><span class="sc">%    75%</span>  <span class="fl">97.5</span>% </span>
-<span id="cb44-36"><a href="to-be-incorporated.html#cb44-36" aria-hidden="true" tabindex="-1"></a> <span class="fl">50.00</span>  <span class="fl">58.75</span>  <span class="fl">71.50</span> <span class="fl">111.50</span> <span class="fl">325.80</span> </span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="to-be-incorporated.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
+<span id="cb48-2"><a href="to-be-incorporated.html#cb48-2" aria-hidden="true" tabindex="-1"></a>Loading required package<span class="sc">:</span> rjags</span>
+<span id="cb48-3"><a href="to-be-incorporated.html#cb48-3" aria-hidden="true" tabindex="-1"></a>Loading required package<span class="sc">:</span> coda</span>
+<span id="cb48-4"><a href="to-be-incorporated.html#cb48-4" aria-hidden="true" tabindex="-1"></a>Linked to JAGS <span class="dv">4</span>.<span class="fl">3.0</span></span>
+<span id="cb48-5"><a href="to-be-incorporated.html#cb48-5" aria-hidden="true" tabindex="-1"></a>Loaded modules<span class="sc">:</span> basemod,bugs</span>
+<span id="cb48-6"><a href="to-be-incorporated.html#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="to-be-incorporated.html#cb48-7" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">'R2jags'</span></span>
+<span id="cb48-8"><a href="to-be-incorporated.html#cb48-8" aria-hidden="true" tabindex="-1"></a>The following object is masked from <span class="st">'package:coda'</span><span class="sc">:</span></span>
+<span id="cb48-9"><a href="to-be-incorporated.html#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-10"><a href="to-be-incorporated.html#cb48-10" aria-hidden="true" tabindex="-1"></a>    traceplot</span>
+<span id="cb48-11"><a href="to-be-incorporated.html#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-12"><a href="to-be-incorporated.html#cb48-12" aria-hidden="true" tabindex="-1"></a>mymodel<span class="ot">=</span> <span class="cf">function</span>(){</span>
+<span id="cb48-13"><a href="to-be-incorporated.html#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>Ntotal ) {</span>
+<span id="cb48-14"><a href="to-be-incorporated.html#cb48-14" aria-hidden="true" tabindex="-1"></a>    y[i] <span class="sc">~</span> <span class="fu">dbern</span>( theta )</span>
+<span id="cb48-15"><a href="to-be-incorporated.html#cb48-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb48-16"><a href="to-be-incorporated.html#cb48-16" aria-hidden="true" tabindex="-1"></a>  theta <span class="sc">~</span> <span class="fu">dbeta</span>( <span class="dv">1</span> , <span class="dv">1</span> )</span>
+<span id="cb48-17"><a href="to-be-incorporated.html#cb48-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb48-18"><a href="to-be-incorporated.html#cb48-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-19"><a href="to-be-incorporated.html#cb48-19" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb48-20"><a href="to-be-incorporated.html#cb48-20" aria-hidden="true" tabindex="-1"></a>theta.true <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
+<span id="cb48-21"><a href="to-be-incorporated.html#cb48-21" aria-hidden="true" tabindex="-1"></a>y.sim <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, theta.true)</span>
+<span id="cb48-22"><a href="to-be-incorporated.html#cb48-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-23"><a href="to-be-incorporated.html#cb48-23" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">=</span> <span class="fu">list</span>(    </span>
+<span id="cb48-24"><a href="to-be-incorporated.html#cb48-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> y.sim ,</span>
+<span id="cb48-25"><a href="to-be-incorporated.html#cb48-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ntotal =</span> n </span>
+<span id="cb48-26"><a href="to-be-incorporated.html#cb48-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-27"><a href="to-be-incorporated.html#cb48-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-28"><a href="to-be-incorporated.html#cb48-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-29"><a href="to-be-incorporated.html#cb48-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-30"><a href="to-be-incorporated.html#cb48-30" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data=</span>mydata, <span class="at">model=</span>mymodel, <span class="at">parameters.to.save =</span> <span class="fu">c</span>(<span class="st">"theta"</span>), <span class="at">n.chain=</span><span class="dv">2</span>, <span class="at">n.iter=</span><span class="dv">200</span>, <span class="at">n.thin=</span><span class="dv">1</span>, <span class="at">n.burn=</span><span class="dv">100</span>)</span>
+<span id="cb48-31"><a href="to-be-incorporated.html#cb48-31" aria-hidden="true" tabindex="-1"></a>module glm loaded</span>
+<span id="cb48-32"><a href="to-be-incorporated.html#cb48-32" aria-hidden="true" tabindex="-1"></a>Compiling model graph</span>
+<span id="cb48-33"><a href="to-be-incorporated.html#cb48-33" aria-hidden="true" tabindex="-1"></a>   Resolving undeclared variables</span>
+<span id="cb48-34"><a href="to-be-incorporated.html#cb48-34" aria-hidden="true" tabindex="-1"></a>   Allocating nodes</span>
+<span id="cb48-35"><a href="to-be-incorporated.html#cb48-35" aria-hidden="true" tabindex="-1"></a>Graph information<span class="sc">:</span></span>
+<span id="cb48-36"><a href="to-be-incorporated.html#cb48-36" aria-hidden="true" tabindex="-1"></a>   Observed stochastic nodes<span class="sc">:</span> <span class="dv">50</span></span>
+<span id="cb48-37"><a href="to-be-incorporated.html#cb48-37" aria-hidden="true" tabindex="-1"></a>   Unobserved stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb48-38"><a href="to-be-incorporated.html#cb48-38" aria-hidden="true" tabindex="-1"></a>   Total graph size<span class="sc">:</span> <span class="dv">53</span></span>
+<span id="cb48-39"><a href="to-be-incorporated.html#cb48-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-40"><a href="to-be-incorporated.html#cb48-40" aria-hidden="true" tabindex="-1"></a>Initializing model</span>
+<span id="cb48-41"><a href="to-be-incorporated.html#cb48-41" aria-hidden="true" tabindex="-1"></a>fit</span>
+<span id="cb48-42"><a href="to-be-incorporated.html#cb48-42" aria-hidden="true" tabindex="-1"></a>Inference <span class="cf">for</span> Bugs model at <span class="st">"/var/folders/fy/_0t49sys0713k84msqwk44fc0000gp/T//RtmphaFY5e/model12f5f37eb986b.txt"</span>, fit using jags,</span>
+<span id="cb48-43"><a href="to-be-incorporated.html#cb48-43" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> chains, each with <span class="dv">200</span> <span class="fu">iterations</span> (first <span class="dv">100</span> discarded)</span>
+<span id="cb48-44"><a href="to-be-incorporated.html#cb48-44" aria-hidden="true" tabindex="-1"></a> n.sims <span class="ot">=</span> <span class="dv">200</span> iterations saved</span>
+<span id="cb48-45"><a href="to-be-incorporated.html#cb48-45" aria-hidden="true" tabindex="-1"></a>         mu.vect sd.vect   <span class="fl">2.5</span><span class="sc">%    25%</span>    <span class="dv">50</span><span class="sc">%    75%</span>  <span class="fl">97.5</span>%</span>
+<span id="cb48-46"><a href="to-be-incorporated.html#cb48-46" aria-hidden="true" tabindex="-1"></a>theta      <span class="fl">0.325</span>   <span class="fl">0.062</span>  <span class="fl">0.201</span>  <span class="fl">0.284</span>  <span class="fl">0.329</span>  <span class="fl">0.369</span>  <span class="fl">0.433</span></span>
+<span id="cb48-47"><a href="to-be-incorporated.html#cb48-47" aria-hidden="true" tabindex="-1"></a>deviance  <span class="fl">63.604</span>   <span class="fl">1.244</span> <span class="fl">62.688</span> <span class="fl">62.799</span> <span class="fl">63.201</span> <span class="fl">63.903</span> <span class="fl">66.765</span></span>
+<span id="cb48-48"><a href="to-be-incorporated.html#cb48-48" aria-hidden="true" tabindex="-1"></a>          Rhat n.eff</span>
+<span id="cb48-49"><a href="to-be-incorporated.html#cb48-49" aria-hidden="true" tabindex="-1"></a>theta    <span class="fl">1.045</span>    <span class="dv">82</span></span>
+<span id="cb48-50"><a href="to-be-incorporated.html#cb48-50" aria-hidden="true" tabindex="-1"></a>deviance <span class="fl">1.132</span>    <span class="dv">47</span></span>
+<span id="cb48-51"><a href="to-be-incorporated.html#cb48-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-52"><a href="to-be-incorporated.html#cb48-52" aria-hidden="true" tabindex="-1"></a>For each parameter, n.eff is a crude measure of effective sample size,</span>
+<span id="cb48-53"><a href="to-be-incorporated.html#cb48-53" aria-hidden="true" tabindex="-1"></a>and Rhat is the potential scale reduction <span class="fu">factor</span> (at convergence, <span class="at">Rhat=</span><span class="dv">1</span>).</span>
+<span id="cb48-54"><a href="to-be-incorporated.html#cb48-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-55"><a href="to-be-incorporated.html#cb48-55" aria-hidden="true" tabindex="-1"></a>DIC <span class="fu">info</span> (using the rule, <span class="at">pD =</span> <span class="fu">var</span>(deviance)<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb48-56"><a href="to-be-incorporated.html#cb48-56" aria-hidden="true" tabindex="-1"></a>pD <span class="ot">=</span> <span class="fl">0.8</span> and DIC <span class="ot">=</span> <span class="fl">64.4</span></span>
+<span id="cb48-57"><a href="to-be-incorporated.html#cb48-57" aria-hidden="true" tabindex="-1"></a>DIC is an estimate of expected predictive <span class="fu">error</span> (lower deviance is better).</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="to-be-incorporated.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
+<span id="cb49-2"><a href="to-be-incorporated.html#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="to-be-incorporated.html#cb49-3" aria-hidden="true" tabindex="-1"></a>model<span class="ot">=</span> <span class="cf">function</span>(){</span>
+<span id="cb49-4"><a href="to-be-incorporated.html#cb49-4" aria-hidden="true" tabindex="-1"></a>M <span class="sc">~</span> <span class="fu">dcat</span>(p1)</span>
+<span id="cb49-5"><a href="to-be-incorporated.html#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co"># sampling distribution is uniform over first N integers</span></span>
+<span id="cb49-6"><a href="to-be-incorporated.html#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co"># use step function to change p1[j] to 0 for j&gt;N</span></span>
+<span id="cb49-7"><a href="to-be-incorporated.html#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb49-8"><a href="to-be-incorporated.html#cb49-8" aria-hidden="true" tabindex="-1"></a>p1[j] <span class="ot">&lt;-</span> <span class="fu">step</span>(N <span class="sc">-</span> j <span class="sc">+</span> <span class="fl">0.01</span>)<span class="sc">/</span>N</span>
+<span id="cb49-9"><a href="to-be-incorporated.html#cb49-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb49-10"><a href="to-be-incorporated.html#cb49-10" aria-hidden="true" tabindex="-1"></a>N <span class="sc">~</span> <span class="fu">dcat</span>(p2)</span>
+<span id="cb49-11"><a href="to-be-incorporated.html#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb49-12"><a href="to-be-incorporated.html#cb49-12" aria-hidden="true" tabindex="-1"></a>recip[j] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>j</span>
+<span id="cb49-13"><a href="to-be-incorporated.html#cb49-13" aria-hidden="true" tabindex="-1"></a>p2[j] <span class="ot">&lt;-</span> recip[j]<span class="sc">/</span>sum.recip</span>
+<span id="cb49-14"><a href="to-be-incorporated.html#cb49-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb49-15"><a href="to-be-incorporated.html#cb49-15" aria-hidden="true" tabindex="-1"></a>sum.recip <span class="ot">&lt;-</span> <span class="fu">sum</span>(recip)</span>
+<span id="cb49-16"><a href="to-be-incorporated.html#cb49-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb49-17"><a href="to-be-incorporated.html#cb49-17" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">list</span>(<span class="st">"M"</span><span class="ot">=</span><span class="dv">100</span>)</span>
+<span id="cb49-18"><a href="to-be-incorporated.html#cb49-18" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data=</span>data, <span class="at">model=</span>model,<span class="at">parameters.to.save=</span><span class="fu">c</span>(<span class="st">"N"</span>,<span class="st">"M"</span>), <span class="at">n.chain=</span><span class="dv">2</span>, <span class="at">n.iter=</span><span class="dv">100</span>, <span class="at">n.thin=</span><span class="dv">1</span>, <span class="at">n.burn=</span><span class="dv">0</span>, <span class="at">DIC=</span><span class="cn">FALSE</span>)</span>
+<span id="cb49-19"><a href="to-be-incorporated.html#cb49-19" aria-hidden="true" tabindex="-1"></a>Compiling model graph</span>
+<span id="cb49-20"><a href="to-be-incorporated.html#cb49-20" aria-hidden="true" tabindex="-1"></a>   Resolving undeclared variables</span>
+<span id="cb49-21"><a href="to-be-incorporated.html#cb49-21" aria-hidden="true" tabindex="-1"></a>   Allocating nodes</span>
+<span id="cb49-22"><a href="to-be-incorporated.html#cb49-22" aria-hidden="true" tabindex="-1"></a>Graph information<span class="sc">:</span></span>
+<span id="cb49-23"><a href="to-be-incorporated.html#cb49-23" aria-hidden="true" tabindex="-1"></a>   Observed stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb49-24"><a href="to-be-incorporated.html#cb49-24" aria-hidden="true" tabindex="-1"></a>   Unobserved stochastic nodes<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb49-25"><a href="to-be-incorporated.html#cb49-25" aria-hidden="true" tabindex="-1"></a>   Total graph size<span class="sc">:</span> <span class="dv">7007</span></span>
+<span id="cb49-26"><a href="to-be-incorporated.html#cb49-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-27"><a href="to-be-incorporated.html#cb49-27" aria-hidden="true" tabindex="-1"></a>Initializing model</span>
+<span id="cb49-28"><a href="to-be-incorporated.html#cb49-28" aria-hidden="true" tabindex="-1"></a>fit</span>
+<span id="cb49-29"><a href="to-be-incorporated.html#cb49-29" aria-hidden="true" tabindex="-1"></a>Inference <span class="cf">for</span> Bugs model at <span class="st">"/var/folders/fy/_0t49sys0713k84msqwk44fc0000gp/T//RtmphaFY5e/model12f5f261fc56b.txt"</span>, fit using jags,</span>
+<span id="cb49-30"><a href="to-be-incorporated.html#cb49-30" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> chains, each with <span class="dv">100</span> <span class="fu">iterations</span> (first <span class="dv">0</span> discarded)</span>
+<span id="cb49-31"><a href="to-be-incorporated.html#cb49-31" aria-hidden="true" tabindex="-1"></a> n.sims <span class="ot">=</span> <span class="dv">200</span> iterations saved</span>
+<span id="cb49-32"><a href="to-be-incorporated.html#cb49-32" aria-hidden="true" tabindex="-1"></a>  mu.vect sd.vect    <span class="fl">2.5</span><span class="sc">%    25%</span> <span class="dv">50</span><span class="sc">%    75%</span>   <span class="fl">97.5</span>%  Rhat</span>
+<span id="cb49-33"><a href="to-be-incorporated.html#cb49-33" aria-hidden="true" tabindex="-1"></a>M  <span class="fl">100.00</span>   <span class="fl">0.000</span> <span class="fl">100.000</span> <span class="fl">100.00</span> <span class="dv">100</span> <span class="fl">100.00</span> <span class="fl">100.000</span> <span class="fl">1.000</span></span>
+<span id="cb49-34"><a href="to-be-incorporated.html#cb49-34" aria-hidden="true" tabindex="-1"></a>N  <span class="fl">259.14</span> <span class="fl">199.757</span> <span class="fl">102.975</span> <span class="fl">130.75</span> <span class="dv">182</span> <span class="fl">292.25</span> <span class="fl">856.125</span> <span class="fl">0.996</span></span>
+<span id="cb49-35"><a href="to-be-incorporated.html#cb49-35" aria-hidden="true" tabindex="-1"></a>  n.eff</span>
+<span id="cb49-36"><a href="to-be-incorporated.html#cb49-36" aria-hidden="true" tabindex="-1"></a>M     <span class="dv">1</span></span>
+<span id="cb49-37"><a href="to-be-incorporated.html#cb49-37" aria-hidden="true" tabindex="-1"></a>N   <span class="dv">200</span></span>
+<span id="cb49-38"><a href="to-be-incorporated.html#cb49-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-39"><a href="to-be-incorporated.html#cb49-39" aria-hidden="true" tabindex="-1"></a>For each parameter, n.eff is a crude measure of effective sample size,</span>
+<span id="cb49-40"><a href="to-be-incorporated.html#cb49-40" aria-hidden="true" tabindex="-1"></a>and Rhat is the potential scale reduction <span class="fu">factor</span> (at convergence, <span class="at">Rhat=</span><span class="dv">1</span>).</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="to-be-incorporated.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rjags)</span>
+<span id="cb50-2"><a href="to-be-incorporated.html#cb50-2" aria-hidden="true" tabindex="-1"></a>model_string <span class="ot">&lt;-</span> <span class="st">"</span></span>
+<span id="cb50-3"><a href="to-be-incorporated.html#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="st">model {</span></span>
+<span id="cb50-4"><a href="to-be-incorporated.html#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="st">M ~ dcat(p1)</span></span>
+<span id="cb50-5"><a href="to-be-incorporated.html#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="st">for (j in 1:1000) {</span></span>
+<span id="cb50-6"><a href="to-be-incorporated.html#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="st">p1[j] &lt;- (pow(j*step(N - j + 0.01)/N,2)-pow((j-1)*step(N - j  + 0.01)/N,2))</span></span>
+<span id="cb50-7"><a href="to-be-incorporated.html#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb50-8"><a href="to-be-incorporated.html#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="st">N ~ dcat(p2[])</span></span>
+<span id="cb50-9"><a href="to-be-incorporated.html#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="st">for (j in 1:1000) {</span></span>
+<span id="cb50-10"><a href="to-be-incorporated.html#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="st">recip[j] &lt;- 1/j</span></span>
+<span id="cb50-11"><a href="to-be-incorporated.html#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="st">p2[j] &lt;- recip[j]/sum.recip</span></span>
+<span id="cb50-12"><a href="to-be-incorporated.html#cb50-12" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb50-13"><a href="to-be-incorporated.html#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="st">sum.recip &lt;- sum(recip)</span></span>
+<span id="cb50-14"><a href="to-be-incorporated.html#cb50-14" aria-hidden="true" tabindex="-1"></a><span class="st">}"</span></span>
+<span id="cb50-15"><a href="to-be-incorporated.html#cb50-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-16"><a href="to-be-incorporated.html#cb50-16" aria-hidden="true" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">list</span>(<span class="st">"M"</span><span class="ot">=</span><span class="dv">50</span>)</span>
+<span id="cb50-17"><a href="to-be-incorporated.html#cb50-17" aria-hidden="true" tabindex="-1"></a>jmodel <span class="ot">&lt;-</span> <span class="fu">jags.model</span>(<span class="fu">textConnection</span>(model_string), <span class="at">data =</span> data,<span class="at">inits=</span><span class="fu">list</span>(<span class="at">N=</span><span class="dv">100</span>),<span class="at">n.chains =</span> <span class="dv">2</span>, <span class="at">n.adapt=</span> <span class="dv">100</span>,<span class="at">quiet=</span><span class="cn">TRUE</span>)</span>
+<span id="cb50-18"><a href="to-be-incorporated.html#cb50-18" aria-hidden="true" tabindex="-1"></a><span class="fu">update</span>(jmodel, <span class="dv">10</span>)</span>
+<span id="cb50-19"><a href="to-be-incorporated.html#cb50-19" aria-hidden="true" tabindex="-1"></a>mcmc_samples <span class="ot">&lt;-</span> <span class="fu">coda.samples</span>(jmodel, <span class="at">variable.names=</span><span class="fu">c</span>(<span class="st">"N"</span>), <span class="at">n.iter=</span><span class="dv">100</span>)</span>
+<span id="cb50-20"><a href="to-be-incorporated.html#cb50-20" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mcmc_samples)</span>
+<span id="cb50-21"><a href="to-be-incorporated.html#cb50-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-22"><a href="to-be-incorporated.html#cb50-22" aria-hidden="true" tabindex="-1"></a>Iterations <span class="ot">=</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">110</span></span>
+<span id="cb50-23"><a href="to-be-incorporated.html#cb50-23" aria-hidden="true" tabindex="-1"></a>Thinning interval <span class="ot">=</span> <span class="dv">1</span> </span>
+<span id="cb50-24"><a href="to-be-incorporated.html#cb50-24" aria-hidden="true" tabindex="-1"></a>Number of chains <span class="ot">=</span> <span class="dv">2</span> </span>
+<span id="cb50-25"><a href="to-be-incorporated.html#cb50-25" aria-hidden="true" tabindex="-1"></a>Sample size per chain <span class="ot">=</span> <span class="dv">100</span> </span>
+<span id="cb50-26"><a href="to-be-incorporated.html#cb50-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-27"><a href="to-be-incorporated.html#cb50-27" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> Empirical mean and standard deviation <span class="cf">for</span> each variable,</span>
+<span id="cb50-28"><a href="to-be-incorporated.html#cb50-28" aria-hidden="true" tabindex="-1"></a>   plus standard error of the mean<span class="sc">:</span></span>
+<span id="cb50-29"><a href="to-be-incorporated.html#cb50-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-30"><a href="to-be-incorporated.html#cb50-30" aria-hidden="true" tabindex="-1"></a>          Mean             SD       Naive SE Time<span class="sc">-</span>series SE </span>
+<span id="cb50-31"><a href="to-be-incorporated.html#cb50-31" aria-hidden="true" tabindex="-1"></a>       <span class="fl">103.310</span>         <span class="fl">86.080</span>          <span class="fl">6.087</span>          <span class="fl">6.099</span> </span>
+<span id="cb50-32"><a href="to-be-incorporated.html#cb50-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-33"><a href="to-be-incorporated.html#cb50-33" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> Quantiles <span class="cf">for</span> each variable<span class="sc">:</span></span>
+<span id="cb50-34"><a href="to-be-incorporated.html#cb50-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-35"><a href="to-be-incorporated.html#cb50-35" aria-hidden="true" tabindex="-1"></a>  <span class="fl">2.5</span><span class="sc">%    25%</span>    <span class="dv">50</span><span class="sc">%    75%</span>  <span class="fl">97.5</span>% </span>
+<span id="cb50-36"><a href="to-be-incorporated.html#cb50-36" aria-hidden="true" tabindex="-1"></a> <span class="fl">50.00</span>  <span class="fl">58.75</span>  <span class="fl">71.50</span> <span class="fl">111.50</span> <span class="fl">325.80</span> </span></code></pre></div>
 
 </div>
 </div>
@@ -259,7 +259,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-12-01.</p>
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2022-12-02.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
