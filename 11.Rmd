@@ -1,6 +1,5 @@
 # Class 11: Prior distributions
 
-
 :::{.example #power-analysis name="Power analysis" .lizi}
 
 We consider the sample size estimation of a two-arm randomized trial with a continuous primary outcome and $n$ subjects randomized to each arm. Assuming a normal distribution of the primary outcome and a common within-treatment standard deviation of $\sigma$, the estimated treatment effect is assumed to have a $\mathcal{N}(\theta,2\sigma^2/n)$ distribution. Thus, the [sample size determination](https://en.wikipedia.org/wiki/Sample_size_determination#Cumulative_distribution_function) is found to be
@@ -16,7 +15,6 @@ Supposing historical data suggests $\theta$ likely (interpreted as 1 standard de
 \vspace{.2cm}
 
 The Type I error $\alpha$ is set to $0.05$. Three quantities are tracked: (i) the calculated sample size $n$ for 90\% power, (ii) that power based on $n=84$ (frequentest estimate with fixed $\theta=5$, $\sigma=10$, and 90\% power), and (iii) with $n=84$, the probability the power is at least 70\%. 
-
 :::
 
 
@@ -51,7 +49,6 @@ update(jmodel, 100)
 mcmc_samples <- coda.samples(jmodel, variable.names=c("n","power","p70","nDis","powerDis","p70Dis"), n.iter=1000)
 plot(mcmc_samples)
 summary(mcmc_samples)
-
 ```
 
 :::{.example #great name="GREAT study" .lizi}
@@ -87,7 +84,7 @@ The following Bayesian models are considered.
 
 **Model A (normal dist on effect, uniform prior):** $\hat\theta\sim\mathcal{N}(\theta,0.135)$ with $\theta\sim\text{Uniform}(-10,10)$. 
 
-**Model B (binomial dist on rates, Jeffreys priors):** $r_j\sim\text{Binomial}(p_j,n_j)$ with $p_j\sim\Beta(.5,.5)$, $j=1,2$.  
+**Model B (binomial dist on rates, Jeffreys priors):** $r_j\sim\text{Binomial}(p_j,n_j)$ with $p_j\sim\text{Beta}(.5,.5)$, $j=1,2$.  
 
 **Model C (binomial dist on rates, logit transform, clinical prior):** The parameters $p_1$ and $p_2$ are reparameterized in terms of $\alpha$ and $\theta$ as 
 \[
@@ -101,7 +98,6 @@ The $\alpha$ is a nuisance parameter and is given a practically flat prior: $\al
 This is translated into a 95\% interval for the odds ratio being (.6,1), which corresponds to the interval (-.51,0) on the log-odds scale. A normal distribution with this property leads to $\theta\sim\mathcal{N}(\mu_0,\sigma_{0}^2)$, where $\mu_0=(-.51+0)/2=-.26$ and $\sigma_0=.26/1.96\approx .13$.
 
 **Model D (binomial dist on rates, logit transform, skeptical prior):** This model follows the same approach as Model C but with a ``skeptical'' prior placed on $\theta$ to avoid early stopping of trials due to fortuitously positive results.  Specifically, a prior for $\theta$ is constructed to have a 95\% confidence interval of (.5, 2) on the odds ratio scale, which is equivalent to the interval of (-.69,69) on the log-odds scale. A normal distribution with this property leads to $\theta\sim\mathcal{N}(0,.35^2)$. 
-
 :::
 
 ```{r}
@@ -196,7 +192,6 @@ mcmc_areas(mat,
 
 
 ## Bayes factor
-
 
 :::{.example #octopus name="Paul the psychic octopus" .lizi}
 In the 2020 soccer World Cup competition, Paul the psychic octopus correctly made 8 out 8 predictions of the winner. Let $H_0$ represent the hypothesis that the predictions were a coincidence, and let $H_1$ represent the hypothesis that Paul has some psychic ability. More specifically, we ignore the possibility of a draw and assume the predictions follow a binomial distribution with parameter $\theta$ representing the probability of a correct prediction. We wish to compare the following hypotheses 
