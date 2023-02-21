@@ -47,7 +47,7 @@ pre code {
 }
 
 .container-fluid {
-    max-width: 2400rem;
+    max-width: 1000rem;
 }
 .container-fluid main {
     max-width: 240rem;

@@ -19,3 +19,5 @@ viridis
 ggridges
 Rcpp
 rstanarm
+StanHeaders
+rstan

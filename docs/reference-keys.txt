@@ -24,6 +24,8 @@ exr:chengyu
 exr:chengyu2
 exm:bristol-babies
 exm:baseball
+exr:rats
+exm:chatgpt
 class-1-probability-fundamentals-monte-carlo
 example-1-binomial-flips
 exercise-1-marbles
@@ -67,6 +69,7 @@ complete-pooling
 no-pooling
 partial-pooling
 observed-vs-estimated
+example-3-chatgpt
 to-be-incorporated
 jags
 references

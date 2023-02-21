@@ -1,9 +1,3 @@
----
-output: html_document
-editor_options: 
-  chunk_output_type: console
----
-
 
 # Class 14: Hierarchical Models
 
@@ -77,7 +71,7 @@ fit.mcmc <- as.mcmc(fit)
 summary(fit.mcmc)
 ```
 
-```{r, fig.width=12}
+```{r, fig.width=10}
 mat=as.matrix(as.mcmc(fit))
 theta.avg=mean(mat[,"theta"])
 boxplot(mat[,paste0("res[",1:12,"]")])
@@ -118,7 +112,7 @@ fit.mcmc <- as.mcmc(fit)
 summary(fit.mcmc)
 ```
 
-```{r, fig.width=12}
+```{r, fig.width=10}
 mat=as.matrix(as.mcmc(fit))
 
 mat.ind=mat[,paste0("theta[",1:12,"]")]
@@ -160,7 +154,7 @@ summary(fit.mcmc)
 ```
 
 
-```{r, fig.width=12}
+```{r, fig.width=10}
 mat=as.matrix(as.mcmc(fit))
 
 mat.hier=mat[,paste0("theta[",1:12,"]")]
@@ -325,7 +319,99 @@ ggplot(plotdata, aes(x = observed, y = median, ymin = lb, ymax = ub)) +
 ```
 
 :::{.exercise #rats name="Rat tumors" .prob}
-
+(Tarone, 1982)[@Tarone:1982] provides a data set of tumor incidence in historical control groups of rats; specifically endometrial stromal polyps in female lab rats of type F344 and analyzed in (Gelman, 2021)[@Gelman:2021]. The dataset can be accessed [here](http://www.stat.columbia.edu/~gelman/book/data/rats.asc) or loaded in R with the `rstanarm` package using
+```{r}
+data(tumors, package = "rstanarm")
+```
+Fit a hierarchical Bayesian model to the data and reproduce Figure 5.4 on page 113 of (Gelman, 2021)[@Gelman:2021].
 :::
 
+
+## Example 3: ChatGPT
+
+:::{.example #chatgpt name="ChatGPT Hierarchical model" .lizi}
+ChatGPT: stan code of a hierarchical model.
+:::
+
+Sure! Here is an example of a hierarchical model in Stan. The model assumes that we have a set of data points, y, that come from different groups, and we want to model the variation in the data within each group and the variation in the group means across all groups.
+
+```{stan, output.var="hierarchical_model"}
+data {
+  int<lower=1> N;  // number of observations
+  int<lower=1> K;  // number of groups
+  int<lower=1, upper=K> group[N];  // group indicator for each observation
+  real y[N];  // observed data
+}
+
+parameters {
+  real mu0;             // prior mean for group means
+  real<lower=0> sigma0;  // prior std. dev. for group means
+  real<lower=0> sigma;   // std. dev. of the observations within each group
+  vector[K] mu;          // group means
+}
+
+model {
+  // Priors
+  mu ~ normal(mu0, sigma0);  // prior for group means
+  sigma ~ cauchy(0, 1);      // weakly informative prior for sigma
+
+  // Likelihood
+  for (i in 1:N) {
+    y[i] ~ normal(mu[group[i]], sigma);
+  }
+}
+```
+
+```{r}
+library(rstan)
+
+y <- c(22, 18, 23, 17, 21, 19, 25, 16, 24, 20, 23, 18, 27, 21, 26, 19, 22, 20, 23, 21)
+group <- c(rep(1, 10), rep(2, 10))
+
+
+data_list <- list(
+  N = length(y), 
+  K = length(unique(group)), 
+  group = group, 
+  y = y
+)
+
+fit <- sampling(hierarchical_model, data = data_list, chains = 4)
+summary(fit)
+traceplot(fit)
+```
+
+
+```{stan, output.var="hierarchical_model2"}
+data {
+  int<lower=1> N;  // number of observations
+  int<lower=1> K;  // number of groups
+  int<lower=1, upper=K> group[N];  // group indicator for each observation
+  real y[N];  // observed data
+}
+
+parameters {
+  real<lower=0,upper=50> mu0;             // prior mean for group means
+  real<lower=0, upper=50> sigma0;  // prior std. dev. for group means
+  real<lower=0, upper=50> sigma;   // std. dev. of the observations within each group
+  vector[K] mu;          // group means
+}
+
+model {
+  // Priors
+  mu ~ normal(mu0, sigma0);  // prior for group means
+  sigma ~ cauchy(0, 1);      // weakly informative prior for sigma
+
+  // Likelihood
+  for (i in 1:N) {
+    y[i] ~ normal(mu[group[i]], sigma);
+  }
+}
+```
+
+```{r}
+fit <- sampling(hierarchical_model2, data = data_list, chains = 4,iter=10^4)
+summary(fit)
+traceplot(fit)
+```
 
