@@ -132,9 +132,9 @@ Supposing historical data suggests <span class="math inline">\(\theta\)</span> l
 <span></span>
 <span></span>
 <span><span class="va">data</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">jmodel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rjags/man/jags.model.html">jags.model</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/textconnections.html">textConnection</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span>,n.chains <span class="op">=</span> <span class="fl">3</span>, n.adapt<span class="op">=</span> <span class="fl">100</span>,quiet<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">jmodel</span> <span class="op">&lt;-</span> <span class="fu">jags.model</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/textconnections.html">textConnection</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span>,n.chains <span class="op">=</span> <span class="fl">3</span>, n.adapt<span class="op">=</span> <span class="fl">100</span>,quiet<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">jmodel</span>, <span class="fl">100</span><span class="op">)</span></span>
-<span><span class="va">mcmc_samples</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rjags/man/coda.samples.html">coda.samples</a></span><span class="op">(</span><span class="va">jmodel</span>, variable.names<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"n"</span>,<span class="st">"power"</span>,<span class="st">"p70"</span>,<span class="st">"nDis"</span>,<span class="st">"powerDis"</span>,<span class="st">"p70Dis"</span><span class="op">)</span>, n.iter<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="va">mcmc_samples</span> <span class="op">&lt;-</span> <span class="fu">coda.samples</span><span class="op">(</span><span class="va">jmodel</span>, variable.names<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"n"</span>,<span class="st">"power"</span>,<span class="st">"p70"</span>,<span class="st">"nDis"</span>,<span class="st">"powerDis"</span>,<span class="st">"p70Dis"</span><span class="op">)</span>, n.iter<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mcmc_samples</span><span class="op">)</span></span></code></pre></div>
 <p><img src="11_files/figure-html/unnamed-chunk-1-1.png" width="672"><img src="11_files/figure-html/unnamed-chunk-1-2.png" width="672"></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="class-11-prior-distributions.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mcmc_samples)</span>
@@ -327,7 +327,7 @@ The <span class="math inline">\(\alpha\)</span> is a nuisance parameter and is g
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span></span>
 <span><span class="va">plot_title</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Posterior distributions"</span>,</span>
 <span>                      <span class="st">"with medians and 95% intervals"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-intervals.html">mcmc_areas</a></span><span class="op">(</span><span class="va">mat</span>,</span>
+<span><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">mat</span>,</span>
 <span>           pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"thetaA"</span>, <span class="st">"thetaB"</span>, <span class="st">"thetaC"</span>, <span class="st">"thetaD"</span><span class="op">)</span>,</span>
 <span>           prob <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op">+</span> <span class="va">plot_title</span></span></code></pre></div>
 <div class="inline-figure"><img src="11_files/figure-html/unnamed-chunk-3-3.png" width="672"></div>
@@ -418,7 +418,11 @@ The <span class="math inline">\(\alpha\)</span> is a nuisance parameter and is g
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
+<<<<<<< Updated upstream
     <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2023-02-20.</p>
+=======
+    <p>"<strong>PHS 528: Bayesian Methods</strong>" was written by Arthur Berg. It was last built on 2023-02-14.</p>
+>>>>>>> Stashed changes
   </div>
 
   <div class="col-12 col-md-6 mt-3">
