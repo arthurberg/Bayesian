@@ -110,7 +110,7 @@ fisher.test(mat)
 ```
 
 
-```{r, fig.height=8}
+```{r}
 model= function(){
 
   pr.mean[1] <- -0.26
